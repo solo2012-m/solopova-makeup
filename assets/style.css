@@ -47,17 +47,22 @@ section{padding:4rem 0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.7rem}
 .card .ic{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;margin-bottom:.9rem}
 .card p{color:var(--muted);margin:0}
-/* --- Services cards: photo tiles with overlay text --- */
-.card.svc{display:block;position:relative;padding:0;overflow:hidden;text-decoration:none;color:#fff;aspect-ratio:4/5;transition:transform .25s ease, box-shadow .25s ease}
-.card.svc .svcimg{display:block;position:absolute;inset:0;overflow:hidden;background:var(--panel)}
+/* --- Services cards (variant B) + swipeable work strip --- */
+.card.svc{display:block;padding:0;overflow:hidden;text-decoration:none;color:inherit;transition:transform .25s ease, box-shadow .25s ease}
+.card.svc .svcimg{display:block;aspect-ratio:4/3;overflow:hidden;background:var(--panel);position:relative}
 .card.svc .svcimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease, transform .7s cubic-bezier(.2,.7,.3,1)}
 .card.svc .svcimg img.on{opacity:1}
-.card.svc .svctext{position:absolute;left:0;right:0;bottom:0;padding:1.3rem 1.2rem 1.15rem;background:linear-gradient(to top,rgba(0,0,0,.80) 0%,rgba(0,0,0,.48) 55%,rgba(0,0,0,0) 100%)}
-.card.svc h3{margin:0 0 .3rem;color:#fff;font-size:1.08rem}
-.card.svc p{margin:0 0 .55rem;color:rgba(255,255,255,.88);font-size:.9rem}
-.card.svc .svclink{display:block;margin:0;color:#fff;font-weight:600;font-size:.9rem}
-.card.svc:hover{transform:translateY(-4px);box-shadow:0 22px 48px rgba(0,0,0,.22)}
-.card.svc:hover .svcimg img.on{transform:scale(1.06)}
+.card.svc h3{margin:1.1rem 1.2rem .35rem;font-size:1.05rem}
+.card.svc p{margin:0 1.2rem .9rem;font-size:.95rem;color:var(--muted)}
+.card.svc .svclink{display:block;margin:0 1.2rem 1.2rem;font-weight:600;font-size:.92rem;color:var(--accent)}
+.card.svc:hover{transform:translateY(-5px);box-shadow:0 20px 45px rgba(0,0,0,.16)}
+.card.svc:hover .svcimg img.on{transform:scale(1.07)}
+.striphead{margin:2.2rem 0 .8rem;font-size:1.05rem}
+.hstrip{display:flex;gap:.7rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:.2rem .2rem 1rem;cursor:grab;scrollbar-width:thin}
+.hstrip.dragging{cursor:grabbing;scroll-snap-type:none}
+.hstrip-item{flex:0 0 auto;width:min(58vw,220px);aspect-ratio:3/4;border-radius:var(--radius);overflow:hidden;scroll-snap-align:start;display:block;background:var(--panel)}
+.hstrip-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.hstrip-item:hover img{transform:scale(1.05)}
 @media (max-width:560px){.card.svc .svcimg{aspect-ratio:16/9}}
 .price{color:var(--accent);font-weight:600;letter-spacing:.02em}
 .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:center}

@@ -37,10 +37,25 @@
 <section class="wrap">
   <div class="section-head reveal"><h2 data-i18n="services_title">Storitve</h2><p data-i18n="services_sub">Vse na enem mestu.</p></div>
     <div class="grid g4 svcgrid">
-    <a class="card svc reveal" href="galerija.html#licenje"><span class="svcimg"><img src="assets/img/vecerno-3.jpg" alt=""><img src="assets/img/work-8.jpg" alt=""><img src="assets/img/creativno-1.jpg" alt=""></span><span class="svctext"><h3 data-i18n="svc_makeup_t"></h3><p data-i18n="svc_makeup_d"></p><span class="svclink" data-i18n="svc_more"></span></span></a>
-    <a class="card svc reveal" href="galerija.html#trepalnice"><span class="svcimg"><img src="assets/img/trepalnice-2.jpg" alt=""><img src="assets/img/trepalnice-booking.jpg" alt=""><img src="assets/img/trepalnice-3.jpg" alt=""></span><span class="svctext"><h3 data-i18n="svc_lash_t"></h3><p data-i18n="svc_lash_d"></p><span class="svclink" data-i18n="svc_more"></span></span></a>
-    <a class="card svc reveal" href="galerija.html#obrvi"><span class="svcimg"><img src="assets/img/obrvi-lam2.jpg" alt=""><img src="assets/img/brow-3.jpg" alt=""><img src="assets/img/brow-1.jpg" alt=""></span><span class="svctext"><h3 data-i18n="svc_brow_t"></h3><p data-i18n="svc_brow_d"></p><span class="svclink" data-i18n="svc_more"></span></span></a>
-    <a class="card svc reveal" href="galerija.html#lasje"><span class="svcimg"><img src="assets/img/frizure-4.jpg" alt=""><img src="assets/img/frizure-1.jpg" alt=""><img src="assets/img/frizure-5.jpg" alt=""></span><span class="svctext"><h3 data-i18n="svc_hair_t"></h3><p data-i18n="svc_hair_d"></p><span class="svclink" data-i18n="svc_more"></span></span></a>
+    <a class="card svc reveal" href="galerija.html#licenje"><span class="svcimg"><img src="assets/img/vecerno-3.jpg" alt=""></span><h3 data-i18n="svc_makeup_t"></h3><p data-i18n="svc_makeup_d"></p><span class="svclink" data-i18n="svc_more"></span></a>
+    <a class="card svc reveal" href="galerija.html#trepalnice"><span class="svcimg"><img src="assets/img/trepalnice-2.jpg" alt=""></span><h3 data-i18n="svc_lash_t"></h3><p data-i18n="svc_lash_d"></p><span class="svclink" data-i18n="svc_more"></span></a>
+    <a class="card svc reveal" href="galerija.html#obrvi"><span class="svcimg"><img src="assets/img/obrvi-lam2.jpg" alt=""></span><h3 data-i18n="svc_brow_t"></h3><p data-i18n="svc_brow_d"></p><span class="svclink" data-i18n="svc_more"></span></a>
+    <a class="card svc reveal" href="galerija.html#lasje"><span class="svcimg"><img src="assets/img/frizure-4.jpg" alt=""></span><h3 data-i18n="svc_hair_t"></h3><p data-i18n="svc_hair_d"></p><span class="svclink" data-i18n="svc_more"></span></a>
+  </div>
+  <h3 class="striphead reveal" data-i18n="strip_title"></h3>
+  <div class="hstrip reveal" id="hstrip">
+    <a class="hstrip-item" href="galerija.html#licenje"><img src="assets/img/porocno-2.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#licenje"><img src="assets/img/dnevno-booking.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#licenje"><img src="assets/img/vecerno-3.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#licenje"><img src="assets/img/creativno-1.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#licenje"><img src="assets/img/creativno-6.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#licenje"><img src="assets/img/lifting-1.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#trepalnice"><img src="assets/img/trepalnice-2.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#trepalnice"><img src="assets/img/trepalnice-3.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#obrvi"><img src="assets/img/obrvi-lam2.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#obrvi"><img src="assets/img/brow-4c.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#lasje"><img src="assets/img/frizure-1.jpg" alt="" loading="lazy"></a>
+    <a class="hstrip-item" href="galerija.html#lasje"><img src="assets/img/podaljsevanje-1.jpg" alt="" loading="lazy"></a>
   </div>
 </section>
 
@@ -80,6 +95,16 @@
       setInterval(function(){ imgs[i].classList.remove('on'); i=(i+1)%imgs.length; imgs[i].classList.add('on'); },3200);
     }, bi*800);
   });
+  var st=document.getElementById('hstrip');
+  if(st){
+    var down=false,sx=0,sl=0,moved=0;
+    st.addEventListener('pointerdown',function(e){ if(e.pointerType==='mouse'){down=true;sx=e.clientX;sl=st.scrollLeft;moved=0;st.classList.add('dragging');} });
+    st.addEventListener('pointermove',function(e){ if(!down)return; var dx=e.clientX-sx; moved=Math.abs(dx); st.scrollLeft=sl-dx; });
+    function up(){ if(!down)return; down=false; st.classList.remove('dragging'); }
+    st.addEventListener('pointerup',up); st.addEventListener('pointerleave',up); st.addEventListener('pointercancel',up);
+    st.addEventListener('click',function(e){ if(moved>6){ e.preventDefault(); e.stopPropagation(); } },true);
+    st.addEventListener('wheel',function(e){ if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){ st.scrollLeft+=e.deltaY; e.preventDefault(); } },{passive:false});
+  }
 })();
 </script>
 </body>
