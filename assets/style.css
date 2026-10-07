@@ -97,16 +97,16 @@ section{padding:4rem 0}
 .card .ic{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;margin-bottom:.9rem}
 .card p{color:var(--muted);margin:0}
 /* --- Services cards (variant B) + swipeable work strip --- */
-.card.svc{display:block;padding:0;background:transparent;border:0;text-decoration:none;color:inherit}
+.card.svc{display:flex;flex-direction:column;padding:0;background:transparent;border:0;text-decoration:none;color:inherit}
 .svcgrid{align-items:start}
-.card.svc h3{margin:0 0 .35rem;font-size:1.15rem;color:var(--ink)}
-.card.svc p{margin:0 0 .9rem;font-size:.92rem;color:var(--muted)}
+.card.svc h3{margin:0 0 .35rem;font-size:1.15rem;color:var(--ink);min-height:1.4em}
+.card.svc p{margin:0 0 .9rem;font-size:.92rem;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em}
 .card.svc .svctile{display:block;position:relative;aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;background:#efe9e1}
 .card.svc .track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:grab}
 .card.svc .track.dragging{cursor:grabbing;scroll-snap-type:none}
 .card.svc .track::-webkit-scrollbar{display:none}
 .card.svc .track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:start;display:block;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
-.card.svc .svclink{display:inline-block;margin-top:.75rem;color:var(--accent);font-weight:600;font-size:.92rem}
+.card.svc .svclink{display:inline-block;margin-top:auto;padding-top:.75rem;color:var(--accent);font-weight:600;font-size:.92rem}
 .card.svc:hover .track img{transform:scale(1.03)}
 .striphead{margin:2.2rem 0 .8rem;font-size:1.05rem}
 .hstrip{display:flex;gap:.7rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:.2rem .2rem 1rem;cursor:grab;scrollbar-width:thin}
