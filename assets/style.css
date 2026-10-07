@@ -74,6 +74,15 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .cta-band .btn:hover{background:var(--accent);color:#fff}
 .ph.nolabel{padding:0}
 .rev-who{color:var(--muted);font-size:.85rem;margin:0}
+.booking{display:grid;gap:1.2rem;max-width:640px}
+.bstep{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem}
+.blabel{display:block;font-weight:600;margin-bottom:.7rem}
+.booking select,.booking input,.booking textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.8rem 1rem;font:inherit;color:inherit;margin-bottom:.6rem}
+.brow{display:flex;gap:.6rem}
+.brow input,.brow select{flex:1}
+.bpreview img{width:100%;max-height:280px;object-fit:cover;border-radius:12px;display:block;margin:.6rem 0}
+.bprice{color:var(--accent);font-weight:600}
+.bhint{color:var(--muted);font-size:.85rem;margin:.6rem 0 0}
 .priceblock{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem}
 .priceblock h3{margin-top:0}
 .plist{list-style:none;margin:0 0 1.4rem;padding:0}

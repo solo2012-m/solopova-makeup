@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rezervacija — Solopova Makeup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+  <a class="brand" href="index.html"><b>Solopova Makeup</b><span data-i18n="brand_tag"></span></a>
+  <a class="link" href="index.html" data-i18n="nav_home"></a>
+  <a class="link" href="storitve.html" data-i18n="nav_services"></a>
+  <a class="link" href="galerija.html" data-i18n="nav_gallery"></a>
+  <a class="link" href="tecaj.html" data-i18n="nav_course"></a>
+  <a class="link" href="kontakt.html" data-i18n="nav_contact"></a>
+  <a class="link active" href="rezervacija.html" data-i18n="nav_book"></a>
+  <div class="lang"><button data-lang="sl">SL</button><button data-lang="en">EN</button><button data-lang="ru">RU</button></div>
+</div></header>
+<main>
+<section class="wrap">
+  <div class="section-head reveal"><h2 data-i18n="book_title"></h2><p data-i18n="book_sub"></p></div>
+  <form class="booking" id="booking" onsubmit="return false">
+    <div class="bstep reveal">
+      <label class="blabel" data-i18n="book_step1"></label>
+      <select id="bservice"></select>
+      <div class="bpreview"><img id="bimg" src="assets/img/work-8.jpg" alt=""></div>
+      <div class="bprice" id="bprice"></div>
+    </div>
+    <div class="bstep reveal">
+      <label class="blabel" data-i18n="book_step2"></label>
+      <div class="brow">
+        <input type="date" id="bdate">
+        <select id="btime"></select>
+      </div>
+    </div>
+    <div class="bstep reveal">
+      <label class="blabel" data-i18n="book_step3"></label>
+      <input type="text" id="bname" data-i18n-ph="book_name" placeholder="Ime">
+      <input type="tel" id="bphone" placeholder="+386 ...">
+      <textarea id="bnote" rows="3" data-i18n-ph="book_note" placeholder="Opomba"></textarea>
+    </div>
+    <button class="btn" id="bsend" type="submit" data-i18n="book_send"></button>
+    <p class="bhint" data-i18n="book_hint"></p>
+  </form>
+</section>
+</main>
+<footer class="site"><div class="wrap foot">
+  <div data-i18n="foot_note"></div>
+  <div><a class="link" href="https://www.instagram.com/solopova.makeup/" target="_blank" rel="noopener">Instagram</a> · <a class="link" href="https://wa.me/38669900769" target="_blank" rel="noopener">WhatsApp</a></div>
+</div></footer>
+<script src="assets/i18n.js"></script>
+<script>
+var SERVICES = [
+ {id:"porocno", sl:"Poročno ličenje", en:"Bridal makeup", ru:"Свадебный макияж", price:"90 €", img:"assets/img/work-8.jpg"},
+ {id:"poskusno", sl:"Poskusno ličenje", en:"Trial makeup", ru:"Пробный макияж", price:"40 €", img:"assets/img/daria-portrait.jpg"},
+ {id:"dnevno", sl:"Dnevno ličenje", en:"Daytime makeup", ru:"Дневной макияж", price:"45 €", img:"assets/img/work-4.jpg"},
+ {id:"vecerno", sl:"Večerno ličenje", en:"Evening makeup", ru:"Вечерний макияж", price:"50 €", img:"assets/img/work-2.jpg"},
+ {id:"lifting", sl:"Lifting ličenje", en:"Lifting makeup", ru:"Лифтинг-макияж", price:"50 €", img:"assets/img/work-6.jpg"},
+ {id:"lash", sl:"Laminacija trepalnic", en:"Lash lamination", ru:"Ламинирование ресниц", price:"48 €", img:"assets/img/work-3.jpg"},
+ {id:"lashkr", sl:"Laminacija trepalnic – korejska tehnika", en:"Lash lamination – Korean technique", ru:"Ламинирование ресниц — корейская техника", price:"55 €", img:"assets/img/work-3.jpg"},
+ {id:"browlam", sl:"Laminacija obrvi", en:"Brow lamination", ru:"Ламинирование бровей", price:"30 €", img:"assets/img/work-5.jpg"},
+ {id:"browall", sl:"Laminacija + barvanje + korekcija obrvi", en:"Brow: lamination + tinting + shaping", ru:"Брови: ламинирование + окрашивание + коррекция", price:"55 €", img:"assets/img/work-5.jpg"},
+ {id:"browkor", sl:"Korekcija obrvi", en:"Brow shaping", ru:"Коррекция бровей", price:"10 €", img:"assets/img/work-5.jpg"},
+ {id:"browbar", sl:"Barvanje obrvi", en:"Brow tinting", ru:"Окрашивание бровей", price:"15 €", img:"assets/img/work-5.jpg"},
+ {id:"stajling", sl:"Stajling las za posebne priložnosti", en:"Hairstyling for special occasions", ru:"Причёска для особых случаев", price:"od 45 €", img:"assets/img/work-9.jpg"},
+ {id:"podaljsevanje", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 150 € + kapsule", img:"assets/img/work-9.jpg"}
+];
+var WA="38669900769";
+function curLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
+function renderServices(){
+  var l=curLang(), sel=document.getElementById("bservice"), prev=sel.value;
+  sel.innerHTML="";
+  SERVICES.forEach(function(s){ var o=document.createElement("option"); o.value=s.id; o.textContent=s[l]+" — "+s.price; sel.appendChild(o); });
+  if(prev) sel.value=prev;
+  update();
+}
+function update(){
+  var s=SERVICES.filter(function(x){return x.id===document.getElementById("bservice").value;})[0];
+  if(!s) return;
+  document.getElementById("bimg").src=s.img;
+  document.getElementById("bprice").textContent=s[curLang()]+" · "+s.price;
+}
+function pad(n){return (n<10?"0":"")+n;}
+function send(){
+  var l=curLang();
+  var s=SERVICES.filter(function(x){return x.id===document.getElementById("bservice").value;})[0];
+  var name=document.getElementById("bname").value.trim();
+  var phone=document.getElementById("bphone").value.trim();
+  var note=document.getElementById("bnote").value.trim();
+  var d=document.getElementById("bdate").value, t=document.getElementById("btime").value;
+  var T={sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitev",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",nt:"Opomba"},
+         en:{hi:"Hello! I would like to book an appointment.",sv:"Service",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",nt:"Note"},
+         ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуга",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",nt:"Комментарий"}}[l];
+  var msg=T.hi+"\n"+T.sv+": "+s[l]+" ("+s.price+")";
+  if(d) msg+="\n"+T.dt+": "+d;
+  if(t) msg+="\n"+T.tm+": "+t;
+  if(name) msg+="\n"+T.nm+": "+name;
+  if(phone) msg+="\n"+T.ph+": "+phone;
+  if(note) msg+="\n"+T.nt+": "+note;
+  window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
+}
+document.addEventListener("DOMContentLoaded", function(){
+  var tm=document.getElementById("btime"); var opts=["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
+  opts.forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
+  var today=new Date(); document.getElementById("bdate").min=today.toISOString().split("T")[0];
+  renderServices();
+  document.getElementById("bservice").addEventListener("change", update);
+  document.getElementById("bsend").addEventListener("click", send);
+  document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(renderServices,0); }); });
+});
+</script>
+</body>
+</html>
