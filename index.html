@@ -36,11 +36,11 @@
 
 <section class="wrap">
   <div class="section-head reveal"><h2 data-i18n="services_title">Storitve</h2><p data-i18n="services_sub">Vse na enem mestu.</p></div>
-  <div class="grid g4 svcgrid">
-    <a class="card svc reveal" href="galerija.html#licenje"><span class="svcimg"><img src="assets/img/vecerno-3.jpg" alt="Ličenje"></span><h3 data-i18n="svc_makeup_t">Ličenje</h3><p data-i18n="svc_makeup_d"></p><span class="svclink" data-i18n="svc_more">Poglej galerijo →</span></a>
-    <a class="card svc reveal" href="galerija.html#trepalnice"><span class="svcimg"><img src="assets/img/trepalnice-2.jpg" alt="Trepalnice"></span><h3 data-i18n="svc_lash_t">Trepalnice</h3><p data-i18n="svc_lash_d"></p><span class="svclink" data-i18n="svc_more">Poglej galerijo →</span></a>
-    <a class="card svc reveal" href="galerija.html#obrvi"><span class="svcimg"><img src="assets/img/obrvi-lam2.jpg" alt="Obrvi"></span><h3 data-i18n="svc_brow_t">Obrvi</h3><p data-i18n="svc_brow_d"></p><span class="svclink" data-i18n="svc_more">Poglej galerijo →</span></a>
-    <a class="card svc reveal" href="galerija.html#lasje"><span class="svcimg"><img src="assets/img/frizure-4.jpg" alt="Lasje"></span><h3 data-i18n="svc_hair_t">Lasje</h3><p data-i18n="svc_hair_d"></p><span class="svclink" data-i18n="svc_more">Poglej galerijo →</span></a>
+    <div class="grid g4 svcgrid">
+    <a class="card svc reveal" href="galerija.html#licenje"><span class="svcimg"><img src="assets/img/vecerno-3.jpg" alt="svc_makeup_t"><img src="assets/img/work-8.jpg" alt="svc_makeup_t"><img src="assets/img/creativno-1.jpg" alt="svc_makeup_t"></span><h3 data-i18n="svc_makeup_t"></h3><p data-i18n="svc_makeup_d"></p><span class="svclink" data-i18n="svc_more">Poglej galerijo →</span></a>
+    <a class="card svc reveal" href="galerija.html#trepalnice"><span class="svcimg"><img src="assets/img/trepalnice-2.jpg" alt="svc_lash_t"><img src="assets/img/trepalnice-booking.jpg" alt="svc_lash_t"><img src="assets/img/trepalnice-3.jpg" alt="svc_lash_t"></span><h3 data-i18n="svc_lash_t"></h3><p data-i18n="svc_lash_d"></p><span class="svclink" data-i18n="svc_more">Poglej galerijo →</span></a>
+    <a class="card svc reveal" href="galerija.html#obrvi"><span class="svcimg"><img src="assets/img/obrvi-lam2.jpg" alt="svc_brow_t"><img src="assets/img/brow-3.jpg" alt="svc_brow_t"><img src="assets/img/brow-1.jpg" alt="svc_brow_t"></span><h3 data-i18n="svc_brow_t"></h3><p data-i18n="svc_brow_d"></p><span class="svclink" data-i18n="svc_more">Poglej galerijo →</span></a>
+    <a class="card svc reveal" href="galerija.html#lasje"><span class="svcimg"><img src="assets/img/frizure-4.jpg" alt="svc_hair_t"><img src="assets/img/frizure-1.jpg" alt="svc_hair_t"><img src="assets/img/frizure-5.jpg" alt="svc_hair_t"></span><h3 data-i18n="svc_hair_t"></h3><p data-i18n="svc_hair_d"></p><span class="svclink" data-i18n="svc_more">Poglej galerijo →</span></a>
   </div>
 </section>
 
@@ -70,5 +70,17 @@
   <div><a class="link" href="https://www.instagram.com/solopova.makeup/" target="_blank" rel="noopener">Instagram</a> · <a class="link" href="https://wa.me/38669900769" target="_blank" rel="noopener">WhatsApp</a></div>
 </div></footer>
 <script src="assets/i18n.js"></script>
+<script>
+(function(){
+  var boxes=document.querySelectorAll('.card.svc .svcimg');
+  Array.prototype.forEach.call(boxes,function(b,bi){
+    var imgs=b.querySelectorAll('img'); if(imgs.length<2) return;
+    imgs[0].classList.add('on'); var i=0;
+    setTimeout(function(){
+      setInterval(function(){ imgs[i].classList.remove('on'); i=(i+1)%imgs.length; imgs[i].classList.add('on'); },3200);
+    }, bi*800);
+  });
+})();
+</script>
 </body>
 </html>
