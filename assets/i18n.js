@@ -1,6 +1,6 @@
-window.I18N = {
-  sl: {
-    brand_tag:"Li\u010denje \u00b7 trepalnice \u00b7 obrvi \u00b7 lasje",
+window.I18N = { svc_more:"Poglej galerijo →",
+  sl: { svc_more:"View gallery →",
+    brand_tag:"Li\u010denje \u00b7 trepalnice \u00b7 obrvi \u00b7 lasje", svc_more:"Смотреть галерею →",
     nav_home:"Domov", nav_services:"Storitve", nav_gallery:"Galerija", nav_course:"Te\u010daj", nav_contact:"Kontakt",
     hero_kicker:"Maribor \u00b7 Slovenija", hero_title:"Profesionalna li\u010dila in lepota v Mariboru",
     hero_sub:"Poudarim tvojo naravno lepoto \u2014 za poroko, posebne prilo\u017enosti ali preprosto zato, ker si to zaslu\u017ei\u0161.",

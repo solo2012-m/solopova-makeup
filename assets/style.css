@@ -47,6 +47,16 @@ section{padding:4rem 0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.7rem}
 .card .ic{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;margin-bottom:.9rem}
 .card p{color:var(--muted);margin:0}
+/* --- Services cards with photos --- */
+.card.svc{display:block;padding:0;overflow:hidden;text-decoration:none;color:inherit;transition:transform .25s ease, box-shadow .25s ease}
+.card.svc .svcimg{display:block;aspect-ratio:4/3;overflow:hidden;background:var(--panel)}
+.card.svc .svcimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+.card.svc h3{margin:1.1rem 1.2rem .35rem;font-size:1.05rem}
+.card.svc p{margin:0 1.2rem .9rem;font-size:.95rem;color:var(--muted)}
+.card.svc .svclink{display:block;margin:0 1.2rem 1.2rem;font-weight:600;font-size:.92rem;color:var(--accent)}
+.card.svc:hover{transform:translateY(-5px);box-shadow:0 20px 45px rgba(0,0,0,.16)}
+.card.svc:hover .svcimg img{transform:scale(1.07)}
+@media (max-width:560px){.card.svc .svcimg{aspect-ratio:16/9}}
 .price{color:var(--accent);font-weight:600;letter-spacing:.02em}
 .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:center}
 .quote{font-family:'Cormorant Garamond',serif;font-size:1.5rem;line-height:1.4;color:var(--ink)}
