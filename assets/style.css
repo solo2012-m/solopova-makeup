@@ -74,6 +74,11 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .cta-band .btn:hover{background:var(--accent);color:#fff}
 .ph.nolabel{padding:0}
 .rev-who{color:var(--muted);font-size:.85rem;margin:0}
+.priceblock{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem}
+.priceblock h3{margin-top:0}
+.plist{list-style:none;margin:0 0 1.4rem;padding:0}
+.plist li{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-bottom:1px dashed var(--line)}
+.plist li b{color:var(--accent);white-space:nowrap;font-weight:600}
 .badge{display:inline-block;background:var(--accent-2);color:#fff;border-radius:999px;padding:.12rem .55rem;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;vertical-align:middle}
 .promo{color:var(--accent);font-size:.85rem;margin:.5rem 0 0}
 .card .quote{margin-bottom:.5rem}
