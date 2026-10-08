@@ -46,11 +46,6 @@
     <button class="btn ghost" id="bcal" type="button" data-i18n="book_cal_btn"></button>
     <p class="bhint" data-i18n="book_cal_note"></p>
   </form>
-  <h3 class="whead reveal" data-i18n="book_cal_title"></h3>
-  <div id="cal-inline" class="calbox reveal"></div>
-  <p class="bhint2" data-i18n="book_hint_cal"></p>
-  
-  <p class="bhint2" data-i18n="book_hint_cal"></p>
 
 </main>
 <footer class="site"><div class="wrap foot">
@@ -97,7 +92,7 @@ function renderServices(){
     var cb=document.createElement("input"); cb.type="checkbox"; cb.value=s.id; cb.checked=!!checked[s.id];
     var img=document.createElement("img"); img.className="bthumb"; img.src=s.img; img.alt=""; img.loading="lazy";
     var t=document.createElement("span"); t.className="bcard-t"; t.textContent=s[l];
-    var p=document.createElement("span"); p.className="bcard-p"; p.textContent=s.price;
+    var p=document.createElement("span"); p.className="bcard-p"; p.textContent=s.price+(s.dur? " · "+s.dur+" min":"");
     lab.appendChild(cb); lab.appendChild(img); lab.appendChild(t); lab.appendChild(p);
     cb.addEventListener("change", function(){ update(); refreshTimes(); });
     box.appendChild(lab);
@@ -179,12 +174,6 @@ document.addEventListener("DOMContentLoaded", function(){
   var bc=document.getElementById("bcal"); if(bc) bc.addEventListener("click", calClick);
   document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(function(){ renderServices(); refreshTimes(); },0); }); });
 });
-</script>
-<script>
-(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); };})(window, "https://app.cal.com/embed/embed.js", "init");
-Cal("init", {origin:"https://cal.com"});
-function calLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
-Cal("inline", { elementOrSelector: "#cal-inline", calLink: "solopova-makeup?lang="+calLang(), config: { layout: "month_view", theme: "light" } });
 </script>
 </body>
 </html>
