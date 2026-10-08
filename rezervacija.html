@@ -68,20 +68,22 @@ var SERVICES = [
  {id:"browbar",dur:30,slug:"barvanje-obrvi", sl:"Barvanje obrvi", en:"Brow tinting", ru:"Окрашивание бровей", price:"15 €", img:"assets/img/obrvi-booking3.jpg"},
  {id:"browkor",dur:30,slug:"korekcija-obrvi", sl:"Korekcija obrvi", en:"Brow shaping", ru:"Коррекция бровей", price:"10 €", img:"assets/img/obrvi-kor3.jpg"},
  {id:"stajling",dur:60,slug:"stajling-las", sl:"Stajling las za posebne priložnosti", en:"Hairstyling for special occasions", ru:"Причёска для особых случаев", price:"od 45 €", img:"assets/img/frizure-booking.jpg"},
- {id:"odstranitev",dur:60,slug:"odstranitev-podaljskov", sl:"Odstranitev lasnih podaljškov", en:"Hair extension removal", ru:"Снятие наращивания волос", price:"50 €", img:"assets/img/podaljsevanje-1.jpg"},
- {id:"podaljsevanje",dur:120,slug:"podaljsevanje-las", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"100 € + kapsule (1 €/kapsula)", img:"assets/img/podaljsevanje-1.jpg"}
+ {id:"odstranitev",dur:60,durFrom:true,slug:"odstranitev-podaljskov", sl:"Odstranitev lasnih podaljškov", en:"Hair extension removal", ru:"Снятие наращивания волос", price:"od 50 €", priceI18n:{sl:"od 50 €",en:"from 50 €",ru:"от 50 €"}, img:"assets/img/podaljsevanje-1.jpg"},
+ {id:"kapsulacija",dur:120,durFrom:true,slug:"podaljsevanje-las", sl:"Kapsulacija (evro-kapsule)", en:"Capsulation (euro capsules)", ru:"Капсуляция (евро-капсулы)", price:"1 € / kapsula", perUnit:true, priceI18n:{sl:"1 € / kapsula",en:"1 € / capsule",ru:"1 € / капсула"}, img:"assets/img/podaljsevanje-1.jpg"},
+ {id:"podaljsevanje",dur:120,durFrom:true,slug:"podaljsevanje-las", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 100 €", priceI18n:{sl:"od 100 €",en:"from 100 €",ru:"от 100 €"}, img:"assets/img/podaljsevanje-1.jpg"}
 ];
 var WA="38669900769";
 function curLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
 function T(){ return {
-  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",em:"E-mail",nt:"Opomba",total:"Skupaj",from:"okvirno od",warn:"Izberite vsaj eno storitev.",needone:"Za koledar izberite natanko eno storitev. Za več storitev pošljite zahtevo."},
-  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",em:"E-mail",nt:"Note",total:"Total",from:"about",warn:"Please choose at least one service.",needone:"To use the calendar, choose exactly one service. For several services, send a request."},
-  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",em:"E-mail",nt:"Комментарий",total:"Итого",from:"примерно от",warn:"Выберите хотя бы одну услугу.",needone:"Для календаря выберите ровно одну услугу. Для нескольких — отправьте заявку."}
+  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",em:"E-mail",nt:"Opomba",total:"Skupaj",from:"okvirno od",fromShort:"od",warn:"Izberite vsaj eno storitev.",needone:"Za koledar izberite natanko eno storitev. Za več storitev pošljite zahtevo."},
+  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",em:"E-mail",nt:"Note",total:"Total",from:"about",fromShort:"from",warn:"Please choose at least one service.",needone:"To use the calendar, choose exactly one service. For several services, send a request."},
+  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",em:"E-mail",nt:"Комментарий",total:"Итого",from:"примерно от",fromShort:"от",warn:"Выберите хотя бы одну услугу.",needone:"Для календаря выберите ровно одну услугу. Для нескольких — отправьте заявку."}
 }[curLang()]; }
+function priceText(s){ var l=curLang(); return (s.priceI18n && s.priceI18n[l]) || s.price; }
 function priceNum(p){ var m=String(p).replace(/\s/g,"").match(/(\d+)/); return m?parseInt(m[1],10):null; }
 function totalInfo(sel){
   var sum=0, from=false;
-  sel.forEach(function(s){ var n=priceNum(s.price); if(n===null){ from=true; return; } sum+=n; if(/od|from|от/i.test(s.price)) from=true; });
+  sel.forEach(function(s){ if(s.perUnit){ from=true; return; } var p=priceText(s); var n=priceNum(p); if(n===null){ from=true; return; } sum+=n; if(/od|from|от/i.test(p)) from=true; });
   return {sum:sum, from:from};
 }
 function selected(){ return Array.prototype.slice.call(document.querySelectorAll("#bservices input:checked")).map(function(i){ return SERVICES.filter(function(s){return s.id===i.value;})[0]; }).filter(Boolean); }
@@ -95,8 +97,8 @@ function renderServices(){
     var img=document.createElement("img"); img.className="bthumb"; img.src=s.img; img.alt=""; img.loading="lazy";
     var t=document.createElement("span"); t.className="bcard-t"; t.textContent=s[l];
     var pb=document.createElement("span"); pb.className="bpricebox";
-    var p=document.createElement("span"); p.className="bcard-p"; p.textContent=s.price;
-    var d=document.createElement("span"); d.className="bcard-d"; d.textContent=(s.dur? s.dur+" min":"");
+    var p=document.createElement("span"); p.className="bcard-p"; p.textContent=priceText(s);
+    var d=document.createElement("span"); d.className="bcard-d"; d.textContent=(s.dur? ((s.durFrom? T().fromShort+" ":"") + s.dur + " min") : "");
     pb.appendChild(p); pb.appendChild(d);
     lab.appendChild(cb); lab.appendChild(img); lab.appendChild(t); lab.appendChild(pb);
     cb.addEventListener("change", function(){ update(); refreshTimes(); });
@@ -125,7 +127,7 @@ function send(){
   var d=document.getElementById("bdate").value, tm=document.getElementById("btime").value;
   var ti=totalInfo(sel);
   var msg=t.hi+"\n"+t.sv+":";
-  sel.forEach(function(s){ msg+="\n• "+s[l]+" ("+s.price+")"; });
+  sel.forEach(function(s){ msg+="\n• "+s[l]+" ("+priceText(s)+")"; });
   msg+="\n"+t.total+": "+(ti.from? t.from+" ":"")+ti.sum+" €";
   if(d) msg+="\n"+t.dt+": "+d;
   if(tm) msg+="\n"+t.tm+": "+tm;
