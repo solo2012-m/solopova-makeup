@@ -147,6 +147,28 @@ function sendMail(){
   window.location.href="mailto:solopova.makeup@gmail.com?subject="+encodeURIComponent(T().hi)+"&body="+encodeURIComponent(msg);
 }
 var SLOTS=null, SLOT_URL="assets/slots.json";
+var BRIDGE="https://solopova-slots.solopoff-mikhail.workers.dev/slots";
+var LIVE={}, LIVE_PENDING={};
+function hmLocal(iso){ try { return new Date(iso).toLocaleTimeString("sl-SI",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Europe/Ljubljana"}); } catch(e){ return ""; } }
+function liveTimes(slug, d){
+  if(!slug) return null;
+  var key=slug+"|"+d;
+  if(LIVE[key]!==undefined) return LIVE[key];
+  if(!LIVE_PENDING[key]){
+    LIVE_PENDING[key]=1;
+    fetch(BRIDGE+"?service="+encodeURIComponent(slug)+"&start="+encodeURIComponent(d+"T00:00:00.000Z")+"&end="+encodeURIComponent(d+"T23:59:59.000Z"))
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        var jj=(j&&j.result&&j.result.data&&j.result.data.json)||{};
+        var items=(jj.slots&&jj.slots[d])||[];
+        LIVE[key]=items.map(function(it){ return hmLocal(it.time||""); }).filter(Boolean);
+        delete LIVE_PENDING[key];
+        refreshTimes();
+      })
+      .catch(function(){ delete LIVE_PENDING[key]; });
+  }
+  return null;
+}
 function winFor(slug){ return (slug==="porocno-licenje")?["05:00","18:00"]:["09:00","18:00"]; }
 function bindingService(){ var sel=selected(); if(!sel.length) return null; var best=sel[0]; sel.forEach(function(s){ if((s.dur||0)>(best.dur||0)) best=s; }); return best; }
 function refreshTimes(){
@@ -155,10 +177,18 @@ function refreshTimes(){
   var prev=tm.value; tm.innerHTML="";
   if(!d){ tm.appendChild(new Option((l==="ru"?"— выберите дату —":(l==="en"?"— choose a date —":"— izberite datum —")), "")); return; }
   var win=winFor(s?s.slug:"");
-  var svc=(SLOTS && s && SLOTS.slots && SLOTS.slots[s.slug]) ? SLOTS.slots[s.slug] : null;
-  var keys=svc?Object.keys(svc):[];
   var noFree=(l==="ru"?"Нет свободного времени":(l==="en"?"No free slots":"Ni prostih terminov"));
   var farText=(l==="ru"?"Дата дальше календаря — отправьте заявку":(l==="en"?"Date is beyond the calendar — send a request":"Datum je izven koledarja — pošljite zahtevek"));
+  if(s){
+    var live=liveTimes(s.slug, d);
+    if(live){
+      var ltimes=live.filter(function(x){ return x>=win[0] && x<=win[1]; });
+      if(ltimes.length){ ltimes.forEach(function(x){ tm.appendChild(new Option(x,x)); }); if(prev) tm.value=prev; return; }
+      tm.appendChild(new Option(noFree, "")); return;
+    }
+  }
+  var svc=(SLOTS && s && SLOTS.slots && SLOTS.slots[s.slug]) ? SLOTS.slots[s.slug] : null;
+  var keys=svc?Object.keys(svc):[];
   if(svc){
     if(!keys.length || d>keys[keys.length-1]){ tm.appendChild(new Option(farText, "")); return; }
     var times=(svc[d]||[]).filter(function(x){ return x>=win[0] && x<=win[1]; });
