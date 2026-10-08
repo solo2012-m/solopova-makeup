@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /solopova-mockup.html
+
+Sitemap: https://solopovamakeup.si/sitemap.xml
