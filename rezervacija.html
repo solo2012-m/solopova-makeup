@@ -23,9 +23,9 @@
   <form class="booking" id="booking" onsubmit="return false">
     <div class="bstep reveal">
       <label class="blabel" data-i18n="book_step1"></label>
-      <select id="bservice"></select>
-      <div class="bpreview"><img id="bimg" src="assets/img/work-8.jpg" alt=""></div>
-      <div class="bprice" id="bprice"></div>
+      <p class="bsub" data-i18n="book_pick"></p>
+      <div class="bservices" id="bservices"></div>
+      <div class="btotal" id="btotal"></div>
     </div>
     <div class="bstep reveal">
       <label class="blabel" data-i18n="book_step2"></label>
@@ -61,51 +61,74 @@ var SERVICES = [
  {id:"lash", sl:"Laminacija trepalnic", en:"Lash lamination", ru:"Ламинирование ресниц", price:"48 €", img:"assets/img/trepalnice-booking.jpg"},
  {id:"browlam", sl:"Laminacija obrvi", en:"Brow lamination", ru:"Ламинирование бровей", price:"30 €", img:"assets/img/obrvi-lam2.jpg"},
  {id:"browall", sl:"Laminacija + barvanje + korekcija obrvi", en:"Brow: lamination + tinting + shaping", ru:"Брови: ламинирование + окрашивание + коррекция", price:"55 €", img:"assets/img/obrvi-booking2.jpg"},
- {id:"browkor", sl:"Korekcija obrvi", en:"Brow shaping", ru:"Коррекция бровей", price:"10 €", img:"assets/img/obrvi-kor3.jpg"},
  {id:"browbar", sl:"Barvanje obrvi", en:"Brow tinting", ru:"Окрашивание бровей", price:"15 €", img:"assets/img/obrvi-booking3.jpg"},
+ {id:"browkor", sl:"Korekcija obrvi", en:"Brow shaping", ru:"Коррекция бровей", price:"10 €", img:"assets/img/obrvi-kor3.jpg"},
+ {id:"browbarkor", sl:"Barvanje + korekcija obrvi", en:"Brow tinting + shaping", ru:"Окрашивание + коррекция бровей", price:"25 €", img:"assets/img/obrvi-booking3.jpg"},
  {id:"stajling", sl:"Stajling las za posebne priložnosti", en:"Hairstyling for special occasions", ru:"Причёска для особых случаев", price:"od 45 €", img:"assets/img/frizure-booking.jpg"},
  {id:"podaljsevanje", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 150 € + kapsule", img:"assets/img/podaljsevanje-1.jpg"}
 ];
 var WA="38669900769";
 function curLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
+function T(){ return {
+  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",nt:"Opomba",total:"Skupaj",from:"okvirno od",warn:"Izberite vsaj eno storitev."},
+  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",nt:"Note",total:"Total",from:"about",warn:"Please choose at least one service."},
+  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",nt:"Комментарий",total:"Итого",from:"примерно от",warn:"Выберите хотя бы одну услугу."}
+}[curLang()]; }
+function priceNum(p){ var m=String(p).replace(/\s/g,"").match(/(\d+)/); return m?parseInt(m[1],10):null; }
+function totalInfo(sel){
+  var sum=0, from=false;
+  sel.forEach(function(s){ var n=priceNum(s.price); if(n===null){ from=true; return; } sum+=n; if(/od|from|от/i.test(s.price)) from=true; });
+  return {sum:sum, from:from};
+}
+function selected(){ return Array.prototype.slice.call(document.querySelectorAll("#bservices input:checked")).map(function(i){ return SERVICES.filter(function(s){return s.id===i.value;})[0]; }).filter(Boolean); }
 function renderServices(){
-  var l=curLang(), sel=document.getElementById("bservice"), prev=sel.value;
-  sel.innerHTML="";
-  SERVICES.forEach(function(s){ var o=document.createElement("option"); o.value=s.id; o.textContent=s[l]+" — "+s.price; sel.appendChild(o); });
-  if(prev) sel.value=prev;
+  var l=curLang(), box=document.getElementById("bservices");
+  var checked={}; Array.prototype.forEach.call(box.querySelectorAll("input:checked"), function(i){ checked[i.value]=1; });
+  box.innerHTML="";
+  SERVICES.forEach(function(s){
+    var lab=document.createElement("label"); lab.className="bcard";
+    var cb=document.createElement("input"); cb.type="checkbox"; cb.value=s.id; cb.checked=!!checked[s.id];
+    var img=document.createElement("img"); img.src=s.img; img.alt=""; img.loading="lazy";
+    var t=document.createElement("span"); t.className="bcard-t"; t.textContent=s[l];
+    var p=document.createElement("span"); p.className="bcard-p"; p.textContent=s.price;
+    lab.appendChild(cb); lab.appendChild(img); lab.appendChild(t); lab.appendChild(p);
+    cb.addEventListener("change", update);
+    box.appendChild(lab);
+  });
   update();
 }
 function update(){
-  var s=SERVICES.filter(function(x){return x.id===document.getElementById("bservice").value;})[0];
-  if(!s) return;
-  document.getElementById("bimg").src=s.img;
-  document.getElementById("bprice").textContent=s[curLang()]+" · "+s.price;
+  var sel=selected(), el=document.getElementById("btotal");
+  Array.prototype.forEach.call(document.querySelectorAll("#bservices .bcard"), function(c){
+    c.classList.toggle("on", !!c.querySelector("input").checked);
+  });
+  if(!sel.length){ el.classList.remove("on"); el.textContent=""; return; }
+  var ti=totalInfo(sel), t=T();
+  el.classList.add("on");
+  el.textContent = t.total+": " + (ti.from ? t.from+" " : "") + ti.sum + " €";
 }
-function pad(n){return (n<10?"0":"")+n;}
 function send(){
-  var l=curLang();
-  var s=SERVICES.filter(function(x){return x.id===document.getElementById("bservice").value;})[0];
+  var sel=selected(), t=T(), l=curLang();
+  if(!sel.length){ alert(t.warn); return; }
   var name=document.getElementById("bname").value.trim();
   var phone=document.getElementById("bphone").value.trim();
   var note=document.getElementById("bnote").value.trim();
-  var d=document.getElementById("bdate").value, t=document.getElementById("btime").value;
-  var T={sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitev",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",nt:"Opomba"},
-         en:{hi:"Hello! I would like to book an appointment.",sv:"Service",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",nt:"Note"},
-         ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуга",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",nt:"Комментарий"}}[l];
-  var msg=T.hi+"\n"+T.sv+": "+s[l]+" ("+s.price+")";
-  if(d) msg+="\n"+T.dt+": "+d;
-  if(t) msg+="\n"+T.tm+": "+t;
-  if(name) msg+="\n"+T.nm+": "+name;
-  if(phone) msg+="\n"+T.ph+": "+phone;
-  if(note) msg+="\n"+T.nt+": "+note;
+  var d=document.getElementById("bdate").value, tm=document.getElementById("btime").value;
+  var ti=totalInfo(sel);
+  var msg=t.hi+"\n"+t.sv+":";
+  sel.forEach(function(s){ msg+="\n• "+s[l]+" ("+s.price+")"; });
+  msg+="\n"+t.total+": "+(ti.from? t.from+" ":"")+ti.sum+" €";
+  if(d) msg+="\n"+t.dt+": "+d;
+  if(tm) msg+="\n"+t.tm+": "+tm;
+  if(name) msg+="\n"+t.nm+": "+name;
+  if(phone) msg+="\n"+t.ph+": "+phone;
+  if(note) msg+="\n"+t.nt+": "+note;
   window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
 }
 document.addEventListener("DOMContentLoaded", function(){
-  var tm=document.getElementById("btime"); var opts=["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
-  opts.forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
-  var today=new Date(); document.getElementById("bdate").min=today.toISOString().split("T")[0];
+  var tm=document.getElementById("btime"); ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"].forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
+  document.getElementById("bdate").min=new Date().toISOString().split("T")[0];
   renderServices();
-  document.getElementById("bservice").addEventListener("change", update);
   document.getElementById("bsend").addEventListener("click", send);
   document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(renderServices,0); }); });
 });
