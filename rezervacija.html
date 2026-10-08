@@ -20,6 +20,10 @@
 <main>
 <section class="wrap">
   <div class="section-head reveal"><h2 data-i18n="book_title"></h2><p data-i18n="book_sub"></p></div>
+  <div id="cal-inline" class="calbox reveal"></div>
+  <p class="bhint2" data-i18n="book_hint_cal"></p>
+  <details class="wa-extra reveal">
+    <summary data-i18n="book_more"></summary>
   <form class="booking" id="booking" onsubmit="return false">
     <div class="bstep reveal">
       <label class="blabel" data-i18n="book_step1"></label>
@@ -43,6 +47,7 @@
     <button class="btn" id="bsend" type="submit" data-i18n="book_send"></button>
     <p class="bhint" data-i18n="book_hint"></p>
   </form>
+  </details>
 </section>
 </main>
 <footer class="site"><div class="wrap foot">
@@ -131,6 +136,12 @@ document.addEventListener("DOMContentLoaded", function(){
   document.getElementById("bsend").addEventListener("click", send);
   document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(renderServices,0); }); });
 });
+</script>
+<script>
+(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); };})(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", {origin:"https://cal.com"});
+function calLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
+Cal("inline", { elementOrSelector: "#cal-inline", calLink: "solopova-makeup?lang="+calLang(), config: { layout: "month_view", theme: "light" } });
 </script>
 </body>
 </html>
