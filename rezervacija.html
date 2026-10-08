@@ -63,7 +63,6 @@ var SERVICES = [
  {id:"browall", sl:"Laminacija + barvanje + korekcija obrvi", en:"Brow: lamination + tinting + shaping", ru:"Брови: ламинирование + окрашивание + коррекция", price:"55 €", img:"assets/img/obrvi-booking2.jpg"},
  {id:"browbar", sl:"Barvanje obrvi", en:"Brow tinting", ru:"Окрашивание бровей", price:"15 €", img:"assets/img/obrvi-booking3.jpg"},
  {id:"browkor", sl:"Korekcija obrvi", en:"Brow shaping", ru:"Коррекция бровей", price:"10 €", img:"assets/img/obrvi-kor3.jpg"},
- {id:"browbarkor", sl:"Barvanje + korekcija obrvi", en:"Brow tinting + shaping", ru:"Окрашивание + коррекция бровей", price:"25 €", img:"assets/img/obrvi-booking3.jpg"},
  {id:"stajling", sl:"Stajling las za posebne priložnosti", en:"Hairstyling for special occasions", ru:"Причёска для особых случаев", price:"od 45 €", img:"assets/img/frizure-booking.jpg"},
  {id:"podaljsevanje", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 150 € + kapsule", img:"assets/img/podaljsevanje-1.jpg"}
 ];
@@ -88,7 +87,7 @@ function renderServices(){
   SERVICES.forEach(function(s){
     var lab=document.createElement("label"); lab.className="bcard";
     var cb=document.createElement("input"); cb.type="checkbox"; cb.value=s.id; cb.checked=!!checked[s.id];
-    var img=document.createElement("img"); img.src=s.img; img.alt=""; img.loading="lazy";
+    var img=document.createElement("img"); img.className="bthumb"; img.src=s.img; img.alt=""; img.loading="lazy";
     var t=document.createElement("span"); t.className="bcard-t"; t.textContent=s[l];
     var p=document.createElement("span"); p.className="bcard-p"; p.textContent=s.price;
     lab.appendChild(cb); lab.appendChild(img); lab.appendChild(t); lab.appendChild(p);
