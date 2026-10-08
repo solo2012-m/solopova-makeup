@@ -39,6 +39,7 @@
       <label class="blabel" data-i18n="book_step3"></label>
       <input type="text" id="bname" data-i18n-ph="book_name" placeholder="Ime">
       <input type="tel" id="bphone" placeholder="+386 ...">
+      <input type="email" id="bemail" data-i18n-ph="book_email" placeholder="E-mail">
       <textarea id="bnote" rows="3" data-i18n-ph="book_note" placeholder="Opomba"></textarea>
     </div>
     <button class="btn" id="bsend" type="submit" data-i18n="book_send"></button>
@@ -72,9 +73,9 @@ var SERVICES = [
 var WA="38669900769";
 function curLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
 function T(){ return {
-  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",nt:"Opomba",total:"Skupaj",from:"okvirno od",warn:"Izberite vsaj eno storitev.",needone:"Za koledar izberite natanko eno storitev. Za več storitev pošljite zahtevo."},
-  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",nt:"Note",total:"Total",from:"about",warn:"Please choose at least one service.",needone:"To use the calendar, choose exactly one service. For several services, send a request."},
-  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",nt:"Комментарий",total:"Итого",from:"примерно от",warn:"Выберите хотя бы одну услугу.",needone:"Для календаря выберите ровно одну услугу. Для нескольких — отправьте заявку."}
+  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",em:"E-mail",nt:"Opomba",total:"Skupaj",from:"okvirno od",warn:"Izberite vsaj eno storitev.",needone:"Za koledar izberite natanko eno storitev. Za več storitev pošljite zahtevo."},
+  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",em:"E-mail",nt:"Note",total:"Total",from:"about",warn:"Please choose at least one service.",needone:"To use the calendar, choose exactly one service. For several services, send a request."},
+  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",em:"E-mail",nt:"Комментарий",total:"Итого",from:"примерно от",warn:"Выберите хотя бы одну услугу.",needone:"Для календаря выберите ровно одну услугу. Для нескольких — отправьте заявку."}
 }[curLang()]; }
 function priceNum(p){ var m=String(p).replace(/\s/g,"").match(/(\d+)/); return m?parseInt(m[1],10):null; }
 function totalInfo(sel){
@@ -115,6 +116,7 @@ function send(){
   if(!sel.length){ alert(t.warn); return; }
   var name=document.getElementById("bname").value.trim();
   var phone=document.getElementById("bphone").value.trim();
+  var email=(document.getElementById("bemail")||{}).value ? document.getElementById("bemail").value.trim() : "";
   var note=document.getElementById("bnote").value.trim();
   var d=document.getElementById("bdate").value, tm=document.getElementById("btime").value;
   var ti=totalInfo(sel);
@@ -125,6 +127,7 @@ function send(){
   if(tm) msg+="\n"+t.tm+": "+tm;
   if(name) msg+="\n"+t.nm+": "+name;
   if(phone) msg+="\n"+t.ph+": "+phone;
+  if(email) msg+="\nE-mail: "+email;
   if(note) msg+="\n"+t.nt+": "+note;
   window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
 }
