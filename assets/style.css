@@ -174,7 +174,9 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .bcard input{position:absolute;opacity:0;pointer-events:none}
 .bcard .bthumb{width:48px;height:48px;flex:0 0 48px;object-fit:cover;border-radius:9px;display:block}
 .bcard-t{flex:1;font-size:.95rem;font-weight:600;line-height:1.25}
-.bcard-p{flex:0 0 auto;font-size:.9rem;color:var(--accent);font-weight:600}
+.bcard-p{font-size:.92rem;color:var(--accent);font-weight:600;white-space:nowrap}
+.bpricebox{display:flex;flex-direction:column;align-items:flex-end;gap:.15rem;margin-left:auto;flex:0 0 auto;text-align:right;max-width:46%}
+.bcard-d{font-size:.78rem;color:var(--muted);white-space:nowrap}
 .bcard.on{border-color:var(--accent);box-shadow:0 6px 18px rgba(0,0,0,.08)}
 .bcard.on:after{content:"✓";position:absolute;top:-8px;right:-6px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:.75rem;line-height:22px;text-align:center}
 .btotal{display:none;margin-top:.9rem;font-weight:600;color:var(--ink)}

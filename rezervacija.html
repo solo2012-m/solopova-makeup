@@ -56,7 +56,7 @@
 <script src="assets/i18n.js"></script>
 <script>
 var SERVICES = [
- {id:"porocno",dur:120,slug:"porocno-licenje", sl:"Poročno ličenje", en:"Bridal makeup", ru:"Свадебный макияж", price:"90 €", img:"assets/img/porocno-booking.jpg"},
+ {id:"porocno",dur:90,slug:"porocno-licenje", sl:"Poročno ličenje", en:"Bridal makeup", ru:"Свадебный макияж", price:"90 €", img:"assets/img/porocno-booking.jpg"},
  {id:"poskusno",dur:60,slug:"poskusno-licenje", sl:"Poskusno ličenje", en:"Trial makeup", ru:"Пробный макияж", price:"40 €", img:"assets/img/poskusno-booking.jpg"},
  {id:"dnevno",dur:60,slug:"dnevno-licenje", sl:"Dnevno ličenje", en:"Daytime makeup", ru:"Дневной макияж", price:"45 €", img:"assets/img/dnevno-booking.jpg"},
  {id:"vecerno",dur:60,slug:"vecerno-licenje", sl:"Večerno ličenje", en:"Evening makeup", ru:"Вечерний макияж", price:"50 €", img:"assets/img/vecerno-booking.jpg"},
@@ -64,11 +64,11 @@ var SERVICES = [
  {id:"art",dur:60,slug:"kreativno-licenje", sl:"Kreativno / art ličenje", en:"Creative / art makeup", ru:"Креативный / арт-макияж", price:"od 50 €", img:"assets/img/art-booking2.jpg"},
  {id:"lash",dur:60,slug:"laminacija-trepalnic", sl:"Laminacija trepalnic", en:"Lash lamination", ru:"Ламинирование ресниц", price:"48 €", img:"assets/img/trepalnice-booking.jpg"},
  {id:"browlam",dur:60,slug:"laminacija-obrvi", sl:"Laminacija obrvi", en:"Brow lamination", ru:"Ламинирование бровей", price:"30 €", img:"assets/img/obrvi-lam2.jpg"},
- {id:"browall",dur:90,slug:"obrvi-paket", sl:"Laminacija + barvanje + korekcija obrvi", en:"Brow: lamination + tinting + shaping", ru:"Брови: ламинирование + окрашивание + коррекция", price:"55 €", img:"assets/img/obrvi-booking2.jpg"},
+ {id:"browall",dur:60,slug:"obrvi-paket", sl:"Laminacija + barvanje + korekcija obrvi", en:"Brow: lamination + tinting + shaping", ru:"Брови: ламинирование + окрашивание + коррекция", price:"55 €", img:"assets/img/obrvi-booking2.jpg"},
  {id:"browbar",dur:30,slug:"barvanje-obrvi", sl:"Barvanje obrvi", en:"Brow tinting", ru:"Окрашивание бровей", price:"15 €", img:"assets/img/obrvi-booking3.jpg"},
  {id:"browkor",dur:30,slug:"korekcija-obrvi", sl:"Korekcija obrvi", en:"Brow shaping", ru:"Коррекция бровей", price:"10 €", img:"assets/img/obrvi-kor3.jpg"},
  {id:"stajling",dur:60,slug:"stajling-las", sl:"Stajling las za posebne priložnosti", en:"Hairstyling for special occasions", ru:"Причёска для особых случаев", price:"od 45 €", img:"assets/img/frizure-booking.jpg"},
- {id:"podaljsevanje",dur:180,slug:"podaljsevanje-las", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 150 € + kapsule", img:"assets/img/podaljsevanje-1.jpg"}
+ {id:"podaljsevanje",dur:120,slug:"podaljsevanje-las", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 150 € + kapsule", img:"assets/img/podaljsevanje-1.jpg"}
 ];
 var WA="38669900769";
 function curLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
@@ -93,8 +93,11 @@ function renderServices(){
     var cb=document.createElement("input"); cb.type="checkbox"; cb.value=s.id; cb.checked=!!checked[s.id];
     var img=document.createElement("img"); img.className="bthumb"; img.src=s.img; img.alt=""; img.loading="lazy";
     var t=document.createElement("span"); t.className="bcard-t"; t.textContent=s[l];
-    var p=document.createElement("span"); p.className="bcard-p"; p.textContent=s.price+(s.dur? " · "+s.dur+" min":"");
-    lab.appendChild(cb); lab.appendChild(img); lab.appendChild(t); lab.appendChild(p);
+    var box=document.createElement("span"); box.className="bpricebox";
+    var p=document.createElement("span"); p.className="bcard-p"; p.textContent=s.price;
+    var d=document.createElement("span"); d.className="bcard-d"; d.textContent=(s.dur? s.dur+" min":"");
+    box.appendChild(p); box.appendChild(d);
+    lab.appendChild(cb); lab.appendChild(img); lab.appendChild(t); lab.appendChild(box);
     cb.addEventListener("change", function(){ update(); refreshTimes(); });
     box.appendChild(lab);
   });
