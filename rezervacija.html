@@ -43,6 +43,7 @@
       <textarea id="bnote" rows="3" data-i18n-ph="book_note" placeholder="Opomba"></textarea>
     </div>
     <button class="btn" id="bsend" type="submit" data-i18n="book_send"></button>
+    <button class="btn ghost" id="bmail" type="button" data-i18n="book_mail_btn"></button>
     <p class="bhint" data-i18n="book_hint"></p>
     <button class="btn ghost" id="bcal" type="button" data-i18n="book_cal_btn"></button>
     <p class="bhint" data-i18n="book_cal_note"></p>
@@ -117,7 +118,7 @@ function update(){
   el.textContent = t.total+": " + (ti.from ? t.from+" " : "") + ti.sum + " €";
   var bc=document.getElementById("bcal"); if(bc){ bc.disabled = (sel.length!==1); bc.style.opacity = (sel.length===1? "1":"0.5"); }
 }
-function send(){
+function buildMessage(){
   var sel=selected(), t=T(), l=curLang();
   if(!sel.length){ alert(t.warn); return; }
   var name=document.getElementById("bname").value.trim();
@@ -135,7 +136,15 @@ function send(){
   if(phone) msg+="\n"+t.ph+": "+phone;
   if(email) msg+="\nE-mail: "+email;
   if(note) msg+="\n"+t.nt+": "+note;
+  return msg;
+}
+function send(){
+  var msg=buildMessage(); if(!msg) return;
   window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
+}
+function sendMail(){
+  var msg=buildMessage(); if(!msg) return;
+  window.location.href="mailto:solopova.makeup@gmail.com?subject="+encodeURIComponent(T().hi)+"&body="+encodeURIComponent(msg);
 }
 var SLOTS=null, SLOT_URL="assets/slots.json";
 function winFor(slug){ return (slug==="porocno-licenje")?["05:00","18:00"]:["09:00","18:00"]; }
@@ -180,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function(){
   loadSlots();
   document.getElementById("bdate").addEventListener("change", refreshTimes);
   document.getElementById("bsend").addEventListener("click", send);
+  var bm=document.getElementById("bmail"); if(bm) bm.addEventListener("click", sendMail);
   var bc=document.getElementById("bcal"); if(bc) bc.addEventListener("click", calClick);
   document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(function(){ renderServices(); refreshTimes(); },0); }); });
 });
