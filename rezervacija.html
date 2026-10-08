@@ -43,6 +43,8 @@
     </div>
     <button class="btn" id="bsend" type="submit" data-i18n="book_send"></button>
     <p class="bhint" data-i18n="book_hint"></p>
+    <button class="btn ghost" id="bcal" type="button" data-i18n="book_cal_btn"></button>
+    <p class="bhint" data-i18n="book_cal_note"></p>
   </form>
   <h3 class="whead reveal" data-i18n="book_cal_title"></h3>
   <div id="cal-inline" class="calbox reveal"></div>
@@ -58,26 +60,26 @@
 <script src="assets/i18n.js"></script>
 <script>
 var SERVICES = [
- {id:"porocno", sl:"Poročno ličenje", en:"Bridal makeup", ru:"Свадебный макияж", price:"90 €", img:"assets/img/porocno-booking.jpg"},
- {id:"poskusno", sl:"Poskusno ličenje", en:"Trial makeup", ru:"Пробный макияж", price:"40 €", img:"assets/img/poskusno-booking.jpg"},
- {id:"dnevno", sl:"Dnevno ličenje", en:"Daytime makeup", ru:"Дневной макияж", price:"45 €", img:"assets/img/dnevno-booking.jpg"},
- {id:"vecerno", sl:"Večerno ličenje", en:"Evening makeup", ru:"Вечерний макияж", price:"50 €", img:"assets/img/vecerno-booking.jpg"},
- {id:"lifting", sl:"Lifting ličenje", en:"Lifting makeup", ru:"Лифтинг-макияж", price:"50 €", img:"assets/img/lifting-booking.jpg"},
- {id:"art", sl:"Kreativno / art ličenje", en:"Creative / art makeup", ru:"Креативный / арт-макияж", price:"od 50 €", img:"assets/img/art-booking2.jpg"},
- {id:"lash", sl:"Laminacija trepalnic", en:"Lash lamination", ru:"Ламинирование ресниц", price:"48 €", img:"assets/img/trepalnice-booking.jpg"},
- {id:"browlam", sl:"Laminacija obrvi", en:"Brow lamination", ru:"Ламинирование бровей", price:"30 €", img:"assets/img/obrvi-lam2.jpg"},
- {id:"browall", sl:"Laminacija + barvanje + korekcija obrvi", en:"Brow: lamination + tinting + shaping", ru:"Брови: ламинирование + окрашивание + коррекция", price:"55 €", img:"assets/img/obrvi-booking2.jpg"},
- {id:"browbar", sl:"Barvanje obrvi", en:"Brow tinting", ru:"Окрашивание бровей", price:"15 €", img:"assets/img/obrvi-booking3.jpg"},
- {id:"browkor", sl:"Korekcija obrvi", en:"Brow shaping", ru:"Коррекция бровей", price:"10 €", img:"assets/img/obrvi-kor3.jpg"},
- {id:"stajling", sl:"Stajling las za posebne priložnosti", en:"Hairstyling for special occasions", ru:"Причёска для особых случаев", price:"od 45 €", img:"assets/img/frizure-booking.jpg"},
- {id:"podaljsevanje", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 150 € + kapsule", img:"assets/img/podaljsevanje-1.jpg"}
+ {id:"porocno",slug:"porocno-licenje", sl:"Poročno ličenje", en:"Bridal makeup", ru:"Свадебный макияж", price:"90 €", img:"assets/img/porocno-booking.jpg"},
+ {id:"poskusno",slug:"poskusno-licenje", sl:"Poskusno ličenje", en:"Trial makeup", ru:"Пробный макияж", price:"40 €", img:"assets/img/poskusno-booking.jpg"},
+ {id:"dnevno",slug:"dnevno-licenje", sl:"Dnevno ličenje", en:"Daytime makeup", ru:"Дневной макияж", price:"45 €", img:"assets/img/dnevno-booking.jpg"},
+ {id:"vecerno",slug:"vecerno-licenje", sl:"Večerno ličenje", en:"Evening makeup", ru:"Вечерний макияж", price:"50 €", img:"assets/img/vecerno-booking.jpg"},
+ {id:"lifting",slug:"lifting-licenje", sl:"Lifting ličenje", en:"Lifting makeup", ru:"Лифтинг-макияж", price:"50 €", img:"assets/img/lifting-booking.jpg"},
+ {id:"art",slug:"kreativno-licenje", sl:"Kreativno / art ličenje", en:"Creative / art makeup", ru:"Креативный / арт-макияж", price:"od 50 €", img:"assets/img/art-booking2.jpg"},
+ {id:"lash",slug:"laminacija-trepalnic", sl:"Laminacija trepalnic", en:"Lash lamination", ru:"Ламинирование ресниц", price:"48 €", img:"assets/img/trepalnice-booking.jpg"},
+ {id:"browlam",slug:"laminacija-obrvi", sl:"Laminacija obrvi", en:"Brow lamination", ru:"Ламинирование бровей", price:"30 €", img:"assets/img/obrvi-lam2.jpg"},
+ {id:"browall",slug:"obrvi-paket", sl:"Laminacija + barvanje + korekcija obrvi", en:"Brow: lamination + tinting + shaping", ru:"Брови: ламинирование + окрашивание + коррекция", price:"55 €", img:"assets/img/obrvi-booking2.jpg"},
+ {id:"browbar",slug:"barvanje-obrvi", sl:"Barvanje obrvi", en:"Brow tinting", ru:"Окрашивание бровей", price:"15 €", img:"assets/img/obrvi-booking3.jpg"},
+ {id:"browkor",slug:"korekcija-obrvi", sl:"Korekcija obrvi", en:"Brow shaping", ru:"Коррекция бровей", price:"10 €", img:"assets/img/obrvi-kor3.jpg"},
+ {id:"stajling",slug:"stajling-las", sl:"Stajling las za posebne priložnosti", en:"Hairstyling for special occasions", ru:"Причёска для особых случаев", price:"od 45 €", img:"assets/img/frizure-booking.jpg"},
+ {id:"podaljsevanje",slug:"podaljsevanje-las", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 150 € + kapsule", img:"assets/img/podaljsevanje-1.jpg"}
 ];
 var WA="38669900769";
 function curLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
 function T(){ return {
-  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",nt:"Opomba",total:"Skupaj",from:"okvirno od",warn:"Izberite vsaj eno storitev."},
-  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",nt:"Note",total:"Total",from:"about",warn:"Please choose at least one service."},
-  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",nt:"Комментарий",total:"Итого",from:"примерно от",warn:"Выберите хотя бы одну услугу."}
+  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",nt:"Opomba",total:"Skupaj",from:"okvirno od",warn:"Izberite vsaj eno storitev.",needone:"Za koledar izberite natanko eno storitev. Za več storitev pošljite zahtevo."},
+  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",nt:"Note",total:"Total",from:"about",warn:"Please choose at least one service.",needone:"To use the calendar, choose exactly one service. For several services, send a request."},
+  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",nt:"Комментарий",total:"Итого",from:"примерно от",warn:"Выберите хотя бы одну услугу.",needone:"Для календаря выберите ровно одну услугу. Для нескольких — отправьте заявку."}
 }[curLang()]; }
 function priceNum(p){ var m=String(p).replace(/\s/g,"").match(/(\d+)/); return m?parseInt(m[1],10):null; }
 function totalInfo(sel){
@@ -111,6 +113,7 @@ function update(){
   var ti=totalInfo(sel), t=T();
   el.classList.add("on");
   el.textContent = t.total+": " + (ti.from ? t.from+" " : "") + ti.sum + " €";
+  var bc=document.getElementById("bcal"); if(bc){ bc.disabled = (sel.length!==1); bc.style.opacity = (sel.length===1? "1":"0.5"); }
 }
 function send(){
   var sel=selected(), t=T(), l=curLang();
@@ -130,11 +133,25 @@ function send(){
   if(note) msg+="\n"+t.nt+": "+note;
   window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
 }
+function calUrl(){
+  var sel=selected(); if(sel.length!==1) return null;
+  var s=sel[0]; if(!s.slug) return null;
+  var d=document.getElementById("bdate").value;
+  var u="https://cal.com/solopova-makeup/"+s.slug+"?lang="+curLang();
+  if(d) u+="&date="+d;
+  return u;
+}
+function calClick(){
+  var u=calUrl();
+  if(!u){ alert(T().needone); return; }
+  window.open(u,"_blank");
+}
 document.addEventListener("DOMContentLoaded", function(){
   var tm=document.getElementById("btime"); ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"].forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
   document.getElementById("bdate").min=new Date().toISOString().split("T")[0];
   renderServices();
   document.getElementById("bsend").addEventListener("click", send);
+  var bc=document.getElementById("bcal"); if(bc) bc.addEventListener("click", calClick);
   document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(renderServices,0); }); });
 });
 </script>
