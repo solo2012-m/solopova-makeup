@@ -94,11 +94,11 @@ function renderServices(){
     var cb=document.createElement("input"); cb.type="checkbox"; cb.value=s.id; cb.checked=!!checked[s.id];
     var img=document.createElement("img"); img.className="bthumb"; img.src=s.img; img.alt=""; img.loading="lazy";
     var t=document.createElement("span"); t.className="bcard-t"; t.textContent=s[l];
-    var box=document.createElement("span"); box.className="bpricebox";
+    var pb=document.createElement("span"); pb.className="bpricebox";
     var p=document.createElement("span"); p.className="bcard-p"; p.textContent=s.price;
     var d=document.createElement("span"); d.className="bcard-d"; d.textContent=(s.dur? s.dur+" min":"");
-    box.appendChild(p); box.appendChild(d);
-    lab.appendChild(cb); lab.appendChild(img); lab.appendChild(t); lab.appendChild(box);
+    pb.appendChild(p); pb.appendChild(d);
+    lab.appendChild(cb); lab.appendChild(img); lab.appendChild(t); lab.appendChild(pb);
     cb.addEventListener("change", function(){ update(); refreshTimes(); });
     box.appendChild(lab);
   });
