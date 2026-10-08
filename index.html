@@ -49,10 +49,17 @@
 
 <section class="wrap">
   <div class="section-head reveal"><h2 data-i18n="reviews_title"></h2><p data-i18n="reviews_sub"></p></div>
-  <div class="grid g3 revgrid">
-    <article class="card rev reveal"><span class="rev-shot"><img src="assets/img/rev-shot-1.jpg" alt="Mnenje stranke" loading="lazy"></span><div class="rev-foot"><span class="rev-av">♥</span><p class="rev-who" data-i18n="rev_s1"></p></div></article>
-    <article class="card rev reveal"><span class="rev-shot"><img src="assets/img/rev-shot-2.jpg" alt="Mnenje stranke" loading="lazy"></span><div class="rev-foot"><span class="rev-av">♥</span><p class="rev-who" data-i18n="rev_s2"></p></div></article>
-    <article class="card rev reveal"><span class="rev-shot"><img src="assets/img/rev-shot-3.jpg" alt="Mnenje stranke" loading="lazy"></span><div class="rev-foot"><span class="rev-av">♥</span><p class="rev-who" data-i18n="rev_s3"></p></div></article>
+  <div class="revcarousel reveal">
+    <div class="revtrack" id="revtrack">
+    <article class="card rev"><span class="rev-shot"><img src="assets/img/rev-msg-1.jpg" alt="Mnenje stranke" loading="lazy"></span><div class="rev-foot"><span class="rev-av">♥</span><p class="rev-who" data-i18n="rev_s1"></p></div></article>
+    <article class="card rev"><span class="rev-shot"><img src="assets/img/rev-msg-2.jpg" alt="Mnenje stranke" loading="lazy"></span><div class="rev-foot"><span class="rev-av">♥</span><p class="rev-who" data-i18n="rev_s2"></p></div></article>
+    <article class="card rev"><span class="rev-shot"><img src="assets/img/rev-msg-3.jpg" alt="Objava stranke" loading="lazy"></span><div class="rev-foot"><span class="rev-av">♥</span><p class="rev-who" data-i18n="rev_s3"></p></div></article>
+    </div>
+    <div class="revnav">
+      <button class="revbtn" id="revprev" type="button" aria-label="Prejšnje mnenje">‹</button>
+      <div class="revdots" id="revdots"><button class="revdot on" type="button" aria-label="Mnenje 1"></button><button class="revdot" type="button" aria-label="Mnenje 2"></button><button class="revdot" type="button" aria-label="Mnenje 3"></button></div>
+      <button class="revbtn" id="revnext" type="button" aria-label="Naslednje mnenje">›</button>
+    </div>
   </div>
 </section>
 <section class="wrap">
@@ -83,6 +90,25 @@
   if(st){ dragify(st);
     st.addEventListener('wheel',function(e){ if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){ st.scrollLeft+=e.deltaY; e.preventDefault(); } },{passive:false});
     Array.prototype.forEach.call(st.querySelectorAll('a'),function(a){ a.addEventListener('click',function(ev){ if(st.classList.contains('dragging')) ev.preventDefault(); }); });
+  }
+
+  var rt=document.getElementById('revtrack');
+  if(rt){
+    dragify(rt);
+    var rcards=[].slice.call(rt.querySelectorAll('.card.rev'));
+    var rdots=[].slice.call(document.querySelectorAll('#revdots .revdot'));
+    var rprev=document.getElementById('revprev'), rnext=document.getElementById('revnext');
+    function rstep(){ return rcards.length>1 ? (rcards[1].offsetLeft-rcards[0].offsetLeft) : rt.clientWidth; }
+    function rindex(){ var c=rt.scrollLeft+rt.clientWidth/2,best=0,bd=Infinity; rcards.forEach(function(el,i){ var m=el.offsetLeft+el.offsetWidth/2,d=Math.abs(m-c); if(d<bd){bd=d;best=i;} }); return best; }
+    function rsync(){ var i=rindex(); rdots.forEach(function(d,j){ d.classList.toggle('on',j===i); }); if(rprev)rprev.disabled=rt.scrollLeft<4; if(rnext)rnext.disabled=rt.scrollLeft>rt.scrollWidth-rt.clientWidth-4; }
+    function rgo(dir){ rt.scrollTo({left:rt.scrollLeft+dir*rstep(),behavior:'smooth'}); }
+    function rcenter(i){ rt.scrollTo({left:rcards[i].offsetLeft-(rt.clientWidth-rcards[i].offsetWidth)/2,behavior:'smooth'}); }
+    rt.addEventListener('scroll',function(){ window.requestAnimationFrame(rsync); },{passive:true});
+    window.addEventListener('resize',rsync);
+    rdots.forEach(function(d,j){ d.addEventListener('click',function(){ rcenter(j); }); });
+    if(rprev) rprev.addEventListener('click',function(){ rgo(-1); });
+    if(rnext) rnext.addEventListener('click',function(){ rgo(1); });
+    setTimeout(rsync,150);
   }
 })();
 </script>
