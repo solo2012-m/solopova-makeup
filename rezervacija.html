@@ -60,19 +60,19 @@
 <script src="assets/i18n.js"></script>
 <script>
 var SERVICES = [
- {id:"porocno",slug:"porocno-licenje", sl:"Poročno ličenje", en:"Bridal makeup", ru:"Свадебный макияж", price:"90 €", img:"assets/img/porocno-booking.jpg"},
- {id:"poskusno",slug:"poskusno-licenje", sl:"Poskusno ličenje", en:"Trial makeup", ru:"Пробный макияж", price:"40 €", img:"assets/img/poskusno-booking.jpg"},
- {id:"dnevno",slug:"dnevno-licenje", sl:"Dnevno ličenje", en:"Daytime makeup", ru:"Дневной макияж", price:"45 €", img:"assets/img/dnevno-booking.jpg"},
- {id:"vecerno",slug:"vecerno-licenje", sl:"Večerno ličenje", en:"Evening makeup", ru:"Вечерний макияж", price:"50 €", img:"assets/img/vecerno-booking.jpg"},
- {id:"lifting",slug:"lifting-licenje", sl:"Lifting ličenje", en:"Lifting makeup", ru:"Лифтинг-макияж", price:"50 €", img:"assets/img/lifting-booking.jpg"},
- {id:"art",slug:"kreativno-licenje", sl:"Kreativno / art ličenje", en:"Creative / art makeup", ru:"Креативный / арт-макияж", price:"od 50 €", img:"assets/img/art-booking2.jpg"},
- {id:"lash",slug:"laminacija-trepalnic", sl:"Laminacija trepalnic", en:"Lash lamination", ru:"Ламинирование ресниц", price:"48 €", img:"assets/img/trepalnice-booking.jpg"},
- {id:"browlam",slug:"laminacija-obrvi", sl:"Laminacija obrvi", en:"Brow lamination", ru:"Ламинирование бровей", price:"30 €", img:"assets/img/obrvi-lam2.jpg"},
- {id:"browall",slug:"obrvi-paket", sl:"Laminacija + barvanje + korekcija obrvi", en:"Brow: lamination + tinting + shaping", ru:"Брови: ламинирование + окрашивание + коррекция", price:"55 €", img:"assets/img/obrvi-booking2.jpg"},
- {id:"browbar",slug:"barvanje-obrvi", sl:"Barvanje obrvi", en:"Brow tinting", ru:"Окрашивание бровей", price:"15 €", img:"assets/img/obrvi-booking3.jpg"},
- {id:"browkor",slug:"korekcija-obrvi", sl:"Korekcija obrvi", en:"Brow shaping", ru:"Коррекция бровей", price:"10 €", img:"assets/img/obrvi-kor3.jpg"},
- {id:"stajling",slug:"stajling-las", sl:"Stajling las za posebne priložnosti", en:"Hairstyling for special occasions", ru:"Причёска для особых случаев", price:"od 45 €", img:"assets/img/frizure-booking.jpg"},
- {id:"podaljsevanje",slug:"podaljsevanje-las", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 150 € + kapsule", img:"assets/img/podaljsevanje-1.jpg"}
+ {id:"porocno",dur:120,slug:"porocno-licenje", sl:"Poročno ličenje", en:"Bridal makeup", ru:"Свадебный макияж", price:"90 €", img:"assets/img/porocno-booking.jpg"},
+ {id:"poskusno",dur:60,slug:"poskusno-licenje", sl:"Poskusno ličenje", en:"Trial makeup", ru:"Пробный макияж", price:"40 €", img:"assets/img/poskusno-booking.jpg"},
+ {id:"dnevno",dur:60,slug:"dnevno-licenje", sl:"Dnevno ličenje", en:"Daytime makeup", ru:"Дневной макияж", price:"45 €", img:"assets/img/dnevno-booking.jpg"},
+ {id:"vecerno",dur:60,slug:"vecerno-licenje", sl:"Večerno ličenje", en:"Evening makeup", ru:"Вечерний макияж", price:"50 €", img:"assets/img/vecerno-booking.jpg"},
+ {id:"lifting",dur:60,slug:"lifting-licenje", sl:"Lifting ličenje", en:"Lifting makeup", ru:"Лифтинг-макияж", price:"50 €", img:"assets/img/lifting-booking.jpg"},
+ {id:"art",dur:60,slug:"kreativno-licenje", sl:"Kreativno / art ličenje", en:"Creative / art makeup", ru:"Креативный / арт-макияж", price:"od 50 €", img:"assets/img/art-booking2.jpg"},
+ {id:"lash",dur:60,slug:"laminacija-trepalnic", sl:"Laminacija trepalnic", en:"Lash lamination", ru:"Ламинирование ресниц", price:"48 €", img:"assets/img/trepalnice-booking.jpg"},
+ {id:"browlam",dur:60,slug:"laminacija-obrvi", sl:"Laminacija obrvi", en:"Brow lamination", ru:"Ламинирование бровей", price:"30 €", img:"assets/img/obrvi-lam2.jpg"},
+ {id:"browall",dur:90,slug:"obrvi-paket", sl:"Laminacija + barvanje + korekcija obrvi", en:"Brow: lamination + tinting + shaping", ru:"Брови: ламинирование + окрашивание + коррекция", price:"55 €", img:"assets/img/obrvi-booking2.jpg"},
+ {id:"browbar",dur:30,slug:"barvanje-obrvi", sl:"Barvanje obrvi", en:"Brow tinting", ru:"Окрашивание бровей", price:"15 €", img:"assets/img/obrvi-booking3.jpg"},
+ {id:"browkor",dur:30,slug:"korekcija-obrvi", sl:"Korekcija obrvi", en:"Brow shaping", ru:"Коррекция бровей", price:"10 €", img:"assets/img/obrvi-kor3.jpg"},
+ {id:"stajling",dur:60,slug:"stajling-las", sl:"Stajling las za posebne priložnosti", en:"Hairstyling for special occasions", ru:"Причёска для особых случаев", price:"od 45 €", img:"assets/img/frizure-booking.jpg"},
+ {id:"podaljsevanje",dur:180,slug:"podaljsevanje-las", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 150 € + kapsule", img:"assets/img/podaljsevanje-1.jpg"}
 ];
 var WA="38669900769";
 function curLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
@@ -99,7 +99,7 @@ function renderServices(){
     var t=document.createElement("span"); t.className="bcard-t"; t.textContent=s[l];
     var p=document.createElement("span"); p.className="bcard-p"; p.textContent=s.price;
     lab.appendChild(cb); lab.appendChild(img); lab.appendChild(t); lab.appendChild(p);
-    cb.addEventListener("change", update);
+    cb.addEventListener("change", function(){ update(); refreshTimes(); });
     box.appendChild(lab);
   });
   update();
@@ -133,6 +133,28 @@ function send(){
   if(note) msg+="\n"+t.nt+": "+note;
   window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
 }
+var SLOTS=null, SLOT_URL="assets/slots.json";
+function winFor(slug){ return (slug==="porocno-licenje")?["05:00","18:00"]:["09:00","18:00"]; }
+function bindingService(){ var sel=selected(); if(!sel.length) return null; var best=sel[0]; sel.forEach(function(s){ if((s.dur||0)>(best.dur||0)) best=s; }); return best; }
+function refreshTimes(){
+  var tm=document.getElementById("btime"); if(!tm) return;
+  var d=document.getElementById("bdate").value, s=bindingService(), l=curLang();
+  var prev=tm.value; tm.innerHTML="";
+  if(!d){ tm.appendChild(new Option((l==="ru"?"— выберите дату —":(l==="en"?"— choose a date —":"— izberite datum —")), "")); return; }
+  var win=winFor(s?s.slug:"");
+  var list=null;
+  if(SLOTS && s && SLOTS.slots && SLOTS.slots[s.slug] && SLOTS.slots[s.slug][d]) list=SLOTS.slots[s.slug][d];
+  if(list){
+    var times=list.filter(function(x){ return x>=win[0] && x<=win[1]; });
+    if(times.length){ times.forEach(function(x){ tm.appendChild(new Option(x,x)); }); if(prev) tm.value=prev; return; }
+    tm.appendChild(new Option((l==="ru"?"Нет свободного времени":(l==="en"?"No free slots":"Ni prostih terminov")), "")); return;
+  }
+  for(var h=parseInt(win[0],10); h<=parseInt(win[1],10); h++){
+    ["00","30"].forEach(function(m){ var hh=(h<10?"0"+h:""+h), x=hh+":"+m; if(x>=win[0] && x<=win[1]) tm.appendChild(new Option(x,x)); });
+  }
+  if(prev) tm.value=prev;
+}
+function loadSlots(){ fetch(SLOT_URL+"?t="+Date.now()).then(function(r){ return r.json(); }).then(function(j){ SLOTS=j; refreshTimes(); }).catch(function(){ SLOTS=null; refreshTimes(); }); }
 function calUrl(){
   var sel=selected(); if(sel.length!==1) return null;
   var s=sel[0]; if(!s.slug) return null;
@@ -150,9 +172,12 @@ document.addEventListener("DOMContentLoaded", function(){
   var tm=document.getElementById("btime"); ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"].forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
   document.getElementById("bdate").min=new Date().toISOString().split("T")[0];
   renderServices();
+  refreshTimes();
+  loadSlots();
+  document.getElementById("bdate").addEventListener("change", refreshTimes);
   document.getElementById("bsend").addEventListener("click", send);
   var bc=document.getElementById("bcal"); if(bc) bc.addEventListener("click", calClick);
-  document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(renderServices,0); }); });
+  document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(function(){ renderServices(); refreshTimes(); },0); }); });
 });
 </script>
 <script>
