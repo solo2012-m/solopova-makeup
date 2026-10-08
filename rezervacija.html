@@ -143,13 +143,37 @@ function buildMessage(){
   if(note) msg+="\n"+t.nt+": "+note;
   return msg;
 }
+function waSend(msg){
+  window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
+}
+function showSent(txt){
+  var h=document.getElementById("bhint");
+  if(h){ h.textContent="\u2705 "+(txt||T().book_sent); h.classList.add("ok"); }
+  var f=document.getElementById("booking");
+  if(f){ f.classList.add("done"); }
+}
+function apiSend(msg, cb){
+  var name=(document.getElementById("bname")||{}).value||"";
+  var phone=(document.getElementById("bphone")||{}).value||"";
+  var email=(document.getElementById("bemail")||{}).value||"";
+  fetch("https://formsubmit.co/ajax/solopova.makeup@gmail.com",{
+    method:"POST",
+    headers:{"Content-Type":"application/json",Accept:"application/json"},
+    body:JSON.stringify({_subject:"Nova rezervacija \u2013 Solopova Makeup",_template:"table",_captcha:"false",Ime:name.trim(),Telefon:phone.trim(),"E-mail":email.trim(),Sporocilo:msg})
+  }).then(function(r){ return r.json(); }).then(function(j){ cb(!!(j&&(j.success===true||j.success==="true"))); }).catch(function(){ cb(false); });
+}
 function send(){
   var msg=buildMessage(); if(!msg) return;
-  window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
+  var b=document.getElementById("bsend"); if(!b) return;
+  var old=b.textContent; b.disabled=true; b.textContent="\u2026";
+  apiSend(msg, function(ok){
+    b.disabled=false; b.textContent=old;
+    if(ok){ showSent(); } else { showSent("Ni potrditve – odpiram WhatsApp / no confirmation – opening WhatsApp"); waSend(msg); }
+  });
 }
 function sendMail(){
   var msg=buildMessage(); if(!msg) return;
-  window.location.href="mailto:solopova.makeup@gmail.com?subject="+encodeURIComponent(T().hi)+"&body="+encodeURIComponent(msg);
+  window.open("https://mail.google.com/mail/?view=cm&fs=1&to=solopova.makeup@gmail.com&su="+encodeURIComponent(T().hi)+"&body="+encodeURIComponent(msg),"_blank");
 }
 var SLOTS=null, SLOT_URL="assets/slots.json";
 var BRIDGE="https://solopova-slots.solopoff-mikhail.workers.dev/slots";
