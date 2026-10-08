@@ -211,3 +211,35 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .revdot{width:8px;height:8px;border-radius:999px;border:0;padding:0;background:var(--line);cursor:pointer;transition:width .2s,background .2s}
 .revdot.on{width:22px;background:var(--accent)}
 @media(max-width:560px){.revnav{gap:.7rem}}
+
+/* Course landing */
+.ribbon{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border-radius:999px;padding:.35rem .9rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.course-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;padding:3.2rem 0 2.4rem}
+.course-price{display:flex;align-items:baseline;gap:.6rem;margin:1.1rem 0 .3rem}
+.course-price b{font-family:'Cormorant Garamond',Georgia,serif;font-size:3rem;line-height:1;font-weight:600}
+.course-price span{color:var(--muted);font-size:.9rem}
+.course-meta{color:var(--muted);font-size:.92rem;margin-top:.5rem}
+.videobox{position:relative;border-radius:var(--radius);overflow:hidden;background:linear-gradient(135deg,#efe3d8,#e6cfc4);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:#9a7f6e;letter-spacing:.15em;text-transform:uppercase;font-size:.72rem;text-align:center;padding:1rem}
+.videobox .play{position:absolute;width:66px;height:66px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--ink);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.videobox span{margin-top:5rem}
+.tick{display:flex;gap:.7rem;align-items:flex-start;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.tick:last-child{border-bottom:0}
+.tick i{font-style:normal;color:var(--accent);font-weight:700}
+.tick p{margin:0}
+.pricebox{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem 1.6rem;text-align:center;max-width:480px;margin:0 auto}
+.pricebox .big{font-family:'Cormorant Garamond',Georgia,serif;font-size:3.4rem;line-height:1;font-weight:600}
+.pricebox ul{list-style:none;padding:0;margin:1.1rem 0;text-align:left;color:var(--muted);font-size:.95rem}
+.pricebox ul li{padding:.32rem 0 .32rem 1.5rem;position:relative}
+.pricebox ul li:before{content:'\2713';position:absolute;left:0;color:var(--accent);font-weight:700}
+.faq details{border-bottom:1px solid var(--line);padding:.9rem 0}
+.faq summary{cursor:pointer;font-weight:600;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:'+';float:right;color:var(--accent);font-weight:700}
+.faq details[open] summary:after{content:'\2013'}
+.faq p{color:var(--muted);margin:.6rem 0 0}
+.legal{max-width:72ch}
+.legal h2{margin-top:2.2rem}
+.legal ul{padding-left:1.2rem;color:var(--muted)}
+.legal .fill{background:#fff4d6;padding:.05rem .35rem;border-radius:5px;font-weight:600}
+.legalnote{font-size:.82rem;color:var(--muted);margin-top:1rem}
+@media(max-width:860px){.course-hero{grid-template-columns:1fr;gap:2rem;padding:2rem 0 1.4rem}.course-price b{font-size:2.6rem}}
