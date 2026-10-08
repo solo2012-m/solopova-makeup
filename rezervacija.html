@@ -155,12 +155,15 @@ function refreshTimes(){
   var prev=tm.value; tm.innerHTML="";
   if(!d){ tm.appendChild(new Option((l==="ru"?"— выберите дату —":(l==="en"?"— choose a date —":"— izberite datum —")), "")); return; }
   var win=winFor(s?s.slug:"");
-  var list=null;
-  if(SLOTS && s && SLOTS.slots && SLOTS.slots[s.slug] && SLOTS.slots[s.slug][d]) list=SLOTS.slots[s.slug][d];
-  if(list){
-    var times=list.filter(function(x){ return x>=win[0] && x<=win[1]; });
+  var svc=(SLOTS && s && SLOTS.slots && SLOTS.slots[s.slug]) ? SLOTS.slots[s.slug] : null;
+  var keys=svc?Object.keys(svc):[];
+  var noFree=(l==="ru"?"Нет свободного времени":(l==="en"?"No free slots":"Ni prostih terminov"));
+  var farText=(l==="ru"?"Дата дальше календаря — отправьте заявку":(l==="en"?"Date is beyond the calendar — send a request":"Datum je izven koledarja — pošljite zahtevek"));
+  if(svc){
+    if(!keys.length || d>keys[keys.length-1]){ tm.appendChild(new Option(farText, "")); return; }
+    var times=(svc[d]||[]).filter(function(x){ return x>=win[0] && x<=win[1]; });
     if(times.length){ times.forEach(function(x){ tm.appendChild(new Option(x,x)); }); if(prev) tm.value=prev; return; }
-    tm.appendChild(new Option((l==="ru"?"Нет свободного времени":(l==="en"?"No free slots":"Ni prostih terminov")), "")); return;
+    tm.appendChild(new Option(noFree, "")); return;
   }
   for(var h=parseInt(win[0],10); h<=parseInt(win[1],10); h++){
     ["00","30"].forEach(function(m){ var hh=(h<10?"0"+h:""+h), x=hh+":"+m; if(x>=win[0] && x<=win[1]) tm.appendChild(new Option(x,x)); });
