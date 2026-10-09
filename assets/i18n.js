@@ -1,6 +1,6 @@
 window.I18N = {
   sl: {
-    brand_tag:"Li\u010denje \u00b7 trepalnice \u00b7 obrvi \u00b7 lasje",
+    brand_tag:"Li\u010denje \u00b7 trepalnice \u00b7 obrvi \u00b7 lasje \u00b7 te\u010daji",
     nav_home:"Domov", nav_services:"Storitve", nav_gallery:"Galerija", nav_course:"Te\u010daj", nav_courses:"Tečaji", nav_contact:"Kontakt",
     hero_kicker:"Maribor \u00b7 Slovenija", hero_title:"Profesionalna li\u010dila in lepota v Mariboru",
     hero_sub:"Poudarim tvojo naravno lepoto \u2014 za poroko, posebne prilo\u017enosti ali preprosto zato, ker si to zaslu\u017ei\u0161.",
@@ -35,7 +35,7 @@ window.I18N = {
     foot_note:"\u00a9 2026 Solopova Makeup \u00b7 Maribor"
   },
   en: {
-    brand_tag:"Makeup \u00b7 lashes \u00b7 brows \u00b7 hair",
+    brand_tag:"Makeup \u00b7 lashes \u00b7 brows \u00b7 hair \u00b7 courses",
     nav_home:"Home", nav_services:"Services", nav_gallery:"Gallery", nav_course:"Course", nav_courses:"Courses", nav_contact:"Contact",
     hero_kicker:"Maribor \u00b7 Slovenia", hero_title:"Professional makeup & beauty in Maribor",
     hero_sub:"I highlight your natural beauty \u2014 for weddings, special occasions, or simply because you deserve it.",
@@ -70,7 +70,7 @@ window.I18N = {
     foot_note:"\u00a9 2026 Solopova Makeup \u00b7 Maribor"
   },
   ru: {
-    brand_tag:"\u041c\u0430\u043a\u0438\u044f\u0436 \u00b7 \u0440\u0435\u0441\u043d\u0438\u0446\u044b \u00b7 \u0431\u0440\u043e\u0432\u0438 \u00b7 \u0432\u043e\u043b\u043e\u0441\u044b",
+    brand_tag:"\u041c\u0430\u043a\u0438\u044f\u0436 \u00b7 \u0440\u0435\u0441\u043d\u0438\u0446\u044b \u00b7 \u0431\u0440\u043e\u0432\u0438 \u00b7 \u0432\u043e\u043b\u043e\u0441\u044b \u00b7 \u043a\u0443\u0440\u0441\u044b",
     nav_home:"\u0413\u043b\u0430\u0432\u043d\u0430\u044f", nav_services:"\u0423\u0441\u043b\u0443\u0433\u0438", nav_gallery:"\u0413\u0430\u043b\u0435\u0440\u0435\u044f", nav_course:"\u041a\u0443\u0440\u0441", nav_courses:"Курси", nav_contact:"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u044b",
     hero_kicker:"\u041c\u0430\u0440\u0438\u0431\u043e\u0440 \u00b7 \u0421\u043b\u043e\u0432\u0435\u043d\u0438\u044f", hero_title:"\u041f\u0440\u043e\u0444\u0435\u0441\u0441\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0439 \u043c\u0430\u043a\u0438\u044f\u0436 \u0438 \u043a\u0440\u0430\u0441\u043e\u0442\u0430 \u0432 \u041c\u0430\u0440\u0438\u0431\u043e\u0440\u0435",
     hero_sub:"\u041f\u043e\u0434\u0447\u0451\u0440\u043a\u0438\u0432\u0430\u044e \u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u0443\u044e \u043a\u0440\u0430\u0441\u043e\u0442\u0443 \u2014 \u0434\u043b\u044f \u0441\u0432\u0430\u0434\u044c\u0431\u044b, \u043e\u0441\u043e\u0431\u044b\u0445 \u0441\u043b\u0443\u0447\u0430\u0435\u0432 \u0438\u043b\u0438 \u043f\u0440\u043e\u0441\u0442\u043e \u043f\u043e\u0442\u043e\u043c\u0443, \u0447\u0442\u043e \u0442\u044b \u044d\u0442\u043e\u0433\u043e \u0437\u0430\u0441\u043b\u0443\u0436\u0438\u0432\u0430\u0435\u0448\u044c.",

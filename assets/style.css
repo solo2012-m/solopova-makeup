@@ -67,6 +67,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(250,247,244,.86);ba
 .brand{display:flex;flex-direction:column;margin-right:auto}
 .brand b{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:.02em}
 .brand span{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.navlinks{display:flex;align-items:center;gap:1.4rem}
 .nav a.link{font-size:.95rem;color:var(--muted);transition:color .2s}
 .nav a.link:hover,.nav a.link.active{color:var(--accent)}
 .lang{display:flex;gap:.35rem;margin-left:.6rem}
@@ -135,7 +136,11 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 @media(max-width:900px){
   .hero,.about{grid-template-columns:1fr;gap:2rem}
   .g3,.g4{grid-template-columns:repeat(2,1fr)}
-  .nav a.link{display:none}
+  .nav{flex-wrap:wrap;gap:.5rem;padding:.6rem 0}
+  .brand{flex:1 1 auto;margin-right:0}
+  .navlinks{flex:1 0 100%;order:3;overflow-x:auto;gap:1.1rem;padding-bottom:.1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .navlinks::-webkit-scrollbar{display:none}
+  .nav a.link{display:inline-block;font-size:.86rem;white-space:nowrap}
   .nav .lang{margin-left:auto}
 }
 @media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}.cta-band{padding:2rem 1.2rem}}
