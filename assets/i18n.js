@@ -30,7 +30,7 @@ window.I18N = {
     course_title:"Te\u010daj li\u010denja za vsak dan", course_sub:"Nau\u010di se li\u010diti sama \u2014 korak za korakom, brez zmede.",
     course_text:"Te\u010daj je namenjen vsem, ki \u017elijo razumeti, katere izdelke potrebujejo in kako jih uporabiti. Prakti\u010dno, preprosto in prilagojeno tvojemu tipu ko\u017ee.",
     course_cta:"Prijavi se",
-    contact_title:"Kontakt", contact_sub:"Pi\u0161i mi ali se prijavi prek spleta.", contact_addr:"Maribor, Slovenija",
+    contact_title:"Kontakt", contact_sub:"Pi\u0161i mi ali se prijavi prek spleta.", contact_addr:"Vodnikov trg 1, 2000 Maribor, Slovenija",
     form_name:"Ime", form_email:"E-po\u0161ta", form_msg:"Sporo\u010dilo", form_send:"Po\u0161lji",
     foot_note:"\u00a9 2026 Solopova Makeup \u00b7 Maribor"
   },
@@ -65,7 +65,7 @@ window.I18N = {
     course_title:"Everyday makeup course", course_sub:"Learn to do your own makeup \u2014 step by step, without confusion.",
     course_text:"The course is for anyone who wants to understand which products they need and how to use them. Practical, simple and adapted to your skin type.",
     course_cta:"Enroll",
-    contact_title:"Contact", contact_sub:"Write to me or book online.", contact_addr:"Maribor, Slovenia",
+    contact_title:"Contact", contact_sub:"Write to me or book online.", contact_addr:"Vodnikov trg 1, 2000 Maribor, Slovenija",
     form_name:"Name", form_email:"Email", form_msg:"Message", form_send:"Send",
     foot_note:"\u00a9 2026 Solopova Makeup \u00b7 Maribor"
   },
@@ -100,7 +100,7 @@ window.I18N = {
     course_title:"\u041a\u0443\u0440\u0441 \u043c\u0430\u043a\u0438\u044f\u0436\u0430 \u0434\u043b\u044f \u043a\u0430\u0436\u0434\u043e\u0439", course_sub:"\u041d\u0430\u0443\u0447\u0438\u0441\u044c \u0434\u0435\u043b\u0430\u0442\u044c \u043c\u0430\u043a\u0438\u044f\u0436 \u0441\u0430\u043c\u0430 \u2014 \u0448\u0430\u0433 \u0437\u0430 \u0448\u0430\u0433\u043e\u043c, \u0431\u0435\u0437 \u043f\u0443\u0442\u0430\u043d\u0438\u0446\u044b.",
     course_text:"\u041a\u0443\u0440\u0441 \u0434\u043b\u044f \u0442\u0435\u0445, \u043a\u0442\u043e \u0445\u043e\u0447\u0435\u0442 \u043f\u043e\u043d\u044f\u0442\u044c, \u043a\u0430\u043a\u0438\u0435 \u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0430 \u043d\u0443\u0436\u043d\u044b \u0438 \u043a\u0430\u043a \u0438\u043c\u0438 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c\u0441\u044f. \u041f\u0440\u0430\u043a\u0442\u0438\u0447\u043d\u043e, \u043f\u0440\u043e\u0441\u0442\u043e, \u043f\u043e\u0434 \u0442\u0432\u043e\u0439 \u0442\u0438\u043f \u043a\u043e\u0436\u0438.",
     course_cta:"\u0417\u0430\u043f\u0438\u0441\u0430\u0442\u044c\u0441\u044f \u043d\u0430 \u043a\u0443\u0440\u0441",
-    contact_title:"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u044b", contact_sub:"\u041d\u0430\u043f\u0438\u0448\u0438\u0442\u0435 \u043c\u043d\u0435 \u0438\u043b\u0438 \u0437\u0430\u043f\u0438\u0448\u0438\u0442\u0435\u0441\u044c \u043e\u043d\u043b\u0430\u0439\u043d.", contact_addr:"\u041c\u0430\u0440\u0438\u0431\u043e\u0440, \u0421\u043b\u043e\u0432\u0435\u043d\u0438\u044f",
+    contact_title:"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u044b", contact_sub:"\u041d\u0430\u043f\u0438\u0448\u0438\u0442\u0435 \u043c\u043d\u0435 \u0438\u043b\u0438 \u0437\u0430\u043f\u0438\u0448\u0438\u0442\u0435\u0441\u044c \u043e\u043d\u043b\u0430\u0439\u043d.", contact_addr:"Vodnikov trg 1, 2000 Maribor, Slovenija",
     form_name:"\u0418\u043c\u044f", form_email:"E-mail", form_msg:"\u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435", form_send:"\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c",
     foot_note:"\u00a9 2026 Solopova Makeup \u00b7 Maribor"
   }
