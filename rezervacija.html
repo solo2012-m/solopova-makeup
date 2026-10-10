@@ -14,7 +14,7 @@
 <meta property="og:title" content="Rezervacija — Solopova Makeup">
 <meta property="og:description" content="Rezervirajte termin za ličenje, trepalnice, obrvi ali lase v Mariboru.">
 <meta property="og:url" content="https://solopovamakeup.si/rezervacija.html">
-<link rel="stylesheet" href="assets/style.css?v=20261009c">
+<link rel="stylesheet" href="assets/style.css?v=20261010a">
 </head>
 <body>
 <header class="site"><div class="wrap nav">
@@ -58,12 +58,23 @@
     <p class="bhint" data-i18n="book_hint"></p>
   </form>
 
+<div class="modal" id="bmodal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="bm-title">
+    <div class="modal-ico" id="bm-ico">✓</div>
+    <h3 id="bm-title"></h3>
+    <p id="bm-text"></p>
+    <ul id="bm-list"></ul>
+    <p class="modal-note" id="bm-note"></p>
+    <a class="btn" id="bm-wa" href="https://wa.me/38669900769" target="_blank" rel="noopener" style="display:none"></a>
+    <p style="margin:.9rem 0 0"><button class="btn ghost" type="button" id="bm-close"></button></p>
+  </div>
+</div>
 </main>
 <footer class="site"><div class="wrap foot">
   <div data-i18n="foot_note"></div>
   <div><a class="link" href="pogoji.html">Splošni pogoji</a> · <a class="link" href="zasebnost.html">Zasebnost</a> · <a class="link" href="https://www.instagram.com/solopova.makeup/" target="_blank" rel="noopener">Instagram</a> · <a class="link" href="https://wa.me/38669900769" target="_blank" rel="noopener">WhatsApp</a></div>
 </div></footer>
-<script src="assets/i18n.js?v=20261009c"></script>
+<script src="assets/i18n.js?v=20261010a"></script>
 <script>
 var SERVICES = [
  {id:"porocno",dur:90,slug:"porocno-licenje", sl:"Poročno ličenje", en:"Bridal makeup", ru:"Свадебный макияж", price:"90 €", img:"assets/img/porocno-booking.jpg"},
@@ -167,13 +178,49 @@ function apiSend(msg, cb){
     body:JSON.stringify({_subject:"Nova rezervacija \u2013 Solopova Makeup",_template:"table",_captcha:"false",_autoresponse:T().book_auto,name:name.trim(),phone:phone.trim(),email:email.trim(),Ime:name.trim(),Telefon:phone.trim(),Sporocilo:msg})
   }).then(function(r){ return r.json(); }).then(function(j){ cb(!!(j&&(j.success===true||j.success==="true"))); }).catch(function(){ cb(false); });
 }
+function closeModal(){
+  var m=document.getElementById("bmodal");
+  if(m){ m.hidden=true; document.body.style.overflow=""; }
+}
+function mRow(label,val){ var li=document.createElement("li"); li.textContent=label+": "+val; return li; }
+function showModal(ok,msg){
+  var m=document.getElementById("bmodal"); if(!m) return;
+  var t=T(), sel=selected();
+  var d=((document.getElementById("bdate")||{}).value)||"";
+  var tm=((document.getElementById("btime")||{}).value)||"";
+  var nm=(((document.getElementById("bname")||{}).value)||"").trim();
+  var ico=document.getElementById("bm-ico");
+  ico.textContent = ok ? "\u2713" : "!";
+  ico.className = "modal-ico" + (ok ? "" : " err");
+  document.getElementById("bm-title").textContent = ok ? (t.book_ok_title||"") : (t.book_fail_title||"");
+  document.getElementById("bm-text").textContent = ok ? (t.book_ok_text||"") : (t.book_fail_text||"");
+  var ul=document.getElementById("bm-list"); ul.innerHTML="";
+  if(ok && sel && sel.length){
+    sel.forEach(function(sv){ var li=document.createElement("li"); li.textContent="\u2022 "+sv[curLang()]+" ("+priceText(sv)+")"; ul.appendChild(li); });
+    if(d) ul.appendChild(mRow(t.dt,d));
+    if(tm) ul.appendChild(mRow(t.tm,tm));
+    if(nm) ul.appendChild(mRow(t.nm,nm));
+  }
+  document.getElementById("bm-note").textContent = ok ? (t.book_ok_note||"") : "";
+  var wa=document.getElementById("bm-wa");
+  if(ok){ wa.style.display="none"; }
+  else {
+    wa.style.display="inline-block";
+    wa.textContent = t.book_wa_btn || "WhatsApp";
+    wa.setAttribute("href","https://wa.me/"+WA+"?text="+encodeURIComponent(msg||""));
+  }
+  document.getElementById("bm-close").textContent = t.book_ok_close || "OK";
+  m.hidden=false;
+  document.body.style.overflow="hidden";
+}
 function send(){
   var msg=buildMessage(); if(!msg) return;
   var b=document.getElementById("bsend"); if(!b) return;
   var old=b.textContent; b.disabled=true; b.textContent="\u2026";
   apiSend(msg, function(ok){
     b.disabled=false; b.textContent=old;
-    if(ok){ showSent(); } else { showSent("Ni potrditve – odpiram WhatsApp / no confirmation – opening WhatsApp"); waSend(msg); }
+    showSent(ok ? "" : "Ni potrditve \u2013 pi\u0161i na WhatsApp");
+    showModal(ok, msg);
   });
 }
 function sendMail(){
@@ -256,6 +303,12 @@ document.addEventListener("DOMContentLoaded", function(){
   loadSlots();
   document.getElementById("bdate").addEventListener("change", refreshTimes);
   document.getElementById("bsend").addEventListener("click", send);
+  var mc=document.getElementById("bm-close"); if(mc) mc.addEventListener("click", closeModal);
+  var mod=document.getElementById("bmodal");
+  if(mod){
+    mod.addEventListener("click", function(e){ if(e.target===mod) closeModal(); });
+    document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeModal(); });
+  }
   var bm=document.getElementById("bmail"); if(bm) bm.addEventListener("click", sendMail);
   var bc=document.getElementById("bcal"); if(bc) bc.addEventListener("click", calClick);
   document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(function(){ renderServices(); refreshTimes(); },0); }); });
