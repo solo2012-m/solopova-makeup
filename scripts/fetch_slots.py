@@ -8,6 +8,7 @@ SERVICES = [
     ("laminacija-trepalnic", 7393740), ("laminacija-obrvi", 7393748), ("obrvi-paket", 7393749),
     ("barvanje-obrvi", 7393750), ("korekcija-obrvi", 7393751), ("stajling-las", 7393752),
     ("podaljsevanje-las", 7393753), ("odstranitev-podaljskov", 7394231),
+    ("makeup-za-sebe", 7438180),
 ]
 TZ = zoneinfo.ZoneInfo("Europe/Ljubljana")
 DAYS = 35
