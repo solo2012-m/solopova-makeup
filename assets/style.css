@@ -183,6 +183,10 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .bpricebox{display:flex;flex-direction:column;align-items:flex-end;gap:.15rem;margin-left:auto;flex:0 0 auto;text-align:right;max-width:46%}
 .bcard-d{font-size:.78rem;color:var(--muted);white-space:nowrap}
 .bcard.on{border-color:var(--accent);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.blocs{display:grid;gap:.45rem}
+.bloc{align-items:flex-start}
+.bloc .bcard-t b{display:block;font-weight:600}
+.bloc .bcard-d{display:block;white-space:normal;margin-top:.15rem;font-weight:400}
 .bcard.on:after{content:"✓";position:absolute;top:-8px;right:-6px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:.75rem;line-height:22px;text-align:center}
 .btotal{display:none;margin-top:.9rem;font-weight:600;color:var(--ink)}
 .btotal.on{display:block}

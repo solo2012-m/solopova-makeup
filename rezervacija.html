@@ -14,7 +14,7 @@
 <meta property="og:title" content="Rezervacija — Solopova Makeup">
 <meta property="og:description" content="Rezervirajte termin za ličenje, trepalnice, obrvi ali lase v Mariboru.">
 <meta property="og:url" content="https://solopovamakeup.si/rezervacija.html">
-<link rel="stylesheet" href="assets/style.css?v=20261010c">
+<link rel="stylesheet" href="assets/style.css?v=20261018a">
 </head>
 <body>
 <header class="site"><div class="wrap nav">
@@ -34,6 +34,11 @@
   <div class="section-head reveal"><h2 data-i18n="book_title"></h2><p data-i18n="book_sub"></p></div>
   
   <form class="booking" id="booking" onsubmit="return false">
+    <div class="bstep reveal">
+      <label class="blabel" data-i18n="book_loc_title"></label>
+      <p class="bsub" data-i18n="book_loc_sub"></p>
+      <div class="blocs" id="blocs"></div>
+    </div>
     <div class="bstep reveal">
       <label class="blabel" data-i18n="book_step1"></label>
       <p class="bsub" data-i18n="book_pick"></p>
@@ -75,7 +80,7 @@
   <div data-i18n="foot_note"></div>
   <div><a class="link" href="pogoji.html">Splošni pogoji</a> · <a class="link" href="zasebnost.html">Zasebnost</a> · <a class="link" href="https://www.instagram.com/solopova.makeup/" target="_blank" rel="noopener">Instagram</a> · <a class="link" href="https://wa.me/38669900769" target="_blank" rel="noopener">WhatsApp</a></div>
 </div></footer>
-<script src="assets/i18n.js?v=20261010h"></script>
+<script src="assets/i18n.js?v=20261018a"></script>
 <script>
 var SERVICES = [
  {id:"porocno",dur:90,slug:"porocno-licenje", sl:"Poročno ličenje", en:"Bridal makeup", ru:"Свадебный макияж", price:"90 €", img:"assets/img/porocno-booking.jpg"},
@@ -95,12 +100,34 @@ var SERVICES = [
  {id:"kapsulacija",dur:120,durFrom:true,slug:"podaljsevanje-las", sl:"Kapsulacija (evro-kapsule)", en:"Capsulation (euro capsules)", ru:"Капсуляция (евро-капсулы)", price:"1 € / kapsula", perUnit:true, priceI18n:{sl:"1 € / kapsula",en:"1 € / capsule",ru:"1 € / капсула"}, img:"assets/img/podaljsevanje-1.jpg"},
  {id:"podaljsevanje",dur:120,durFrom:true,slug:"podaljsevanje-las", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 100 €", priceI18n:{sl:"od 100 €",en:"from 100 €",ru:"от 100 €"}, img:"assets/img/podaljsevanje-1.jpg"}
 ];
+var LOCATIONS=[
+ {id:"lepotni", name:"A.V. Lepotni Studio", addr:"Vodnikov trg 1, 2000 Maribor", exclude:["lash"]},
+ {id:"angel", name:"Angel Academy", addr:"Ulica Staneta Severja 9B, 2000 Maribor", exclude:[]}
+];
 var WA="38669900769";
 function curLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
+function curLoc(){ var el=document.querySelector("#blocs input:checked"); if(!el) return null; for(var i=0;i<LOCATIONS.length;i++){ if(LOCATIONS[i].id===el.value) return LOCATIONS[i]; } return null; }
+function updateLocs(){ Array.prototype.forEach.call(document.querySelectorAll("#blocs .bloc"), function(c){ c.classList.toggle("on", !!c.querySelector("input").checked); }); }
+function renderLocs(){
+  var box=document.getElementById("blocs"); if(!box) return;
+  var val=(document.querySelector("#blocs input:checked")||{}).value;
+  box.innerHTML="";
+  LOCATIONS.forEach(function(L){
+    var lab=document.createElement("label"); lab.className="bcard bloc";
+    var rb=document.createElement("input"); rb.type="radio"; rb.name="bloc"; rb.value=L.id; rb.checked=(val===L.id);
+    var t=document.createElement("span"); t.className="bcard-t";
+    var b=document.createElement("b"); b.textContent=L.name;
+    var a=document.createElement("span"); a.className="bcard-d"; a.textContent=L.addr;
+    t.appendChild(b); t.appendChild(a); lab.appendChild(rb); lab.appendChild(t);
+    rb.addEventListener("change", function(){ updateLocs(); renderServices(); refreshTimes(); });
+    box.appendChild(lab);
+  });
+  updateLocs();
+}
 function T(){ return {
-  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",em:"E-mail",nt:"Opomba",total:"Skupaj",from:"okvirno od",fromShort:"od",warn:"Izberite vsaj eno storitev.",needone:"Za koledar izberite natanko eno storitev. Za več storitev pošljite zahtevo."},
-  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",em:"E-mail",nt:"Note",total:"Total",from:"about",fromShort:"from",warn:"Please choose at least one service.",needone:"To use the calendar, choose exactly one service. For several services, send a request."},
-  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",em:"E-mail",nt:"Комментарий",total:"Итого",from:"примерно от",fromShort:"от",warn:"Выберите хотя бы одну услугу.",needone:"Для календаря выберите ровно одну услугу. Для нескольких — отправьте заявку."}
+  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",em:"E-mail",nt:"Opomba",total:"Skupaj",from:"okvirno od",fromShort:"od",warn:"Izberite vsaj eno storitev.",needone:"Za koledar izberite natanko eno storitev. Za več storitev pošljite zahtevo.",loc:"Lokacija",locPick:"Najprej izberite lokacijo salona."},
+  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",em:"E-mail",nt:"Note",total:"Total",from:"about",fromShort:"from",warn:"Please choose at least one service.",needone:"To use the calendar, choose exactly one service. For several services, send a request.",loc:"Location",locPick:"Please choose a salon location first."},
+  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",em:"E-mail",nt:"Комментарий",total:"Итого",from:"примерно от",fromShort:"от",warn:"Выберите хотя бы одну услугу.",needone:"Для календаря выберите ровно одну услугу. Для нескольких — отправьте заявку.",loc:"Локация",locPick:"Сначала выберите салон."}
 }[curLang()]; }
 function priceText(s){ var l=curLang(); return (s.priceI18n && s.priceI18n[l]) || s.price; }
 function priceNum(p){ var m=String(p).replace(/\s/g,"").match(/(\d+)/); return m?parseInt(m[1],10):null; }
@@ -111,10 +138,12 @@ function totalInfo(sel){
 }
 function selected(){ return Array.prototype.slice.call(document.querySelectorAll("#bservices input:checked")).map(function(i){ return SERVICES.filter(function(s){return s.id===i.value;})[0]; }).filter(Boolean); }
 function renderServices(){
-  var l=curLang(), box=document.getElementById("bservices");
+  var l=curLang(), box=document.getElementById("bservices"), L=curLoc();
   var checked={}; Array.prototype.forEach.call(box.querySelectorAll("input:checked"), function(i){ checked[i.value]=1; });
   box.innerHTML="";
+  if(!L){ var hint=document.createElement("p"); hint.className="bhint"; hint.textContent=T().locPick; box.appendChild(hint); update(); return; }
   SERVICES.forEach(function(s){
+    if(L.exclude.indexOf(s.id)>=0) return;
     var lab=document.createElement("label"); lab.className="bcard";
     var cb=document.createElement("input"); cb.type="checkbox"; cb.value=s.id; cb.checked=!!checked[s.id];
     var img=document.createElement("img"); img.className="bthumb"; img.src=s.img; img.alt=""; img.loading="lazy";
@@ -141,7 +170,8 @@ function update(){
   var bc=document.getElementById("bcal"); if(bc){ bc.disabled = (sel.length!==1); bc.style.opacity = (sel.length===1? "1":"0.5"); }
 }
 function buildMessage(){
-  var sel=selected(), t=T(), l=curLang();
+  var sel=selected(), t=T(), l=curLang(), L=curLoc();
+  if(!L){ alert(t.locPick); return null; }
   if(!sel.length){ alert(t.warn); return; }
   var name=document.getElementById("bname").value.trim();
   var phone=document.getElementById("bphone").value.trim();
@@ -151,6 +181,7 @@ function buildMessage(){
   var ti=totalInfo(sel);
   var msg=t.hi+"\n"+t.sv+":";
   sel.forEach(function(s){ msg+="\n• "+s[l]+" ("+priceText(s)+")"; });
+  msg+="\n"+t.loc+": "+L.name+", "+L.addr;
   msg+="\n"+t.total+": "+(ti.from? t.from+" ":"")+ti.sum+" €";
   if(d) msg+="\n"+t.dt+": "+d;
   if(tm) msg+="\n"+t.tm+": "+tm;
@@ -186,7 +217,7 @@ function closeModal(){
 function mRow(label,val){ var li=document.createElement("li"); li.textContent=label+": "+val; return li; }
 function showModal(ok,msg){
   var m=document.getElementById("bmodal"); if(!m) return;
-  var t=T(), sel=selected();
+  var t=T(), sel=selected(), L=curLoc();
   var d=((document.getElementById("bdate")||{}).value)||"";
   var tm=((document.getElementById("btime")||{}).value)||"";
   var nm=(((document.getElementById("bname")||{}).value)||"").trim();
@@ -203,6 +234,7 @@ function showModal(ok,msg){
   document.getElementById("bm-text").textContent = ok ? (t.book_ok_text || f.x) : (t.book_fail_text || f.fx);
   var ul=document.getElementById("bm-list"); ul.innerHTML="";
   if(ok && sel && sel.length){
+    if(L) ul.appendChild(mRow(t.loc, L.name+", "+L.addr));
     sel.forEach(function(sv){ var li=document.createElement("li"); li.textContent="\u2022 "+sv[curLang()]+" ("+priceText(sv)+")"; ul.appendChild(li); });
     if(d) ul.appendChild(mRow(t.dt,d));
     if(tm) ul.appendChild(mRow(t.tm,tm));
@@ -308,6 +340,7 @@ function calClick(){
 document.addEventListener("DOMContentLoaded", function(){
   var tm=document.getElementById("btime"); ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"].forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
   document.getElementById("bdate").min=new Date().toISOString().split("T")[0];
+  renderLocs();
   renderServices();
   refreshTimes();
   loadSlots();
@@ -321,7 +354,7 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   var bm=document.getElementById("bmail"); if(bm) bm.addEventListener("click", sendMail);
   var bc=document.getElementById("bcal"); if(bc) bc.addEventListener("click", calClick);
-  document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(function(){ renderServices(); refreshTimes(); },0); }); });
+  document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(function(){ renderLocs(); renderServices(); refreshTimes(); },0); }); });
 });
 </script>
 </body>
