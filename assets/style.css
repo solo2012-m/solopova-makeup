@@ -183,6 +183,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .bpricebox{display:flex;flex-direction:column;align-items:flex-end;gap:.15rem;margin-left:auto;flex:0 0 auto;text-align:right;max-width:46%}
 .bcard-d{font-size:.78rem;color:var(--muted);white-space:nowrap}
 .bcard.on{border-color:var(--accent);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+#baddrwrap{margin-top:.6rem}
 .blocs{display:grid;gap:.45rem}
 .bloc{align-items:flex-start}
 .bloc .bcard-t b{display:block;font-weight:600}

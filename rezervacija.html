@@ -35,11 +35,6 @@
   
   <form class="booking" id="booking" onsubmit="return false">
     <div class="bstep reveal">
-      <label class="blabel" data-i18n="book_loc_title"></label>
-      <p class="bsub" data-i18n="book_loc_sub"></p>
-      <div class="blocs" id="blocs"></div>
-    </div>
-    <div class="bstep reveal">
       <label class="blabel" data-i18n="book_step1"></label>
       <p class="bsub" data-i18n="book_pick"></p>
       <div class="bservices" id="bservices"></div>
@@ -47,6 +42,11 @@
     </div>
     <div class="bstep reveal">
       <label class="blabel" data-i18n="book_step2"></label>
+      <label class="bsub" data-i18n="book_loc_label" for="bloc"></label>
+      <select id="bloc"></select>
+      <div id="baddrwrap" hidden>
+        <input type="text" id="baddr" data-i18n-ph="book_addr_ph" placeholder="Naslov (ulica, kraj)">
+      </div>
       <div class="brow">
         <input type="date" id="bdate">
         <select id="btime"></select>
@@ -101,33 +101,31 @@ var SERVICES = [
  {id:"podaljsevanje",dur:120,durFrom:true,slug:"podaljsevanje-las", sl:"Podaljševanje las (novo)", en:"Hair extensions (new)", ru:"Наращивание волос (новинка)", price:"od 100 €", priceI18n:{sl:"od 100 €",en:"from 100 €",ru:"от 100 €"}, img:"assets/img/podaljsevanje-1.jpg"}
 ];
 var LOCATIONS=[
- {id:"lepotni", name:"A.V. Lepotni Studio", addr:"Vodnikov trg 1, 2000 Maribor", exclude:["lash"]},
- {id:"angel", name:"Angel Academy", addr:"Ulica Staneta Severja 9B, 2000 Maribor", exclude:[]}
+ {id:"lepotni", sl:"A.V. Lepotni Studio", en:"A.V. Lepotni Studio", ru:"A.V. Lepotni Studio", addr:"Vodnikov trg 1, 2000 Maribor", exclude:["lash"]},
+ {id:"angel", sl:"Angel Academy", en:"Angel Academy", ru:"Angel Academy", addr:"Ulica Staneta Severja 9B, 2000 Maribor", exclude:[]},
+ {id:"mobile", sl:"Na lokaciji stranke", en:"At the client's location", ru:"На выезде (адрес клиента)", addr:"", exclude:[], mobile:true}
 ];
 var WA="38669900769";
 function curLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru"].indexOf(l)>=0?l:"sl"; }
-function curLoc(){ var el=document.querySelector("#blocs input:checked"); if(!el) return null; for(var i=0;i<LOCATIONS.length;i++){ if(LOCATIONS[i].id===el.value) return LOCATIONS[i]; } return null; }
-function updateLocs(){ Array.prototype.forEach.call(document.querySelectorAll("#blocs .bloc"), function(c){ c.classList.toggle("on", !!c.querySelector("input").checked); }); }
+function curLoc(){ var s=document.getElementById("bloc"); if(!s||!s.value) return null; for(var i=0;i<LOCATIONS.length;i++){ if(LOCATIONS[i].id===s.value) return LOCATIONS[i]; } return null; }
+function syncAddr(){
+  var L=curLoc(), w=document.getElementById("baddrwrap");
+  if(w) w.hidden = !(L && L.mobile);
+}
 function renderLocs(){
-  var box=document.getElementById("blocs"); if(!box) return;
-  var val=(document.querySelector("#blocs input:checked")||{}).value;
-  box.innerHTML="";
+  var s=document.getElementById("bloc"); if(!s) return;
+  var val=s.value; s.innerHTML="";
+  s.appendChild(new Option(T().locChoose,""));
   LOCATIONS.forEach(function(L){
-    var lab=document.createElement("label"); lab.className="bcard bloc";
-    var rb=document.createElement("input"); rb.type="radio"; rb.name="bloc"; rb.value=L.id; rb.checked=(val===L.id);
-    var t=document.createElement("span"); t.className="bcard-t";
-    var b=document.createElement("b"); b.textContent=L.name;
-    var a=document.createElement("span"); a.className="bcard-d"; a.textContent=L.addr;
-    t.appendChild(b); t.appendChild(a); lab.appendChild(rb); lab.appendChild(t);
-    rb.addEventListener("change", function(){ updateLocs(); renderServices(); refreshTimes(); });
-    box.appendChild(lab);
+    s.appendChild(new Option((L[curLang()]||L.sl)+(L.addr?" — "+L.addr:""), L.id));
   });
-  updateLocs();
+  s.value=val||"";
+  syncAddr();
 }
 function T(){ return {
-  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",em:"E-mail",nt:"Opomba",total:"Skupaj",from:"okvirno od",fromShort:"od",warn:"Izberite vsaj eno storitev.",needone:"Za koledar izberite natanko eno storitev. Za več storitev pošljite zahtevo.",loc:"Lokacija",locPick:"Najprej izberite lokacijo salona."},
-  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",em:"E-mail",nt:"Note",total:"Total",from:"about",fromShort:"from",warn:"Please choose at least one service.",needone:"To use the calendar, choose exactly one service. For several services, send a request.",loc:"Location",locPick:"Please choose a salon location first."},
-  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",em:"E-mail",nt:"Комментарий",total:"Итого",from:"примерно от",fromShort:"от",warn:"Выберите хотя бы одну услугу.",needone:"Для календаря выберите ровно одну услугу. Для нескольких — отправьте заявку.",loc:"Локация",locPick:"Сначала выберите салон."}
+  sl:{hi:"Pozdravljeni! Želim rezervirati termin.",sv:"Storitve",dt:"Datum",tm:"Ura",nm:"Ime",ph:"Telefon",em:"E-mail",nt:"Opomba",total:"Skupaj",from:"okvirno od",fromShort:"od",warn:"Izberite vsaj eno storitev.",needone:"Za koledar izberite natanko eno storitev. Za več storitev pošljite zahtevo.",loc:"Lokacija",locPick:"Izberite lokacijo.",locChoose:"— izberite lokacijo —",locAddrReq:"Vnesite naslov, kjer naj bo termin.",locMobileHint:"Vnesite naslov"},
+  en:{hi:"Hello! I would like to book an appointment.",sv:"Services",dt:"Date",tm:"Time",nm:"Name",ph:"Phone",em:"E-mail",nt:"Note",total:"Total",from:"about",fromShort:"from",warn:"Please choose at least one service.",needone:"To use the calendar, choose exactly one service. For several services, send a request.",loc:"Location",locPick:"Please choose a location.",locChoose:"— choose a location —",locAddrReq:"Please enter the address for the appointment.",locMobileHint:"Enter your address"},
+  ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",em:"E-mail",nt:"Комментарий",total:"Итого",from:"примерно от",fromShort:"от",warn:"Выберите хотя бы одну услугу.",needone:"Для календаря выберите ровно одну услугу. Для нескольких — отправьте заявку.",loc:"Локация",locPick:"Выберите локацию.",locChoose:"— выберите локацию —",locAddrReq:"Укажите адрес, где будет проходить визит.",locMobileHint:"Введите адрес"}
 }[curLang()]; }
 function priceText(s){ var l=curLang(); return (s.priceI18n && s.priceI18n[l]) || s.price; }
 function priceNum(p){ var m=String(p).replace(/\s/g,"").match(/(\d+)/); return m?parseInt(m[1],10):null; }
@@ -141,9 +139,8 @@ function renderServices(){
   var l=curLang(), box=document.getElementById("bservices"), L=curLoc();
   var checked={}; Array.prototype.forEach.call(box.querySelectorAll("input:checked"), function(i){ checked[i.value]=1; });
   box.innerHTML="";
-  if(!L){ var hint=document.createElement("p"); hint.className="bhint"; hint.textContent=T().locPick; box.appendChild(hint); update(); return; }
   SERVICES.forEach(function(s){
-    if(L.exclude.indexOf(s.id)>=0) return;
+    if(L && L.exclude.indexOf(s.id)>=0) return;
     var lab=document.createElement("label"); lab.className="bcard";
     var cb=document.createElement("input"); cb.type="checkbox"; cb.value=s.id; cb.checked=!!checked[s.id];
     var img=document.createElement("img"); img.className="bthumb"; img.src=s.img; img.alt=""; img.loading="lazy";
@@ -172,6 +169,8 @@ function update(){
 function buildMessage(){
   var sel=selected(), t=T(), l=curLang(), L=curLoc();
   if(!L){ alert(t.locPick); return null; }
+  var addr=(document.getElementById("baddr")||{}).value ? document.getElementById("baddr").value.trim() : "";
+  if(L.mobile && !addr){ alert(t.locAddrReq); return null; }
   if(!sel.length){ alert(t.warn); return; }
   var name=document.getElementById("bname").value.trim();
   var phone=document.getElementById("bphone").value.trim();
@@ -181,7 +180,8 @@ function buildMessage(){
   var ti=totalInfo(sel);
   var msg=t.hi+"\n"+t.sv+":";
   sel.forEach(function(s){ msg+="\n• "+s[l]+" ("+priceText(s)+")"; });
-  msg+="\n"+t.loc+": "+L.name+", "+L.addr;
+  var locText=(L[l]||L.sl)+(L.mobile ? " — "+addr : ", "+L.addr);
+  msg+="\n"+t.loc+": "+locText;
   msg+="\n"+t.total+": "+(ti.from? t.from+" ":"")+ti.sum+" €";
   if(d) msg+="\n"+t.dt+": "+d;
   if(tm) msg+="\n"+t.tm+": "+tm;
@@ -234,7 +234,8 @@ function showModal(ok,msg){
   document.getElementById("bm-text").textContent = ok ? (t.book_ok_text || f.x) : (t.book_fail_text || f.fx);
   var ul=document.getElementById("bm-list"); ul.innerHTML="";
   if(ok && sel && sel.length){
-    if(L) ul.appendChild(mRow(t.loc, L.name+", "+L.addr));
+    var addr=((document.getElementById("baddr")||{}).value||"").trim();
+    if(L) ul.appendChild(mRow(t.loc, (L[curLang()]||L.sl)+(L.mobile ? " — "+addr : ", "+L.addr)));
     sel.forEach(function(sv){ var li=document.createElement("li"); li.textContent="\u2022 "+sv[curLang()]+" ("+priceText(sv)+")"; ul.appendChild(li); });
     if(d) ul.appendChild(mRow(t.dt,d));
     if(tm) ul.appendChild(mRow(t.tm,tm));
@@ -341,10 +342,12 @@ document.addEventListener("DOMContentLoaded", function(){
   var tm=document.getElementById("btime"); ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"].forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
   document.getElementById("bdate").min=new Date().toISOString().split("T")[0];
   renderLocs();
+  syncAddr();
   renderServices();
   refreshTimes();
   loadSlots();
   document.getElementById("bdate").addEventListener("change", refreshTimes);
+  document.getElementById("bloc").addEventListener("change", function(){ syncAddr(); renderServices(); refreshTimes(); });
   document.getElementById("bsend").addEventListener("click", send);
   var mc=document.getElementById("bm-close"); if(mc) mc.addEventListener("click", closeModal);
   var mod=document.getElementById("bmodal");
