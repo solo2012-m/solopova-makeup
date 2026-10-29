@@ -205,11 +205,11 @@ function apiSend(msg, cb){
   var name=(document.getElementById("bname")||{}).value||"";
   var phone=(document.getElementById("bphone")||{}).value||"";
   var email=(document.getElementById("bemail")||{}).value||"";
-  fetch("https://formsubmit.co/ajax/solopova.makeup@gmail.com",{
+  fetch("https://solopova-slots.solopoff-mikhail.workers.dev/booking",{
     method:"POST",
-    headers:{"Content-Type":"application/json",Accept:"application/json"},
-    body:JSON.stringify({_subject:"Nova rezervacija \u2013 Solopova Makeup",_template:"table",_captcha:"false",_autoresponse:T().book_auto,name:name.trim(),phone:phone.trim(),email:email.trim(),Ime:name.trim(),Telefon:phone.trim(),Sporocilo:msg})
-  }).then(function(r){ return r.json(); }).then(function(j){ cb(!!(j&&(j.success===true||j.success==="true"))); }).catch(function(){ cb(false); });
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({name:name.trim(),phone:phone.trim(),email:email.trim(),message:msg})
+  }).then(function(r){ return r.json(); }).then(function(j){ cb(!!(j&&j.ok===true)); }).catch(function(){ cb(false); });
 }
 function closeModal(){
   var m=document.getElementById("bmodal");
