@@ -285,6 +285,17 @@ function calTimes(d, dur){
   return undefined;
 }
 function bindingService(){ var sel=selected(); if(!sel.length) return null; var best=sel[0]; sel.forEach(function(s){ if((s.dur||0)>(best.dur||0)) best=s; }); return best; }
+function ljNow(){
+  try{
+    var parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Ljubljana",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());
+    var o={}; parts.forEach(function(p){ if(p.type!=="literal") o[p.type]=p.value; });
+    return { date: o.year+"-"+o.month+"-"+o.day, minutes: (parseInt(o.hour,10)%24)*60+parseInt(o.minute,10) };
+  }catch(e){
+    var d=new Date();
+    return { date: d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2), minutes: d.getHours()*60+d.getMinutes() };
+  }
+}
+function hmToMin(x){ var p=x.split(":"); return parseInt(p[0],10)*60+parseInt(p[1],10); }
 function refreshTimes(){
   var tm=document.getElementById("btime"); if(!tm) return;
   var d=document.getElementById("bdate").value, s=bindingService(), l=curLang();
@@ -298,6 +309,11 @@ function refreshTimes(){
   }
   var dur=s.dur||60;
   var slots=calTimes(d,dur);
+  var now=ljNow();
+  if(slots && slots.length && d===now.date){
+    var limit=now.minutes+60;
+    slots=slots.filter(function(x){ return hmToMin(x)>=limit; });
+  }
   var noFree=(l==="ru"?"Нет свободного времени":(l==="en"?"No free slots":"Ni prostih terminov"));
   if(slots===undefined){ tm.appendChild(new Option("…","")); addAgree(); return; }
   if(slots && slots.length){
@@ -308,7 +324,7 @@ function refreshTimes(){
 }
 document.addEventListener("DOMContentLoaded", function(){
   var tm=document.getElementById("btime"); ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"].forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
-  document.getElementById("bdate").min=new Date().toISOString().split("T")[0];
+  document.getElementById("bdate").min=ljNow().date;
   renderLocs();
   syncAddr();
   renderServices();
