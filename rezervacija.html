@@ -48,9 +48,10 @@
         <input type="text" id="baddr" data-i18n-ph="book_addr_ph" placeholder="Naslov (ulica, kraj)">
       </div>
       <div class="brow">
-        <input type="date" id="bdate">
-        <select id="btime"></select>
+        <label class="bfield"><span data-i18n="book_date_label">Datum</span><input type="date" id="bdate"></label>
+        <label class="bfield"><span data-i18n="book_time_label">Ura</span><select id="btime"></select></label>
       </div>
+      <p class="bsub" data-i18n="book_slots_hint"></p>
     </div>
     <div class="bstep reveal">
       <label class="blabel" data-i18n="book_step3"></label>
