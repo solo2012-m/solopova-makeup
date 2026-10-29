@@ -165,7 +165,6 @@ function update(){
   var ti=totalInfo(sel), t=T();
   el.classList.add("on");
   el.textContent = t.total+": " + (ti.from ? t.from+" " : "") + ti.sum + " €";
-  var bc=document.getElementById("bcal"); if(bc){ bc.disabled = (sel.length!==1); bc.style.opacity = (sel.length===1? "1":"0.5"); }
 }
 function buildMessage(){
   var sel=selected(), t=T(), l=curLang(), L=curLoc();
@@ -268,30 +267,22 @@ function sendMail(){
   var msg=buildMessage(); if(!msg) return;
   window.open("https://mail.google.com/mail/?view=cm&fs=1&to=solopova.makeup@gmail.com&su="+encodeURIComponent(T().hi)+"&body="+encodeURIComponent(msg),"_blank");
 }
-var SLOTS=null, SLOT_URL="assets/slots.json";
-var BRIDGE="https://solopova-slots.solopoff-mikhail.workers.dev/slots";
+var CALAPI="https://solopova-slots.solopoff-mikhail.workers.dev/cal-slots";
 var LIVE={}, LIVE_PENDING={};
 function hmLocal(iso){ try { return new Date(iso).toLocaleTimeString("sl-SI",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Europe/Ljubljana"}); } catch(e){ return ""; } }
-function liveTimes(slug, d){
-  if(!slug) return null;
-  var key=slug+"|"+d;
+var LIVE={}, LIVE_PENDING={};
+function calTimes(d, dur){
+  var key=d+"|"+dur;
   if(LIVE[key]!==undefined) return LIVE[key];
   if(!LIVE_PENDING[key]){
     LIVE_PENDING[key]=1;
-    fetch(BRIDGE+"?service="+encodeURIComponent(slug)+"&start="+encodeURIComponent(d+"T00:00:00.000Z")+"&end="+encodeURIComponent(d+"T23:59:59.000Z"))
+    fetch(CALAPI+"?date="+encodeURIComponent(d)+"&dur="+encodeURIComponent(dur))
       .then(function(r){ return r.json(); })
-      .then(function(j){
-        var jj=(j&&j.result&&j.result.data&&j.result.data.json)||{};
-        var items=(jj.slots&&jj.slots[d])||[];
-        LIVE[key]=items.map(function(it){ return hmLocal(it.time||""); }).filter(Boolean);
-        delete LIVE_PENDING[key];
-        refreshTimes();
-      })
-      .catch(function(){ delete LIVE_PENDING[key]; });
+      .then(function(j){ LIVE[key]=(j&&j.ok&&j.slots)?j.slots:null; delete LIVE_PENDING[key]; refreshTimes(); })
+      .catch(function(){ LIVE[key]=null; delete LIVE_PENDING[key]; refreshTimes(); });
   }
-  return null;
+  return undefined;
 }
-function winFor(slug){ return (slug==="porocno-licenje")?["05:00","18:00"]:["09:00","18:00"]; }
 function bindingService(){ var sel=selected(); if(!sel.length) return null; var best=sel[0]; sel.forEach(function(s){ if((s.dur||0)>(best.dur||0)) best=s; }); return best; }
 function refreshTimes(){
   var tm=document.getElementById("btime"); if(!tm) return;
@@ -300,44 +291,19 @@ function refreshTimes(){
   var agree=(l==="ru"?"По договорённости":(l==="en"?"By arrangement":"Po dogovoru"));
   function addAgree(){ tm.appendChild(new Option(agree, agree)); }
   if(!d){ tm.appendChild(new Option((l==="ru"?"— выберите дату —":(l==="en"?"— choose a date —":"— izberite datum —")), "")); return; }
-  var win=winFor(s?s.slug:"");
+  if(!s){
+    for(var h=9; h<=18; h++){ ["00","30"].forEach(function(m){ var hh=(h<10?"0"+h:""+h); tm.appendChild(new Option(hh+":"+m, hh+":"+m)); }); }
+    addAgree(); if(prev) tm.value=prev; return;
+  }
+  var dur=s.dur||60;
+  var slots=calTimes(d,dur);
   var noFree=(l==="ru"?"Нет свободного времени":(l==="en"?"No free slots":"Ni prostih terminov"));
-  var farText=(l==="ru"?"Дата дальше календаря — отправьте заявку":(l==="en"?"Date is beyond the calendar — send a request":"Datum je izven koledarja — pošljite zahtevek"));
-  var svc=(SLOTS && s && SLOTS.slots && SLOTS.slots[s.slug]) ? SLOTS.slots[s.slug] : null;
-  if(s){
-    var live=liveTimes(s.slug, d);
-    if(live){
-      var ltimes=live.filter(function(x){ return x>=win[0] && x<=win[1]; });
-      if(ltimes.length){ ltimes.forEach(function(x){ tm.appendChild(new Option(x,x)); }); addAgree(); if(prev) tm.value=prev; return; }
-      if(svc){ tm.appendChild(new Option(noFree, "")); addAgree(); return; }
-    }
+  if(slots===undefined){ tm.appendChild(new Option("…","")); addAgree(); return; }
+  if(slots && slots.length){
+    slots.forEach(function(x){ tm.appendChild(new Option(x,x)); });
+    addAgree(); if(prev && slots.indexOf(prev)>=0) tm.value=prev; return;
   }
-  if(svc){
-    var keys=Object.keys(svc);
-    if(!keys.length || d>keys[keys.length-1]){ tm.appendChild(new Option(farText, "")); addAgree(); return; }
-    var times=(svc[d]||[]).filter(function(x){ return x>=win[0] && x<=win[1]; });
-    if(times.length){ times.forEach(function(x){ tm.appendChild(new Option(x,x)); }); addAgree(); if(prev) tm.value=prev; return; }
-    tm.appendChild(new Option(noFree, "")); addAgree(); return;
-  }
-  for(var h=parseInt(win[0],10); h<=parseInt(win[1],10); h++){
-    ["00","30"].forEach(function(m){ var hh=(h<10?"0"+h:""+h), x=hh+":"+m; if(x>=win[0] && x<=win[1]) tm.appendChild(new Option(x,x)); });
-  }
-  addAgree();
-  if(prev) tm.value=prev;
-}
-function loadSlots(){ fetch(SLOT_URL+"?t="+Date.now()).then(function(r){ return r.json(); }).then(function(j){ SLOTS=j; refreshTimes(); }).catch(function(){ SLOTS=null; refreshTimes(); }); }
-function calUrl(){
-  var sel=selected(); if(sel.length!==1) return null;
-  var s=sel[0]; if(!s.slug) return null;
-  var d=document.getElementById("bdate").value;
-  var u="https://cal.com/solopova-makeup/"+s.slug+"?lang="+curLang();
-  if(d) u+="&date="+d;
-  return u;
-}
-function calClick(){
-  var u=calUrl();
-  if(!u){ alert(T().needone); return; }
-  window.open(u,"_blank");
+  tm.appendChild(new Option(noFree, "")); addAgree();
 }
 document.addEventListener("DOMContentLoaded", function(){
   var tm=document.getElementById("btime"); ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"].forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
@@ -346,7 +312,6 @@ document.addEventListener("DOMContentLoaded", function(){
   syncAddr();
   renderServices();
   refreshTimes();
-  loadSlots();
   document.getElementById("bdate").addEventListener("change", refreshTimes);
   document.getElementById("bloc").addEventListener("change", function(){ syncAddr(); renderServices(); refreshTimes(); });
   document.getElementById("bsend").addEventListener("click", send);
@@ -357,7 +322,6 @@ document.addEventListener("DOMContentLoaded", function(){
     document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeModal(); });
   }
   var bm=document.getElementById("bmail"); if(bm) bm.addEventListener("click", sendMail);
-  var bc=document.getElementById("bcal"); if(bc) bc.addEventListener("click", calClick);
   document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click", function(){ setTimeout(function(){ renderLocs(); renderServices(); refreshTimes(); },0); }); });
 });
 </script>
