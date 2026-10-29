@@ -291,7 +291,7 @@ function refreshTimes(){
   var prev=tm.value; tm.innerHTML="";
   var agree=(l==="ru"?"По договорённости":(l==="en"?"By arrangement":"Po dogovoru"));
   function addAgree(){ tm.appendChild(new Option(agree, agree)); }
-  if(!d){ tm.appendChild(new Option((l==="ru"?"— выберите дату —":(l==="en"?"— choose a date —":"— izberite datum —")), "")); return; }
+  if(!d){ tm.appendChild(new Option("—", "")); return; }
   if(!s){
     for(var h=9; h<=18; h++){ ["00","30"].forEach(function(m){ var hh=(h<10?"0"+h:""+h); tm.appendChild(new Option(hh+":"+m, hh+":"+m)); }); }
     addAgree(); if(prev) tm.value=prev; return;
