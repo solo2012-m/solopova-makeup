@@ -109,7 +109,22 @@ function applyLang(l){
   if(!window.I18N[l]) l='sl';
   document.documentElement.lang=l;
   document.querySelectorAll('[data-i18n]').forEach(function(el){
-    var k=el.getAttribute('data-i18n'); var v=window.I18N[l][k]; if(v!=null) el.textContent=v;
+    var k=el.getAttribute('data-i18n'); var v=window.I18N[l][k];
+    if(k==='brand_tag' && v!=null){
+      var brand=el.closest('a.brand');
+      if(brand){
+        var box=document.createElement('div'); box.className=brand.className;
+        var home=document.createElement('a'); home.href=brand.getAttribute('href');
+        var title=brand.querySelector('b'); if(title) home.appendChild(title);
+        box.appendChild(home); box.appendChild(el); brand.replaceWith(box);
+      }
+      var targets=['galerija.html#licenje','galerija.html#trepalnice','galerija.html#obrvi','galerija.html#lasje','tecaji.html'];
+      el.textContent='';
+      v.split('·').forEach(function(label,i){
+        if(i) el.appendChild(document.createTextNode(' · '));
+        var link=document.createElement('a'); link.href=targets[i]; link.textContent=label.trim(); el.appendChild(link);
+      });
+    }else if(v!=null) el.textContent=v;
   });
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
     var k=el.getAttribute('data-i18n-ph'); var v=window.I18N[l][k]; if(v!=null) el.setAttribute('placeholder',v);
