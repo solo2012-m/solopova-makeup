@@ -255,6 +255,10 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .post-card img{width:100%;border-radius:12px;margin-bottom:1rem;display:block}
 .post-card h3{margin:.2rem 0 .5rem}
 .post-card p{color:var(--muted);font-size:.92rem;line-height:1.55}
+html[lang="uk"] main > section:not(.uk-page){display:none!important}
+html[lang="uk"] main > .uk-page{display:block!important}
+html[lang="uk"] article > *:not(.uk-article){display:none!important}
+html[lang="uk"] article > .uk-article{display:block!important}
 
 /* Course landing */
 details>summary[data-lang]{display:none}
