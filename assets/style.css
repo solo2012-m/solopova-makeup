@@ -127,6 +127,7 @@ section{padding:4rem 0}
 .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:center}
 .quote{font-family:'Cormorant Garamond',serif;font-size:1.5rem;line-height:1.4;color:var(--ink)}
 .steps{counter-reset:s}
+.stepnum{font-family:'Cormorant Garamond',serif;font-size:2.4rem;line-height:1;color:var(--accent);margin-bottom:.35rem}
 .step{display:flex;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--line)}
 .step ul{margin:.35rem 0 0 1.1rem;padding:0;color:var(--muted)}
 .step li{margin:.22rem 0;line-height:1.5}
