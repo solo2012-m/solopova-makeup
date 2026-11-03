@@ -201,6 +201,9 @@ window.I18N.ru = Object.assign(window.I18N.ru, {
   tc_terms:"Условия",
   tc_privacy:"Конфиденциальность"
 });
+window.I18N.sl.contact_addr_label="Naslov";
+window.I18N.en.contact_addr_label="Address";
+window.I18N.ru.contact_addr_label="Адрес";
 function applyLang(l){
   if(!window.I18N[l]) l='sl';
   document.documentElement.lang=l;
