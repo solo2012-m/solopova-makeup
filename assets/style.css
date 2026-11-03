@@ -124,6 +124,8 @@ section{padding:4rem 0}
 .quote{font-family:'Cormorant Garamond',serif;font-size:1.5rem;line-height:1.4;color:var(--ink)}
 .steps{counter-reset:s}
 .step{display:flex;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.step ul{margin:.35rem 0 0 1.1rem;padding:0;color:var(--muted)}
+.step li{margin:.22rem 0;line-height:1.5}
 .step:before{counter-increment:s;content:counter(s);font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--accent);min-width:2rem}
 .cta-band{background:linear-gradient(135deg,#2b2622,#463a33);color:#fff;border-radius:26px;padding:3.2rem;text-align:center}
 .cta-band h2{color:#fff}
