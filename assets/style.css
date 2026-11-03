@@ -82,6 +82,10 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(250,247,244,.86);ba
 .hero .kicker{letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:var(--accent);margin-bottom:1rem}
 .lead{font-size:1.08rem;color:var(--muted);max-width:46ch}
 .hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem}
+.hero-points{list-style:none;margin:1.1rem 0 0;padding:0;display:grid;gap:.45rem}
+.hero-points li{position:relative;padding-left:1.4rem;color:var(--muted);font-size:.95rem;line-height:1.45}
+.hero-points li:before{content:"✓";position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
+.hero-note{font-size:.8rem;color:var(--muted);margin-top:.55rem}
 .ph{border-radius:var(--radius);background:linear-gradient(135deg,#efe3d8,#e6cfc4);position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:flex-start;color:#9a7f6e;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;padding:1rem}
 .ph.tall{aspect-ratio:3/4}
 .ph.wide{aspect-ratio:16/10}
