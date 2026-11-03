@@ -204,6 +204,9 @@ window.I18N.ru = Object.assign(window.I18N.ru, {
 window.I18N.sl.contact_addr_label="Naslov";
 window.I18N.en.contact_addr_label="Address";
 window.I18N.ru.contact_addr_label="Адрес";
+window.I18N.sl.nav_blog="Nasveti";
+window.I18N.en.nav_blog="Tips";
+window.I18N.ru.nav_blog="Советы";
 function applyLang(l){
   if(!window.I18N[l]) l='sl';
   document.documentElement.lang=l;
