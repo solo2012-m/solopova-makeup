@@ -143,7 +143,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
   .nav a.link{display:inline-block;font-size:.86rem;white-space:nowrap}
   .nav .lang{margin-left:auto}
 }
-@media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}.cta-band{padding:2rem 1.2rem}}
+@media(max-width:560px){.hero{padding-top:3.5rem}.g2,.g3,.g4{grid-template-columns:1fr}.cta-band{padding:2rem 1.2rem}}
 .cta-band .btn{background:#fff;color:var(--ink)}
 .cta-band .btn:hover{background:var(--accent);color:#fff}
 .ph.nolabel{padding:0}
@@ -230,6 +230,13 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 @media(max-width:560px){.revnav{gap:.7rem}}
 
 /* Course landing */
+details>summary[data-lang]{display:none}
+details>summary[data-lang].on{display:list-item}
+.sale-banner{position:fixed;top:0;left:0;right:0;z-index:110;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;text-align:center;padding:.45rem .8rem;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+body.has-banner{padding-top:2rem}
+body.has-banner header.site{top:2rem}
+body.has-banner .sale-banner [data-lang]{display:none}
+body.has-banner .sale-banner [data-lang].on{display:inline}
 .ribbon{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border-radius:999px;padding:.35rem .9rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
 .course-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;padding:3.2rem 0 2.4rem}
 .course-price{display:flex;align-items:baseline;gap:.6rem;margin:1.1rem 0 .3rem}

@@ -105,6 +105,102 @@ window.I18N = {
     foot_note:"\u00a9 2026 Solopova Makeup \u00b7 Maribor"
   }
 };
+window.I18N.sl = Object.assign(window.I18N.sl, {
+  tc_ribbon:"Tečaji in izobraževanja",
+  tc_title:"Nauči se ličiti — zase ali profesionalno",
+  tc_lead:"Spletni in individualni tečaji ličenja ter lepotnih tehnik. Vse znanje, ki ga uporabljam pri svojem delu — razloženo korak za korakom.",
+  tc_btn_online:"Spletni tečaj ličenja",
+  tc_btn_live:"Individualni tečaj v živo",
+  tc_presale:"Predprodaja 12 €",
+  tc_c1_title:"Ličenje brez starosti",
+  tc_c1_text:"Spletni tečaj: sodobna shema dnevnega ličenja z lifting učinkom. 5 video lekcij + 2 bonusa, dostop za vedno, 14-dnevna garancija vračila.",
+  tc_c1_meta:"Začetek 1. 12. 2026",
+  tc_view_course:"Poglej tečaj",
+  tc_c2_title:"Makeup za sebe",
+  tc_c2_text:"Individualni tečaj v živo (3–4 ure): priprava kože, izbira kozmetike, pregled tvoje kozmetične torbice, dnevno ličenje in večerno ličenje (puščica ali smokey), šminka in zaključek.",
+  tc_view_program:"Poglej program",
+  tc_book:"Rezerviraj",
+  tc_soon:"Kmalu",
+  tc_c3_title:"Tečaj laminacije obrvi",
+  tc_c3_text:"Izobraževanje za kozmetičarke in vizažistke: postopek laminacije, korekcija oblike, nega in poprodajni nasveti.",
+  tc_c4_title:"Tečaj laminacije trepalnic",
+  tc_c4_text:"Celoten postopek laminacije trepalnic: izbira materialov, tehnika, varnost in nega po tretmaju.",
+  tc_c5_title:"Tečaj barvanja obrvi",
+  tc_c5_text:"Barvanje obrvi s kano in barvo: izbira odtenka, mešanje, čas delovanja in nega.",
+  tc_interest:"Prijavi zanimanje",
+  tc_c6_title:"Želiš drug tečaj?",
+  tc_c6_text:"Pripravljam še druga izobraževanja. Napiši mi, katero tehniko bi se rada naučila — in tečaj pripravim zate.",
+  tc_suggest:"Predlagaj tečaj",
+  tc_cta_title:"Ne veš, kateri tečaj je pravi zate?",
+  tc_cta_text:"Piši mi — skupaj izbereva najboljšo pot.",
+  tc_ask:"Vprašaj me",
+  tc_terms:"Splošni pogoji",
+  tc_privacy:"Zasebnost"
+});
+window.I18N.en = Object.assign(window.I18N.en, {
+  tc_ribbon:"Courses & education",
+  tc_title:"Learn makeup — for yourself or professionally",
+  tc_lead:"Online and one-to-one makeup and beauty courses. All the knowledge I use in my work — explained step by step.",
+  tc_btn_online:"Online makeup course",
+  tc_btn_live:"One-to-one course in person",
+  tc_presale:"Pre-sale €12",
+  tc_c1_title:"Ageless Makeup",
+  tc_c1_text:"Online course: a modern daily makeup routine with a lifting effect. 5 video lessons + 2 bonuses, lifetime access, 14-day money-back guarantee.",
+  tc_c1_meta:"Starts 1 Dec 2026",
+  tc_view_course:"View course",
+  tc_c2_title:"Makeup for Yourself",
+  tc_c2_text:"One-to-one course in person (3–4 hours): skin preparation, choosing products, reviewing your makeup bag, daytime makeup and evening makeup (winged liner or smokey), lipstick and finishing touches.",
+  tc_view_program:"View program",
+  tc_book:"Book",
+  tc_soon:"Coming soon",
+  tc_c3_title:"Brow lamination course",
+  tc_c3_text:"Training for beauticians and makeup artists: lamination procedure, shape correction, aftercare and after-sales advice.",
+  tc_c4_title:"Lash lamination course",
+  tc_c4_text:"The complete lash lamination procedure: choosing materials, technique, safety and aftercare.",
+  tc_c5_title:"Brow tinting course",
+  tc_c5_text:"Brow tinting with henna and dye: choosing the shade, mixing, processing time and aftercare.",
+  tc_interest:"Register interest",
+  tc_c6_title:"Want another course?",
+  tc_c6_text:"I am preparing other trainings too. Tell me which technique you would like to learn — and I will prepare a course for you.",
+  tc_suggest:"Suggest a course",
+  tc_cta_title:"Not sure which course is right for you?",
+  tc_cta_text:"Write to me — we will find the best path together.",
+  tc_ask:"Ask me",
+  tc_terms:"Terms",
+  tc_privacy:"Privacy"
+});
+window.I18N.ru = Object.assign(window.I18N.ru, {
+  tc_ribbon:"Курсы и обучение",
+  tc_title:"Научись краситься — для себя или профессионально",
+  tc_lead:"Онлайн- и индивидуальные курсы макияжа и бьюти-техник. Все знания, которые я использую в работе — шаг за шагом.",
+  tc_btn_online:"Онлайн-курс макияжа",
+  tc_btn_live:"Индивидуальный курс вживую",
+  tc_presale:"Предпродажа 12 €",
+  tc_c1_title:"Визаж без старения",
+  tc_c1_text:"Онлайн-курс: современная схема дневного макияжа с лифтинг-эффектом. 5 видеоуроков + 2 бонуса, доступ навсегда, 14-дневная гарантия возврата.",
+  tc_c1_meta:"Старт 1.12.2026",
+  tc_view_course:"Смотреть курс",
+  tc_c2_title:"Макияж для себя",
+  tc_c2_text:"Индивидуальный курс вживую (3–4 часа): подготовка кожи, выбор косметики, разбор твоей косметички, дневной и вечерний макияж (стрелка или смоки), помада и завершение образа.",
+  tc_view_program:"Смотреть программу",
+  tc_book:"Записаться",
+  tc_soon:"Скоро",
+  tc_c3_title:"Курс ламинирования бровей",
+  tc_c3_text:"Обучение для косметологов и визажистов: процедура ламинирования, коррекция формы, уход и рекомендации после.",
+  tc_c4_title:"Курс ламинирования ресниц",
+  tc_c4_text:"Полная процедура ламинирования ресниц: выбор материалов, техника, безопасность и уход после.",
+  tc_c5_title:"Курс окрашивания бровей",
+  tc_c5_text:"Окрашивание бровей хной и краской: подбор оттенка, смешивание, время выдержки и уход.",
+  tc_interest:"Оставить заявку",
+  tc_c6_title:"Хочешь другой курс?",
+  tc_c6_text:"Я готовлю и другие обучения. Напиши, какой технике ты хотела бы научиться — и я подготовлю курс для тебя.",
+  tc_suggest:"Предложить курс",
+  tc_cta_title:"Не знаешь, какой курс тебе подходит?",
+  tc_cta_text:"Напиши мне — вместе выберем лучший путь.",
+  tc_ask:"Спроси меня",
+  tc_terms:"Условия",
+  tc_privacy:"Конфиденциальность"
+});
 function applyLang(l){
   if(!window.I18N[l]) l='sl';
   document.documentElement.lang=l;
@@ -129,6 +225,14 @@ function applyLang(l){
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
     var k=el.getAttribute('data-i18n-ph'); var v=window.I18N[l][k]; if(v!=null) el.setAttribute('placeholder',v);
   });
+
+  document.querySelectorAll('[data-lang]').forEach(function(el){
+    if(el.closest('.lang')) return;
+    var on = el.getAttribute('data-lang')===l;
+    el.classList.toggle('on', on);
+    el.style.display = on ? '' : 'none';
+  });
+  document.body.classList.toggle('has-banner', !!document.querySelector('.sale-banner') || (document.querySelector('.ribbon[data-banner]')!=null));
   document.querySelectorAll('.lang button').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-lang')===l); });
   try{ localStorage.setItem('sp_lang', l); }catch(e){}
 }
