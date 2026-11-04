@@ -152,7 +152,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
   .nav a.link{display:inline-block;font-size:.86rem;white-space:nowrap}
   .nav .lang{margin-left:auto}
 }
-@media(max-width:560px){section{padding:2.5rem 0}.hero{padding-top:3.5rem}.g2,.g3,.g4{grid-template-columns:1fr}.cta-band{padding:2rem 1.2rem}}
+@media(max-width:560px){section{padding:2.5rem 0}.hero{padding-top:3.5rem}.g2,.g3,.g4{grid-template-columns:1fr}.cta-band{padding:2rem 1.2rem}.lang{gap:.22rem}.lang button{padding:.2rem .45rem;font-size:.66rem}}
 .cta-band .btn{background:#fff;color:var(--ink)}
 .cta-band .btn:hover{background:var(--accent);color:#fff}
 .ph.nolabel{padding:0}

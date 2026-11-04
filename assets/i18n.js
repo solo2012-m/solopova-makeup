@@ -272,6 +272,14 @@ window.I18N.uk = {
   tc_suggest:"Запропонувати курс", tc_cta_title:"Не знаєш, який курс тобі підходить?", tc_cta_text:"Напиши мені — разом виберемо найкращий шлях.",
   tc_ask:"Запитай мене", tc_terms:"Умови", tc_privacy:"Конфіденційність", contact_addr_label:"Адреса", nav_blog:"Поради"
 };
+window.I18N.sl.foot_terms="Splošni pogoji";
+window.I18N.sl.foot_privacy="Zasebnost";
+window.I18N.en.foot_terms="Terms";
+window.I18N.en.foot_privacy="Privacy";
+window.I18N.ru.foot_terms="Условия";
+window.I18N.ru.foot_privacy="Конфиденциальность";
+window.I18N.uk.foot_terms="Загальні умови";
+window.I18N.uk.foot_privacy="Конфіденційність";
 function applyLang(l){
   if(!window.I18N[l]) l='sl';
   document.documentElement.lang=l;
