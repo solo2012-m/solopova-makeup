@@ -17,16 +17,16 @@
 <meta property="og:url" content="https://solopovamakeup.si/tecaj.html">
 <meta property="og:image" content="https://solopovamakeup.si/assets/img/domov-licenje-1.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/style.css?v=20261104c">
+<link rel="stylesheet" href="assets/style.css?v=20261104d">
 <style>
-html[lang="sl"] main [data-lang]:not([data-lang="sl"]),html[lang="sl"] article [data-lang]:not([data-lang="sl"]),html[lang="sl"] .sale-banner [data-lang]:not([data-lang="sl"]){display:none!important}
-html[lang="en"] main [data-lang]:not([data-lang="en"]),html[lang="en"] article [data-lang]:not([data-lang="en"]),html[lang="en"] .sale-banner [data-lang]:not([data-lang="en"]){display:none!important}
-html[lang="ru"] main [data-lang]:not([data-lang="ru"]),html[lang="ru"] article [data-lang]:not([data-lang="ru"]),html[lang="ru"] .sale-banner [data-lang]:not([data-lang="ru"]){display:none!important}
-html[lang="uk"] main [data-lang]:not([data-lang="uk"]),html[lang="uk"] article [data-lang]:not([data-lang="uk"]),html[lang="uk"] .sale-banner [data-lang]:not([data-lang="uk"]){display:none!important}
-html[lang="uk"] body.uk-page-host main > section:not(.uk-page){display:none!important}
-html[lang="uk"] body.uk-page-host main > .uk-page{display:block!important}
-html[lang="uk"] body.uk-article-host article > *:not(.uk-article){display:none!important}
-html[lang="uk"] body.uk-article-host article > .uk-article{display:block!important}
+html[lang="sl"] [data-lang]:not([data-lang="sl"]):not(.langbtn){display:none!important}
+html[lang="en"] [data-lang]:not([data-lang="en"]):not(.langbtn){display:none!important}
+html[lang="ru"] [data-lang]:not([data-lang="ru"]):not(.langbtn){display:none!important}
+html[lang="uk"] [data-lang]:not([data-lang="uk"]):not(.langbtn){display:none!important}
+html[lang="uk"] body.uk-page-host main{display:none!important}
+html[lang="uk"] body.uk-page-host .uk-page{display:block!important}
+html[lang="uk"] body.uk-article-host article{display:none!important}
+html[lang="uk"] body.uk-article-host .uk-article{display:block!important}
 </style>
 </head>
 <body class="has-banner uk-page-host">
@@ -41,17 +41,17 @@ html[lang="uk"] body.uk-article-host article > .uk-article{display:block!importa
   <a class="link" href="kontakt.html" data-i18n="nav_contact">Kontakt</a>
   <a class="link" data-nav="rezervacija" href="rezervacija.html" data-i18n="nav_book"></a>
   </div>
-  <div class="lang"><button data-lang="sl">SL</button><button data-lang="en">EN</button><button data-lang="ru">RU</button><button data-lang="uk">UA</button></div>
+  <div class="lang"><button class="langbtn" data-lang="sl">SL</button><button class="langbtn" data-lang="en">EN</button><button class="langbtn" data-lang="ru">RU</button><button class="langbtn" data-lang="uk">UA</button></div>
 </div></header>
 <main>
 
-<div class="sale-banner"><span data-lang="sl">Predprodaja · začetek 1. 12. 2026</span><span >Передпродаж · старт 1.12.2026</span><span data-lang="en">Pre-sale · starts 1 Dec 2026</span><span data-lang="ru">Предпродажа · старт 1.12.2026</span><span data-lang="uk">Передпродаж · старт 1.12.2026</span></div>
+<div class="sale-banner"><span data-lang="sl">Predprodaja · začetek 1. 12. 2026</span><span >Передпродаж · старт 1.12.2026</span><span data-lang="en">Pre-sale · starts 1 Dec 2026</span><span data-lang="ru">Предпродажа · старт 1.12.2026</span><span data-lang="uk">Передпродаж · початок 1.12.2026</span></div>
 
 <section class="wrap course-hero">
   <div class="reveal">
     <h1 data-lang="sl">Ličenje brez starosti</h1><h1 >Макіяж без віку</h1>
     <h1 data-lang="en">Ageless Makeup</h1>
-    <h1 data-lang="ru">Визаж без старения</h1>
+    <h1 data-lang="ru">Макияж без возраста</h1>
     <p class="lead" data-lang="sl">Nauči se dnevnega ličenja z lifting učinkom — v petih preprostih korakih. Tudi če se ličiš redko ali ne veš, kje začeti.</p><p class="lead" >Навчися денного макіяжу з ліфтинг-ефектом — у п'ять простих кроків. Навіть якщо фарбуєшся рідко або не знаєш, з чого почати.</p>
     <p class="lead" data-lang="en">Learn everyday makeup with a lifting effect — in five simple steps. Even if you rarely wear makeup or don't know where to start.</p>
     <p class="lead" data-lang="ru">Научись дневному макияжу с лифтинг-эффектом — в пять простых шагов. Даже если красишься редко или не знаешь, с чего начать.</p>
@@ -367,6 +367,8 @@ html[lang="uk"] body.uk-article-host article > .uk-article{display:block!importa
   <a class="btn" href="https://buy.stripe.com/14A8wP5cle7k3BPeQ42cg00" target="_blank" rel="noopener" data-lang="ru">Купить в предпродаже — 12 €</a>
 </div></section>
 
+
+</main>
 <section class="uk-page" data-lang="uk">
   <div class="wrap course-hero">
     <div>
@@ -487,12 +489,11 @@ html[lang="uk"] body.uk-article-host article > .uk-article{display:block!importa
     <a class="btn" href="https://buy.stripe.com/14A8wP5cle7k3BPeQ42cg00" target="_blank" rel="noopener">Купити в передпродажі — 12 €</a>
   </div></div>
 </section>
-</main>
 <footer class="site"><div class="wrap foot">
   <div data-i18n="foot_note">© 2026 Solopova Makeup · Maribor</div>
   <div><a class="link" href="pogoji.html" data-i18n="foot_terms">Splošni pogoji</a> · <a class="link" href="zasebnost.html" data-i18n="foot_privacy">Zasebnost</a> · <a class="link" href="https://www.instagram.com/solopova.makeup/" target="_blank" rel="noopener">Instagram</a> · <a class="link" href="https://wa.me/38669900769" target="_blank" rel="noopener">WhatsApp</a></div>
 </div></footer>
-<script src="assets/i18n.js?v=20261104a"></script>
+<script src="assets/i18n.js?v=20261104b"></script>
 <script>
 (function(){
   function isolate(){

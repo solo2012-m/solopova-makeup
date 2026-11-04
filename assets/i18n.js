@@ -280,6 +280,8 @@ window.I18N.ru.foot_terms="Условия";
 window.I18N.ru.foot_privacy="Конфиденциальность";
 window.I18N.uk.foot_terms="Загальні умови";
 window.I18N.uk.foot_privacy="Конфіденційність";
+window.I18N.ru.course_title="Макияж без возраста";
+window.I18N.ru.tc_c1_title="Макияж без возраста";
 function applyLang(l){
   if(!window.I18N[l]) l='sl';
   document.documentElement.lang=l;
