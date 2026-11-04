@@ -259,6 +259,10 @@ html[lang="uk"] body.uk-page-host main > section:not(.uk-page){display:none!impo
 html[lang="uk"] body.uk-page-host main > .uk-page{display:block!important}
 html[lang="uk"] body.uk-article-host article > *:not(.uk-article){display:none!important}
 html[lang="uk"] body.uk-article-host article > .uk-article{display:block!important}
+html[lang="sl"] main [data-lang]:not([data-lang="sl"]),html[lang="sl"] article [data-lang]:not([data-lang="sl"]),html[lang="sl"] .sale-banner [data-lang]:not([data-lang="sl"]){display:none!important}
+html[lang="en"] main [data-lang]:not([data-lang="en"]),html[lang="en"] article [data-lang]:not([data-lang="en"]),html[lang="en"] .sale-banner [data-lang]:not([data-lang="en"]){display:none!important}
+html[lang="ru"] main [data-lang]:not([data-lang="ru"]),html[lang="ru"] article [data-lang]:not([data-lang="ru"]),html[lang="ru"] .sale-banner [data-lang]:not([data-lang="ru"]){display:none!important}
+html[lang="uk"] main [data-lang]:not([data-lang="uk"]),html[lang="uk"] article [data-lang]:not([data-lang="uk"]),html[lang="uk"] .sale-banner [data-lang]:not([data-lang="uk"]){display:none!important}
 
 /* Course landing */
 details>summary[data-lang]{display:none}
