@@ -19,6 +19,16 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css?v=20261104c">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Korejska laminacija trepalnic v Mariboru: komu ustreza, kako poteka in koliko zdrži","description":"Komu je laminacija trepalnic namenjena, kako poteka tretma, koliko časa zdrži in kako skrbeti po njem.","image":"https://solopovamakeup.si/assets/img/trepalnice-1.jpg","author":{"@type":"Person","name":"Daria Solopova"},"publisher":{"@type":"Organization","name":"Solopova Makeup"},"datePublished":"2026-11-03","dateModified":"2026-11-03","mainEntityOfPage":"https://solopovamakeup.si/laminacija-trepalnic-maribor.html"}</script>
+<style>
+html[lang="sl"] main [data-lang]:not([data-lang="sl"]),html[lang="sl"] article [data-lang]:not([data-lang="sl"]),html[lang="sl"] .sale-banner [data-lang]:not([data-lang="sl"]){display:none!important}
+html[lang="en"] main [data-lang]:not([data-lang="en"]),html[lang="en"] article [data-lang]:not([data-lang="en"]),html[lang="en"] .sale-banner [data-lang]:not([data-lang="en"]){display:none!important}
+html[lang="ru"] main [data-lang]:not([data-lang="ru"]),html[lang="ru"] article [data-lang]:not([data-lang="ru"]),html[lang="ru"] .sale-banner [data-lang]:not([data-lang="ru"]){display:none!important}
+html[lang="uk"] main [data-lang]:not([data-lang="uk"]),html[lang="uk"] article [data-lang]:not([data-lang="uk"]),html[lang="uk"] .sale-banner [data-lang]:not([data-lang="uk"]){display:none!important}
+html[lang="uk"] body.uk-page-host main > section:not(.uk-page){display:none!important}
+html[lang="uk"] body.uk-page-host main > .uk-page{display:block!important}
+html[lang="uk"] body.uk-article-host article > *:not(.uk-article){display:none!important}
+html[lang="uk"] body.uk-article-host article > .uk-article{display:block!important}
+</style>
 </head>
 <body class="uk-article-host">
 <header class="site"><div class="wrap nav">
@@ -221,5 +231,22 @@
   <div><a class="link" href="pogoji.html" data-i18n="foot_terms">Splošni pogoji</a> · <a class="link" href="zasebnost.html" data-i18n="foot_privacy">Zasebnost</a> · <a class="link" href="https://www.instagram.com/solopova.makeup/" target="_blank" rel="noopener">Instagram</a> · <a class="link" href="https://wa.me/38669900769" target="_blank" rel="noopener">WhatsApp</a></div>
 </div></footer>
 <script src="assets/i18n.js?v=20261104a"></script>
+<script>
+(function(){
+  function isolate(){
+    var l = document.documentElement.lang || 'sl';
+    var nodes = document.querySelectorAll('main [data-lang], article [data-lang], .sale-banner [data-lang]');
+    Array.prototype.forEach.call(nodes, function(el){
+      if(el.closest('.lang')) return;
+      var on = el.getAttribute('data-lang') === l;
+      el.style.display = on ? '' : 'none';
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', isolate); else isolate();
+  Array.prototype.forEach.call(document.querySelectorAll('.lang button'), function(b){
+    b.addEventListener('click', function(){ setTimeout(isolate, 0); });
+  });
+})();
+</script>
 </body>
 </html>
