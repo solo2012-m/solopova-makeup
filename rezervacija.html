@@ -14,7 +14,7 @@
 <meta property="og:title" content="Rezervacija — Solopova Makeup">
 <meta property="og:description" content="Rezervirajte termin za ličenje, trepalnice, obrvi ali lase v Mariboru.">
 <meta property="og:url" content="https://solopovamakeup.si/rezervacija.html">
-<link rel="stylesheet" href="assets/style.css?v=20261104d">
+<link rel="stylesheet" href="assets/style.css?v=20261106a">
 <style>
 .brow{display:grid !important;grid-template-columns:1fr 1fr !important;gap:.6rem !important;align-items:end !important}
 .bfield{display:flex !important;flex-direction:column !important;gap:.35rem !important;min-width:0 !important}
@@ -103,7 +103,7 @@
 <script src="assets/i18n.js?v=20261104b"></script>
 <script>
 var SERVICES = [
- {id:"duo",dur:90,slug:"duo-laminacija", sl:"DUO: trepalnice + obrvi", en:"DUO: lashes + brows", ru:"DUO: ресницы + брови", uk:"DUO: вії + брови", price:"60 €", img:"assets/img/duo-akcija.jpg"},
+ {id:"duo",dur:90,slug:"duo-laminacija", promo:true, promoLine:{sl:"Akcija do 30. 11. 2026",en:"Offer until 30 Nov 2026",ru:"Акция до 30.11.2026",uk:"Акція до 30.11.2026"}, sl:"DUO: trepalnice + obrvi", en:"DUO: lashes + brows", ru:"DUO: ресницы + брови", uk:"DUO: вії + брови", price:"60 €", img:"assets/img/duo-akcija.jpg"},
  {id:"porocno",dur:90,slug:"porocno-licenje", sl:"Poročno ličenje", en:"Bridal makeup", ru:"Свадебный макияж", uk:"Весільний макіяж", price:"90 €", img:"assets/img/porocno-booking.jpg"},
  {id:"makeupzasebe",dur:240,durFrom:true,slug:"makeup-za-sebe", sl:"Makeup za sebe (tečaj ličenja)", en:"Makeup for yourself (lesson)", ru:"Макияж для себя (урок)", uk:"Макіяж для себе (урок)", price:"90 €", img:"assets/img/tecaji-studio-2.jpg"},
  {id:"poskusno",dur:60,slug:"poskusno-licenje", sl:"Poskusno ličenje", en:"Trial makeup", ru:"Пробный макияж", uk:"Пробний макіяж", price:"40 €", img:"assets/img/booking-makeup-2.jpg"},
@@ -167,11 +167,13 @@ function renderServices(){
     var cb=document.createElement("input"); cb.type="checkbox"; cb.value=s.id; cb.checked=!!checked[s.id];
     var img=document.createElement("img"); img.className="bthumb"; img.src=s.img; img.alt=""; img.loading="lazy";
     var t=document.createElement("span"); t.className="bcard-t"; t.textContent=s[l];
+    var mid=document.createElement("span"); mid.className="bcard-mid"; mid.appendChild(t);
+    if(s.promoLine){ var pl=document.createElement("span"); pl.className="bcard-promo"; pl.textContent=(s.promoLine[l]||s.promoLine.sl); mid.appendChild(pl); }
     var pb=document.createElement("span"); pb.className="bpricebox";
     var p=document.createElement("span"); p.className="bcard-p"; p.textContent=priceText(s);
     var d=document.createElement("span"); d.className="bcard-d"; d.textContent=(s.dur? ((s.durFrom? T().fromShort+" ":"") + s.dur + " min") : "");
     pb.appendChild(p); pb.appendChild(d);
-    lab.appendChild(cb); lab.appendChild(img); lab.appendChild(t); lab.appendChild(pb);
+    lab.appendChild(cb); lab.appendChild(img); lab.appendChild(mid); lab.appendChild(pb);
     cb.addEventListener("change", function(){ update(); refreshTimes(); });
     box.appendChild(lab);
   });
