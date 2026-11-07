@@ -341,11 +341,13 @@ function refreshTimes(){
   function addAgree(){ tm.appendChild(new Option(agree, agree)); }
   if(!d){ tm.appendChild(new Option("—", "")); return; }
   if(!s){
-    for(var h=9; h<=18; h++){ ["00","30"].forEach(function(m){ var hh=(h<10?"0"+h:""+h); tm.appendChild(new Option(hh+":"+m, hh+":"+m)); }); }
+    var h0=(d>="2026-11-14")?10:9;
+    for(var h=h0; h<=18; h++){ ["00","30"].forEach(function(m){ var hh=(h<10?"0"+h:""+h); tm.appendChild(new Option(hh+":"+m, hh+":"+m)); }); }
     addAgree(); if(prev) tm.value=prev; return;
   }
   var dur=s.dur||60;
   var slots=calTimes(d,dur);
+  if(d>="2026-11-14" && slots) slots=slots.filter(function(x){ return hmToMin(x)>=600; });
   var now=ljNow();
   if(slots && slots.length && d===now.date){
     var limit=now.minutes+60;
