@@ -231,11 +231,24 @@ function apiSend(msg, cb){
   var name=(document.getElementById("bname")||{}).value||"";
   var phone=(document.getElementById("bphone")||{}).value||"";
   var email=(document.getElementById("bemail")||{}).value||"";
+  var d=(document.getElementById("bdate")||{}).value||"";
+  var tm=(document.getElementById("btime")||{}).value||"";
+  var sel=selected(), bs=bindingService();
+  var svc=sel.map(function(x){ return x.slug; }).join(",");
+  var durMin=bs ? (bs.dur||60) : 60;
   fetch("https://solopova-slots.solopoff-mikhail.workers.dev/booking",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({name:name.trim(),phone:phone.trim(),email:email.trim(),message:msg})
-  }).then(function(r){ return r.json(); }).then(function(j){ cb(!!(j&&j.ok===true)); }).catch(function(){ cb(false); });
+    body:JSON.stringify({name:name.trim(),phone:phone.trim(),email:email.trim(),message:msg,date:d,time:tm,duration:durMin,service:svc})
+  }).then(function(r){ return r.json(); }).then(function(j){
+    if(j && j.ok===false && j.error==="slot taken"){
+      LIVE={}; LIVE_PENDING={};
+      var l=curLang();
+      alert(l==="ru"?"Это время уже занято. Выберите другое.":(l==="en"?"This time is already taken. Please choose another.":"Ta termin je že zaseden. Izberite drugega."));
+      refreshTimes(); cb(false); return;
+    }
+    cb(!!(j&&j.ok===true));
+  }).catch(function(){ cb(false); });
 }
 function closeModal(){
   var m=document.getElementById("bmodal");
