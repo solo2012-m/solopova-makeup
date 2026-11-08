@@ -25,6 +25,7 @@
 .datewrap .dview::placeholder{color:var(--muted);opacity:1}
 .datewrap input[type=date]{position:absolute !important;inset:0 !important;width:100% !important;height:100% !important;max-width:100% !important;margin:0 !important;padding:0 !important;border:0 !important;background:transparent !important;opacity:0;-webkit-appearance:none;appearance:none;font-size:16px;cursor:pointer}
 .datewrap::after{content:"";position:absolute;right:.9rem;top:50%;width:18px;height:18px;margin-top:-9px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a8a8a' stroke-width='1.8' stroke-linecap='round'><rect x='3' y='5' width='18' height='16' rx='2'/><path d='M8 3v4M16 3v4M3 10h18'/></svg>") center/18px 18px no-repeat;pointer-events:none;opacity:.65}
+.bfree{color:var(--accent);font-size:.86rem;font-weight:600;margin:.45rem 0 0}
 </style>
 </head>
 <body>
@@ -69,6 +70,7 @@
         </div>
         <label class="bfield"><span data-i18n="book_time_label">Ura</span><select id="btime"></select></label>
       </div>
+      <p id="bfree" class="bfree" hidden></p>
       <p class="bsub" data-i18n="book_slots_hint"></p>
     </div>
     <div class="bstep reveal">
@@ -200,6 +202,8 @@ function buildMessage(){
   var email=(document.getElementById("bemail")||{}).value ? document.getElementById("bemail").value.trim() : "";
   var note=document.getElementById("bnote").value.trim();
   var d=document.getElementById("bdate").value, tm=document.getElementById("btime").value;
+  var noFree=(l==="ru"?"На эту дату свободных мест нет. Выберите другую дату.":(l==="en"?"No free slots on this date. Please choose another date.":"Na ta dan ni prostih terminov. Izberite drug datum."));
+  if(d && (!tm || tm===noFree)){ alert(noFree); return null; }
   var ti=totalInfo(sel);
   var msg=t.hi+"\n"+t.sv+":";
   sel.forEach(function(s){ msg+="\n• "+s[l]+" ("+priceText(s)+")"; });
@@ -299,7 +303,7 @@ function calTimes(d, dur){
   if(LIVE[key]!==undefined) return LIVE[key];
   if(!LIVE_PENDING[key]){
     LIVE_PENDING[key]=1;
-    fetch(CALAPI+"?date="+encodeURIComponent(d)+"&dur="+encodeURIComponent(dur))
+    fetch(CALAPI+"?date="+encodeURIComponent(d)+"&dur="+encodeURIComponent(dur)+"&t="+Date.now(), {cache:"no-store"})
       .then(function(r){ return r.json(); })
       .then(function(j){ LIVE[key]=(j&&j.ok&&j.slots)?j.slots:null; delete LIVE_PENDING[key]; refreshTimes(); })
       .catch(function(){ LIVE[key]=null; delete LIVE_PENDING[key]; refreshTimes(); });
@@ -339,6 +343,9 @@ function refreshTimes(){
   var prev=tm.value; tm.innerHTML="";
   var agree=(l==="ru"?"По договорённости":(l==="en"?"By arrangement":"Po dogovoru"));
   function addAgree(){ tm.appendChild(new Option(agree, agree)); }
+  var fh=document.getElementById("bfree");
+  function setHint(txt){ if(fh){ fh.textContent=txt||""; fh.hidden=!txt; } }
+  setHint("");
   if(!d){ tm.appendChild(new Option("—", "")); return; }
   if(!s){
     var h0=(d>="2026-11-14")?10:9;
@@ -359,7 +366,8 @@ function refreshTimes(){
     slots.forEach(function(x){ tm.appendChild(new Option(x,x)); });
     addAgree(); if(prev && slots.indexOf(prev)>=0) tm.value=prev; return;
   }
-  tm.appendChild(new Option(noFree, "")); addAgree();
+  setHint(l==="ru"?"На эту дату свободных мест нет. Выберите другую дату.":(l==="en"?"No free slots on this date. Please choose another date.":"Na ta dan ni prostih terminov. Izberite drug datum."));
+  tm.appendChild(new Option(noFree, ""));
 }
 document.addEventListener("DOMContentLoaded", function(){
   var tm=document.getElementById("btime"); ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"].forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
@@ -374,7 +382,7 @@ document.addEventListener("DOMContentLoaded", function(){
     if(pre){ pre.checked=true; update(); }
   }
   refreshTimes();
-  document.getElementById("bdate").addEventListener("change", function(){ syncDateView(); refreshTimes(); });
+  document.getElementById("bdate").addEventListener("change", function(){ LIVE={}; LIVE_PENDING={}; syncDateView(); refreshTimes(); });
   var dw=document.querySelector(".datewrap");
   if(dw) dw.addEventListener("click", function(e){
     var d=document.getElementById("bdate");
