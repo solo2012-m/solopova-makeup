@@ -350,6 +350,33 @@ function syncDateView(){
   var lb=document.querySelector('label[for="bdate"]');
   if(lb) d.setAttribute("aria-label", lb.textContent);
 }
+var FREE_SEQ=0;
+function findNextFree(d, dur, l){
+  var seq=++FREE_SEQ;
+  var base=new Date(d+"T12:00:00Z");
+  var i=0;
+  function step(){
+    if(seq!==FREE_SEQ) return;
+    i++; if(i>21) return;
+    var dt=new Date(base.getTime()+i*86400000);
+    var ds=dt.toISOString().slice(0,10);
+    fetch(CALAPI+"?date="+ds+"&dur="+dur+"&t="+Date.now(),{cache:"no-store"})
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        if(seq!==FREE_SEQ) return;
+        if(j && j.ok && j.slots && j.slots.length){
+          var dd=("0"+dt.getUTCDate()).slice(-2)+"."+("0"+(dt.getUTCMonth()+1)).slice(-2);
+          var txt=(l==="ru"?"Ближайшая свободная дата: ":(l==="en"?"Nearest free date: ":"Najbližji prost termin: "))+dd;
+          var box=document.getElementById("bfree");
+          if(box){ box.textContent=txt; box.hidden=false; }
+          return;
+        }
+        step();
+      })
+      .catch(function(){ if(seq===FREE_SEQ) step(); });
+  }
+  step();
+}
 function refreshTimes(){
   var tm=document.getElementById("btime"); if(!tm) return;
   var d=document.getElementById("bdate").value, s=bindingService(), l=curLang();
@@ -358,6 +385,7 @@ function refreshTimes(){
   function addAgree(){ tm.appendChild(new Option(agree, agree)); }
   var fh=document.getElementById("bfree");
   function setHint(txt){ if(fh){ fh.textContent=txt||""; fh.hidden=!txt; } }
+  FREE_SEQ++;
   setHint("");
   if(!d){ tm.appendChild(new Option("—", "")); return; }
   if(!s){
@@ -381,6 +409,7 @@ function refreshTimes(){
   }
   setHint(l==="ru"?"На эту дату свободных мест нет. Выберите другую дату.":(l==="en"?"No free slots on this date. Please choose another date.":"Na ta dan ni prostih terminov. Izberite drug datum."));
   tm.appendChild(new Option(noFree, ""));
+  findNextFree(d, dur, l);
 }
 document.addEventListener("DOMContentLoaded", function(){
   var tm=document.getElementById("btime"); ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"].forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
