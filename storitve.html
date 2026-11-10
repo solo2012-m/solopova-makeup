@@ -39,7 +39,7 @@
 </section>
 <section class="wrap">
   <div class="section-head reveal"><h2 data-i18n="cenik_title"></h2><p data-i18n="cenik_sub"></p></div>
-  <div class="promo-card reveal">
+  <div class="promo-card reveal" data-promo-until="2026-11-30">
     <div class="promo-body">
       <span class="badge" data-i18n="promo_badge">Akcija</span>
       <h3 data-i18n="promo_title">DUO paket: korejska laminacija trepalnic + laminacija obrvi</h3>
@@ -96,5 +96,13 @@
   <div><a class="link" href="pogoji.html" data-i18n="foot_terms">Splošni pogoji</a> · <a class="link" href="zasebnost.html" data-i18n="foot_privacy">Zasebnost</a> · <a class="link" href="https://www.instagram.com/solopova.makeup/" target="_blank" rel="noopener">Instagram</a> · <a class="link" href="https://wa.me/38669900769" target="_blank" rel="noopener">WhatsApp</a></div>
 </div></footer>
 <script src="assets/i18n.js?v=20261104b"></script>
+<script>
+(function(){
+  var today=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Ljubljana",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+  document.querySelectorAll("[data-promo-until]").forEach(function(el){
+    if(today > el.getAttribute("data-promo-until")) el.style.display="none";
+  });
+})();
+</script>
 </body>
 </html>
