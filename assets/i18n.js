@@ -30,7 +30,7 @@ window.I18N = {
     course_title:"Ličenje brez starosti", self_cta:"Poglej program", self_text:"Individualni tečaj ličenja (4 ure, 90 €): razdelava tvoje kozmetične torbice, priprava kože, etapno nanašanje, korekcija, oči, ustnice ter dnevno in nežno večerno ličenje. Praktično, preprosto in prilagojeno tvojemu tipu kože.", self_title:"Makeup za sebe — tečaj ličenja za vsak dan", course_sub:"Nau\u010di se li\u010diti sama \u2014 korak za korakom, brez zmede.",
     course_text:"Spletni tečaj sodobnega dnevnega ličenja z lifting učinkom: 5 lekcij + 2 bonusa, dostop do vsebin za vedno. Predprodaja 12 €, začetek 1. 12. 2026.",
     course_cta:"Poglej tečaj",
-    contact_title:"Kontakt", contact_sub:"Pi\u0161i mi ali se prijavi prek spleta.", contact_addr:"Vodnikov trg 1, 2000 Maribor, Slovenija",
+    contact_title:"Kontakt", contact_sub:"Pi\u0161i mi ali se prijavi prek spleta.", contact_addr:"Ulica Staneta Severja 9B, 2000 Maribor, Slovenija",
     form_name:"Ime", form_email:"E-po\u0161ta", form_msg:"Sporo\u010dilo", form_send:"Po\u0161lji",
     foot_note:"\u00a9 2026 Solopova Makeup \u00b7 Maribor"
   },
@@ -65,7 +65,7 @@ window.I18N = {
     course_title:"Ličenje brez starosti", self_cta:"View the programme", self_text:"One-to-one makeup lesson (4 hours, €90): reviewing your makeup bag, skin preparation, layering steps, correction, eyes, lips, plus day and soft evening makeup. Practical, simple and adapted to your skin type.", self_title:"Makeup for yourself — everyday makeup lesson", course_sub:"Learn to do your own makeup \u2014 step by step, without confusion.",
     course_text:"Online course of modern everyday makeup with a lifting effect: 5 lessons + 2 bonuses, lifetime access. Pre-sale 12 €, starts 1 December 2026.",
     course_cta:"View the course",
-    contact_title:"Contact", contact_sub:"Write to me or book online.", contact_addr:"Vodnikov trg 1, 2000 Maribor, Slovenija",
+    contact_title:"Contact", contact_sub:"Write to me or book online.", contact_addr:"Ulica Staneta Severja 9B, 2000 Maribor, Slovenija",
     form_name:"Name", form_email:"Email", form_msg:"Message", form_send:"Send",
     foot_note:"\u00a9 2026 Solopova Makeup \u00b7 Maribor"
   },
@@ -100,7 +100,7 @@ window.I18N = {
     course_title:"Ličenje brez starosti", self_cta:"Смотреть программу", self_text:"Индивидуальный урок макияжа (4 часа, 90 €): разбор вашей косметички, подготовка кожи, этапы нанесения, коррекция, глаза, губы, дневной и лёгкий вечерний макияж.", self_title:"Макияж для себя — урок на каждый день", course_sub:"\u041d\u0430\u0443\u0447\u0438\u0441\u044c \u0434\u0435\u043b\u0430\u0442\u044c \u043c\u0430\u043a\u0438\u044f\u0436 \u0441\u0430\u043c\u0430 \u2014 \u0448\u0430\u0433 \u0437\u0430 \u0448\u0430\u0433\u043e\u043c, \u0431\u0435\u0437 \u043f\u0443\u0442\u0430\u043d\u0438\u0446\u044b.",
     course_text:"Онлайн-курс современного дневного макияжа с лифтинг-эффектом: 5 уроков + 2 бонуса, доступ навсегда. Предпродажа 12 €, старт 1 декабря 2026.",
     course_cta:"Смотреть курс",
-    contact_title:"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u044b", contact_sub:"\u041d\u0430\u043f\u0438\u0448\u0438\u0442\u0435 \u043c\u043d\u0435 \u0438\u043b\u0438 \u0437\u0430\u043f\u0438\u0448\u0438\u0442\u0435\u0441\u044c \u043e\u043d\u043b\u0430\u0439\u043d.", contact_addr:"Vodnikov trg 1, 2000 Maribor, Slovenija",
+    contact_title:"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u044b", contact_sub:"\u041d\u0430\u043f\u0438\u0448\u0438\u0442\u0435 \u043c\u043d\u0435 \u0438\u043b\u0438 \u0437\u0430\u043f\u0438\u0448\u0438\u0442\u0435\u0441\u044c \u043e\u043d\u043b\u0430\u0439\u043d.", contact_addr:"Ulica Staneta Severja 9B, 2000 Maribor, Slovenija",
     form_name:"\u0418\u043c\u044f", form_email:"E-mail", form_msg:"\u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435", form_send:"\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c",
     foot_note:"\u00a9 2026 Solopova Makeup \u00b7 Maribor"
   }
@@ -254,7 +254,7 @@ window.I18N.uk = {
   self_text:"Індивідуальний урок макіяжу (4 години, 90 €): розбір твоєї косметички, підготовка шкіри, поетапне нанесення, корекція, очі, губи, денний і легкий вечірній макіяж. Практично, просто й адаптовано під твій тип шкіри.",
   self_title:"Макіяж для себе — урок на кожен день", course_sub:"Навчися робити макіяж сама — крок за кроком, без плутанини.",
   course_text:"Онлайн-курс сучасного денного макіяжу з ліфтинг-ефектом: 5 уроків + 2 бонуси, доступ назавжди. Передпродаж 12 €, старт 1 грудня 2026.",
-  course_cta:"Переглянути курс", contact_title:"Контакти", contact_sub:"Напишіть мені або запишіться онлайн.", contact_addr:"Vodnikov trg 1, 2000 Maribor, Slovenija",
+  course_cta:"Переглянути курс", contact_title:"Контакти", contact_sub:"Напишіть мені або запишіться онлайн.", contact_addr:"Ulica Staneta Severja 9B, 2000 Maribor, Slovenija",
   form_name:"Ім'я", form_email:"E-mail", form_msg:"Повідомлення", form_send:"Надіслати",
   foot_note:"© 2026 Solopova Makeup · Maribor",
   tc_ribbon:"Курси та навчання", tc_title:"Навчися макіяжу — для себе або професійно",
