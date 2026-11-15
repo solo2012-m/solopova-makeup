@@ -129,6 +129,27 @@ var LOCATIONS=[
  {id:"mobile", sl:"Na lokaciji stranke", en:"At the client's location", ru:"На выезде (адрес клиента)", uk:"На виїзді (адреса клієнта)", addr:"", exclude:[], mobile:true}
 ];
 var WA="38669900769";
+/* Na kavču/ležalniku: laminacija trepalnic — samo pon, sre, pet, sob, ned. */
+var COUCH_DAYS=[1,3,5,6,0];
+var COUCH_SERVICES={lash:1,duo:1};
+function hasCouch(list){ list=list||selected(); return list.some(function(s){ return !!COUCH_SERVICES[s.id]; }); }
+function dayAllows(dateStr,list){
+  if(!hasCouch(list)) return true;
+  var dt=new Date(dateStr+"T12:00:00Z");
+  return COUCH_DAYS.indexOf(dt.getUTCDay())>=0;
+}
+function couchDaysText(l){
+  if(l==="ru") return "Ламинирование ресниц доступно: пн, ср, пт, сб, вс.";
+  if(l==="uk") return "Ламування вій доступне: пн, ср, пт, сб, нд.";
+  if(l==="en") return "Lash lamination is available: Mon, Wed, Fri, Sat, Sun.";
+  return "Laminacija trepalnic je na voljo: pon, sre, pet, sob, ned.";
+}
+function couchNoDayShort(l){
+  if(l==="ru") return "В этот день ламинирование ресниц недоступно.";
+  if(l==="uk") return "Цього дня ламування вій недоступне.";
+  if(l==="en") return "Lash lamination is not available on this day.";
+  return "Na ta dan laminacija trepalnic ni na voljo.";
+}
 function curLang(){ var l=document.documentElement.lang||"sl"; return ["sl","en","ru","uk"].indexOf(l)>=0?l:"sl"; }
 function curLoc(){ var s=document.getElementById("bloc"); if(!s||!s.value) return null; for(var i=0;i<LOCATIONS.length;i++){ if(LOCATIONS[i].id===s.value) return LOCATIONS[i]; } return null; }
 function syncAddr(){
@@ -206,6 +227,7 @@ function buildMessage(){
   var email=(document.getElementById("bemail")||{}).value ? document.getElementById("bemail").value.trim() : "";
   var note=document.getElementById("bnote").value.trim();
   var d=document.getElementById("bdate").value, tm=document.getElementById("btime").value;
+  if(d && !dayAllows(d,sel)){ alert(couchNoDayShort(l)); return null; }
   var noFree=(l==="ru"?"На эту дату свободных мест нет. Выберите другую дату.":(l==="en"?"No free slots on this date. Please choose another date.":"Na ta dan ni prostih terminov. Izberite drug datum."));
   if(d && (!tm || tm===noFree)){ alert(noFree); return null; }
   var ti=totalInfo(sel);
@@ -315,12 +337,12 @@ var CALAPI="https://solopova-slots.solopoff-mikhail.workers.dev/cal-slots";
 var LIVE={}, LIVE_PENDING={};
 function hmLocal(iso){ try { return new Date(iso).toLocaleTimeString("sl-SI",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Europe/Ljubljana"}); } catch(e){ return ""; } }
 var LIVE={}, LIVE_PENDING={};
-function calTimes(d, dur){
-  var key=d+"|"+dur;
+function calTimes(d, dur, svc){
+  var key=d+"|"+dur+"|"+(svc||"");
   if(LIVE[key]!==undefined) return LIVE[key];
   if(!LIVE_PENDING[key]){
     LIVE_PENDING[key]=1;
-    fetch(CALAPI+"?date="+encodeURIComponent(d)+"&dur="+encodeURIComponent(dur)+"&t="+Date.now(), {cache:"no-store"})
+    fetch(CALAPI+"?date="+encodeURIComponent(d)+"&dur="+encodeURIComponent(dur)+"&service="+encodeURIComponent(svc||"")+"&t="+Date.now(), {cache:"no-store"})
       .then(function(r){ return r.json(); })
       .then(function(j){ LIVE[key]=(j&&j.ok&&j.slots)?j.slots:null; delete LIVE_PENDING[key]; refreshTimes(); })
       .catch(function(){ LIVE[key]=null; delete LIVE_PENDING[key]; refreshTimes(); });
@@ -355,7 +377,7 @@ function syncDateView(){
   if(lb) d.setAttribute("aria-label", lb.textContent);
 }
 var FREE_SEQ=0;
-function findNextFree(d, dur, l){
+function findNextFree(d, dur, l, sel, prefix){
   var seq=++FREE_SEQ;
   var base=new Date(d+"T12:00:00Z");
   var i=0;
@@ -364,13 +386,15 @@ function findNextFree(d, dur, l){
     i++; if(i>21) return;
     var dt=new Date(base.getTime()+i*86400000);
     var ds=dt.toISOString().slice(0,10);
-    fetch(CALAPI+"?date="+ds+"&dur="+dur+"&t="+Date.now(),{cache:"no-store"})
+    if(sel && !dayAllows(ds,sel)){ step(); return; }
+    var svc=(bindingService()||{}).slug||"";
+    fetch(CALAPI+"?date="+ds+"&dur="+dur+"&service="+encodeURIComponent(svc)+"&t="+Date.now(),{cache:"no-store"})
       .then(function(r){ return r.json(); })
       .then(function(j){
         if(seq!==FREE_SEQ) return;
         if(j && j.ok && j.slots && j.slots.length){
           var dd=("0"+dt.getUTCDate()).slice(-2)+"."+("0"+(dt.getUTCMonth()+1)).slice(-2);
-          var txt=(l==="ru"?"Ближайшая свободная дата: ":(l==="en"?"Nearest free date: ":"Najbližji prost termin: "))+dd;
+          var txt=(prefix||(l==="ru"?"Ближайшая свободная дата: ":(l==="en"?"Nearest free date: ":"Najbližji prost termin: ")))+dd;
           var box=document.getElementById("bfree");
           if(box){ box.textContent=txt; box.hidden=false; }
           return;
@@ -383,7 +407,7 @@ function findNextFree(d, dur, l){
 }
 function refreshTimes(){
   var tm=document.getElementById("btime"); if(!tm) return;
-  var d=document.getElementById("bdate").value, s=bindingService(), l=curLang();
+  var d=document.getElementById("bdate").value, s=bindingService(), l=curLang(), sel=selected();
   var prev=tm.value; tm.innerHTML="";
   var agree=(l==="ru"?"По договорённости":(l==="en"?"By arrangement":"Po dogovoru"));
   function addAgree(){ tm.appendChild(new Option(agree, agree)); }
@@ -392,15 +416,24 @@ function refreshTimes(){
   FREE_SEQ++;
   tm.classList.remove("empty");
   setHint("");
-  if(!d){ tm.appendChild(new Option("—", "")); return; }
+  var couch=hasCouch(sel);
+  if(!d){ tm.appendChild(new Option("—", "")); if(couch) setHint(couchDaysText(l)); return; }
   if(!s){
     var h0=(d==="2026-11-12")?12:((d>="2026-11-14")?10:9);
     for(var h=h0; h<=18; h++){ ["00","30"].forEach(function(m){ var hh=(h<10?"0"+h:""+h); tm.appendChild(new Option(hh+":"+m, hh+":"+m)); }); }
     addAgree(); if(prev) tm.value=prev; return;
   }
   var dur=s.dur||60;
-  var slots=calTimes(d,dur);
-  var minStart=(d==="2026-11-12")?720:((d>="2026-11-14")?600:540);
+  if(couch && !dayAllows(d,sel)){
+    setHint(couchNoDayShort(l));
+    tm.classList.add("empty");
+    tm.appendChild(new Option(l==="ru"?"Недоступно в этот день":(l==="en"?"Not available on this day":(l==="uk"?"Недоступно цього дня":"Na ta dan ni na voljo")), ""));
+    findNextFree(d, dur, l, sel, couchNoDayShort(l)+" ");
+    return;
+  }
+  var slots=calTimes(d,dur,s.slug);
+  var bridal=sel.some(function(x){ return x.id==="porocno"; });
+  var minStart=bridal?540:((d==="2026-11-12")?720:((d>="2026-11-14")?600:540));
   if(slots) slots=slots.filter(function(x){ return hmToMin(x)>=minStart; });
   var now=ljNow();
   if(slots && slots.length && d===now.date){
@@ -411,12 +444,14 @@ function refreshTimes(){
   if(slots===undefined){ tm.appendChild(new Option("…","")); addAgree(); return; }
   if(slots && slots.length){
     slots.forEach(function(x){ tm.appendChild(new Option(x,x)); });
-    addAgree(); if(prev && slots.indexOf(prev)>=0) tm.value=prev; return;
+    addAgree(); if(prev && slots.indexOf(prev)>=0) tm.value=prev;
+    if(couch) setHint(couchDaysText(l));
+    return;
   }
   setHint(l==="ru"?"На эту дату свободных мест нет. Выберите другую дату.":(l==="en"?"No free slots on this date. Please choose another date.":"Na ta dan ni prostih terminov. Izberite drug datum."));
   tm.classList.add("empty");
   tm.appendChild(new Option(noFree, ""));
-  findNextFree(d, dur, l);
+  findNextFree(d, dur, l, sel);
 }
 document.addEventListener("DOMContentLoaded", function(){
   var tm=document.getElementById("btime"); ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"].forEach(function(o){ var e=document.createElement("option"); e.value=o; e.textContent=o; tm.appendChild(e); });
