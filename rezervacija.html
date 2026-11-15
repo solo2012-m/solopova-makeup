@@ -396,6 +396,7 @@ function syncDateView(){
   if(lb) d.setAttribute("aria-label", lb.textContent);
 }
 var FREE_SEQ=0;
+var MOVED_NOTE={d:"",t:""};
 function findNextFree(d, dur, l, sel, prefix){
   var seq=++FREE_SEQ;
   var base=new Date(d+"T12:00:00Z");
@@ -442,7 +443,7 @@ function refreshTimes(){
       var di=document.getElementById("bdate"); if(di) di.value=nd;
       syncDateView(); d=nd;
       var dd2=("0"+(new Date(d+"T12:00:00Z")).getUTCDate()).slice(-2)+"."+("0"+((new Date(d+"T12:00:00Z")).getUTCMonth()+1)).slice(-2);
-      moved=couchMovedText(l, dd2);
+      moved=couchMovedText(l, dd2); MOVED_NOTE={d:nd,t:moved};
     }
   }
   if(!d){ tm.appendChild(new Option("—", "")); if(couch) setHint(couchDaysText(l)); return; }
@@ -473,7 +474,7 @@ function refreshTimes(){
   if(slots && slots.length){
     slots.forEach(function(x){ tm.appendChild(new Option(x,x)); });
     addAgree(); if(prev && slots.indexOf(prev)>=0) tm.value=prev;
-    if(couch) setHint(moved||couchDaysText(l));
+    if(couch) setHint((MOVED_NOTE.d===d&&MOVED_NOTE.t)?MOVED_NOTE.t:(moved||couchDaysText(l)));
     return;
   }
   setHint(l==="ru"?"На эту дату свободных мест нет. Выберите другую дату.":(l==="en"?"No free slots on this date. Please choose another date.":"Na ta dan ni prostih terminov. Izberite drug datum."));
