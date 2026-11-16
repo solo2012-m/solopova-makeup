@@ -5,7 +5,7 @@ window.I18N = {
     hero_kicker:"Maribor \u00b7 Slovenija", hero_title:"Profesionalna li\u010dila in lepota v Mariboru",
     hero_sub:"Poudarim tvojo naravno lepoto \u2014 za poroko, posebne prilo\u017enosti ali preprosto zato, ker si to zaslu\u017ei\u0161.",
     cta_book:"Rezerviraj termin", cta_services:"Poglej storitve",
-    about_title:"O meni", about_text:"Sem li\u010darka iz Maribora. Verjamem, da li\u010dila ne smejo skriti \u010dloveka, ampak ga poudariti. Vsak videz prilagodim tebi, tvojemu obrazu in prilo\u017enosti \u2014 z ne\u017enimi, trajnimi izdelki, ki zdr\u017eijo cel dan.",
+    about_title:"O meni", about_text:"Sem viza\u017eistka iz Maribora. Verjamem, da li\u010dila ne smejo skriti \u010dloveka, ampak ga poudariti. Vsak videz prilagodim tebi, tvojemu obrazu in prilo\u017enosti \u2014 z ne\u017enimi, trajnimi izdelki, ki zdr\u017eijo cel dan.",
     quote:"\u201cLepota je v podrobnostih.\u201d",
     services_title:"Storitve", services_sub:"Vse na enem mestu: li\u010denje, trepalnice, obrvi in lasje.",
     svc_makeup_t:"Profesionalno li\u010denje", svc_makeup_d:"Dnevni, ve\u010derni in poro\u010dni videz, prilagojen tebi.", strip_title:"Moje delo", svc_more:"Poglej galerijo →",
