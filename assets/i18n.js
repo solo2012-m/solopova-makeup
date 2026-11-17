@@ -325,4 +325,15 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); }); });
   var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:.12});
   document.querySelectorAll('.reveal').forEach(function(e){ io.observe(e); });
+  function revealFailsafe(){
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    document.querySelectorAll('.reveal:not(.in)').forEach(function(e){
+      if(e.offsetParent===null) return;
+      var r=e.getBoundingClientRect();
+      if(r.top<vh*0.95 && r.bottom>0) e.classList.add('in');
+    });
+  }
+  window.addEventListener('scroll', revealFailsafe, {passive:true});
+  window.addEventListener('resize', revealFailsafe);
+  setTimeout(revealFailsafe, 800);
 });
