@@ -1,3 +1,21 @@
+/* Failsafe: vsebina se ne sme nikoli skriti, tudi ce animacija ne tece */
+(function(){
+  function spRevealAll(){
+    try{ document.querySelectorAll('.reveal').forEach(function(e){ e.classList.add('in'); }); }catch(e){}
+  }
+  function spRevealVisible(){
+    try{
+      var vh=window.innerHeight||600;
+      document.querySelectorAll('.reveal:not(.in)').forEach(function(e){
+        var r=e.getBoundingClientRect();
+        if(r.top < vh*1.1) e.classList.add('in');
+      });
+    }catch(e){}
+  }
+  function spStart(){ spRevealVisible(); setTimeout(spRevealVisible, 700); setTimeout(spRevealAll, 2000); }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', spStart); } else { spStart(); }
+  window.addEventListener('load', spStart);
+})();
 window.I18N = {
   sl: {
     brand_tag:"Li\u010denje \u00b7 trepalnice \u00b7 obrvi \u00b7 lasje \u00b7 te\u010daji",

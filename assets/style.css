@@ -337,3 +337,5 @@ body.has-banner .sale-banner [data-lang].on{display:inline}
 .modal-card ul li{padding:.22rem 0}
 .modal-note{font-size:.86rem;color:var(--muted);margin:.5rem 0 0}
 .modal-card .btn{max-width:100%}
+
+@media (prefers-reduced-motion: reduce){.reveal{opacity:1!important;transform:none!important}}
