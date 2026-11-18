@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://solopovamakeup.si/index.html</loc><lastmod>2026-10-08</lastmod><priority>1.0</priority></url>
-  <url><loc>https://solopovamakeup.si/storitve.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
-  <url><loc>https://solopovamakeup.si/galerija.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
-  <url><loc>https://solopovamakeup.si/tecaji.html</loc><lastmod>2026-10-09</lastmod><priority>0.8</priority></url>
-  <url><loc>https://solopovamakeup.si/tecaj.html</loc><lastmod>2026-10-09</lastmod><priority>0.9</priority></url>
-  <url><loc>https://solopovamakeup.si/makeup-za-sebe.html</loc><lastmod>2026-10-10</lastmod><priority>0.8</priority></url>
-  <url><loc>https://solopovamakeup.si/kontakt.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
-  <url><loc>https://solopovamakeup.si/rezervacija.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
-  <url><loc>https://solopovamakeup.si/nasveti.html</loc><lastmod>2026-11-10</lastmod><priority>0.6</priority></url>
-  <url><loc>https://solopovamakeup.si/laminacija-trepalnic-maribor.html</loc><lastmod>2026-11-03</lastmod><priority>0.7</priority></url>
-  <url><loc>https://solopovamakeup.si/korekcija-obrvi-maribor.html</loc><lastmod>2026-11-10</lastmod><priority>0.7</priority></url>
+  <url><loc>https://solopovamakeup.si/index.html</loc><lastmod>2026-11-18</lastmod><priority>1.0</priority></url>
+  <url><loc>https://solopovamakeup.si/storitve.html</loc><lastmod>2026-11-18</lastmod><priority>0.9</priority></url>
+  <url><loc>https://solopovamakeup.si/laminacija-trepalnic-maribor.html</loc><lastmod>2026-11-18</lastmod><priority>0.8</priority></url>
+  <url><loc>https://solopovamakeup.si/korekcija-obrvi-maribor.html</loc><lastmod>2026-11-18</lastmod><priority>0.8</priority></url>
+  <url><loc>https://solopovamakeup.si/galerija.html</loc><lastmod>2026-11-18</lastmod><priority>0.6</priority></url>
+  <url><loc>https://solopovamakeup.si/tecaji.html</loc><lastmod>2026-11-18</lastmod><priority>0.8</priority></url>
+  <url><loc>https://solopovamakeup.si/tecaj.html</loc><lastmod>2026-11-18</lastmod><priority>0.8</priority></url>
+  <url><loc>https://solopovamakeup.si/makeup-za-sebe.html</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority></url>
+  <url><loc>https://solopovamakeup.si/kontakt.html</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority></url>
+  <url><loc>https://solopovamakeup.si/rezervacija.html</loc><lastmod>2026-11-18</lastmod><priority>0.8</priority></url>
+  <url><loc>https://solopovamakeup.si/nasveti.html</loc><lastmod>2026-11-18</lastmod><priority>0.6</priority></url>
+  <url><loc>https://solopovamakeup.si/pogoji.html</loc><lastmod>2026-11-18</lastmod><priority>0.3</priority></url>
+  <url><loc>https://solopovamakeup.si/zasebnost.html</loc><lastmod>2026-11-18</lastmod><priority>0.3</priority></url>
 </urlset>
