@@ -19,7 +19,6 @@
 .brow{display:grid !important;grid-template-columns:1fr 1fr !important;gap:.6rem !important;align-items:end !important}
 .bfield{display:flex !important;flex-direction:column !important;gap:.35rem !important;min-width:0 !important}
 .bfield>span,.bfield>label{font-size:.82rem;color:var(--muted);font-weight:600;line-height:1.2}
-.blocsingle{margin:.4rem 0 0;padding:.8rem 1rem;border:1px solid var(--line);border-radius:12px;background:#fff;font-weight:600;line-height:1.3}
 .bfield select{width:100% !important;min-width:0 !important;max-width:100% !important;height:48px !important;box-sizing:border-box !important;margin-bottom:0 !important;display:block}
 .datewrap{position:relative;width:100%;min-width:0}
 .datewrap .dview{width:100% !important;min-width:0 !important;max-width:100% !important;height:48px !important;box-sizing:border-box !important;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.8rem 2.6rem .8rem 1rem;font:inherit;line-height:1.2;color:inherit;margin:0 !important;display:block;text-overflow:ellipsis}
@@ -59,7 +58,6 @@
       <label class="blabel" data-i18n="book_step2"></label>
       <label class="bsub" data-i18n="book_loc_label" for="bloc"></label>
       <select id="bloc"></select>
-      <p class="blocsingle" id="blocsingle" hidden></p>
       <div id="baddrwrap" hidden>
         <input type="text" id="baddr" data-i18n-ph="book_addr_ph" placeholder="Naslov (ulica, kraj)">
       </div>
@@ -130,7 +128,6 @@ var LOCATIONS=[
  {id:"angel", sl:"Ulica Staneta Severja 9B", en:"Ulica Staneta Severja 9B", ru:"Улица Станета Северя 9B", uk:"Вулиця Станета Северя 9B", addr:"2000 Maribor", exclude:[]},
  {id:"mobile", sl:"Na lokaciji stranke", en:"At the client's location", ru:"На выезде (адрес клиента)", uk:"На виїзді (адреса клієнта)", addr:"", exclude:[], mobile:true}
 ];
-function activeLocs(){ return LOCATIONS.filter(function(l){ return l.visible!==false; }); }
 var WA="38669900769";
 /* Na kavču/ležalniku: laminacija trepalnic — samo pon, sre, pet, sob, ned. */
 var COUCH_DAYS=[1,3,5,6,0];
@@ -179,19 +176,12 @@ function syncAddr(){
 }
 function renderLocs(){
   var s=document.getElementById("bloc"); if(!s) return;
-  var val=s.value, list=activeLocs(); s.innerHTML="";
-  if(!list.length) s.appendChild(new Option(T().locChoose,""));
-  list.forEach(function(L){
+  var val=s.value; s.innerHTML="";
+  s.appendChild(new Option(T().locChoose,""));
+  LOCATIONS.forEach(function(L){
     s.appendChild(new Option((L[curLang()]||L.sl)+(L.addr?" — "+L.addr:""), L.id));
   });
-  var one=(list.length===1);
-  s.value = one ? list[0].id : (val || (list[0] ? list[0].id : ""));
-  s.style.display = one ? "none" : "";
-  var box=document.getElementById("blocsingle");
-  if(box){
-    if(one){ box.textContent=(list[0][curLang()]||list[0].sl)+(list[0].addr?" — "+list[0].addr:""); box.hidden=false; }
-    else { box.hidden=true; box.textContent=""; }
-  }
+  s.value=val||"";
   syncAddr();
 }
 function T(){ return {
