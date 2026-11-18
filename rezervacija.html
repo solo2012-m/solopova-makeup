@@ -128,7 +128,7 @@ var SERVICES = [
 ];
 var LOCATIONS=[
  {id:"angel", sl:"Ulica Staneta Severja 9B", en:"Ulica Staneta Severja 9B", ru:"Улица Станета Северя 9B", uk:"Вулиця Станета Северя 9B", addr:"2000 Maribor", exclude:[]},
- {id:"mobile", sl:"Na lokaciji stranke", en:"At the client's location", ru:"На выезде (адрес клиента)", uk:"На виїзді (адреса клієнта)", addr:"", exclude:[], mobile:true, visible:false}
+ {id:"mobile", sl:"Na lokaciji stranke", en:"At the client's location", ru:"На выезде (адрес клиента)", uk:"На виїзді (адреса клієнта)", addr:"", exclude:[], mobile:true}
 ];
 function activeLocs(){ return LOCATIONS.filter(function(l){ return l.visible!==false; }); }
 var WA="38669900769";
@@ -180,12 +180,12 @@ function syncAddr(){
 function renderLocs(){
   var s=document.getElementById("bloc"); if(!s) return;
   var val=s.value, list=activeLocs(); s.innerHTML="";
-  s.appendChild(new Option(T().locChoose,""));
+  if(!list.length) s.appendChild(new Option(T().locChoose,""));
   list.forEach(function(L){
     s.appendChild(new Option((L[curLang()]||L.sl)+(L.addr?" — "+L.addr:""), L.id));
   });
   var one=(list.length===1);
-  s.value = one ? list[0].id : (val||"");
+  s.value = one ? list[0].id : (val || (list[0] ? list[0].id : ""));
   s.style.display = one ? "none" : "";
   var box=document.getElementById("blocsingle");
   if(box){
