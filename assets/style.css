@@ -70,6 +70,9 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(250,247,244,.86);ba
 .navlinks{display:flex;align-items:center;gap:1.4rem}
 .nav a.link{font-size:.95rem;color:var(--muted);transition:color .2s}
 .nav a.link:hover,.nav a.link.active{color:var(--accent)}
+.bookbtn{display:inline-flex;align-items:center;background:var(--accent);color:#fff;border-radius:999px;padding:.5rem 1.05rem;font-size:.84rem;font-weight:600;letter-spacing:.05em;white-space:nowrap;transition:background .2s,transform .2s;box-shadow:0 3px 12px rgba(192,138,110,.3)}
+.bookbtn:hover{background:var(--accent-2);transform:translateY(-1px)}
+.bookbtn.active{background:var(--ink)}
 .lang{display:flex;gap:.35rem;margin-left:.6rem}
 .lang button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:.25rem .6rem;font-size:.72rem;cursor:pointer;letter-spacing:.06em}
 .lang button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -150,9 +153,10 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
   .navlinks{flex:1 0 100%;order:3;overflow-x:auto;gap:1.1rem;padding-bottom:.1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .navlinks::-webkit-scrollbar{display:none}
   .nav a.link{display:inline-block;font-size:.86rem;white-space:nowrap}
-  .nav .lang{margin-left:auto}
+  .nav .bookbtn{margin-left:auto;order:2}
+  .nav .lang{margin-left:.45rem;order:2}
 }
-@media(max-width:560px){section{padding:2.5rem 0}.hero{padding-top:3.5rem}.g2,.g3,.g4{grid-template-columns:1fr}.cta-band{padding:2rem 1.2rem}.lang{gap:.22rem}.lang button{padding:.2rem .45rem;font-size:.66rem}}
+@media(max-width:560px){section{padding:2.5rem 0}.hero{padding-top:3.5rem}.g2,.g3,.g4{grid-template-columns:1fr}.cta-band{padding:2rem 1.2rem}.lang{gap:.22rem}.lang button{padding:.2rem .45rem;font-size:.66rem}.brand b{font-size:1.08rem}.brand span{display:none}.bookbtn{padding:.42rem .8rem;font-size:.75rem;letter-spacing:.02em}}
 .cta-band .btn{background:#fff;color:var(--ink)}
 .cta-band .btn:hover{background:var(--accent);color:#fff}
 .ph.nolabel{padding:0}
