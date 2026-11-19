@@ -150,11 +150,13 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
   .g3,.g4{grid-template-columns:repeat(2,1fr)}
   .nav{flex-wrap:wrap;gap:.5rem;padding:.6rem 0}
   .brand{flex:1 1 auto;margin-right:0}
-  .navlinks{flex:1 0 100%;order:3;overflow-x:auto;gap:1.1rem;padding-bottom:.1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .nav{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.55rem .6rem;padding:.65rem 0}
+  .brand{grid-column:1;grid-row:1;flex:none;margin-right:0}
+  .nav .bookbtn{grid-column:2;grid-row:1;justify-self:end;margin-left:0}
+  .navlinks{grid-column:1;grid-row:2;flex:none;min-width:0;overflow-x:auto;gap:.95rem;padding-bottom:.1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .navlinks::-webkit-scrollbar{display:none}
   .nav a.link{display:inline-block;font-size:.86rem;white-space:nowrap}
-  .nav .bookbtn{margin-left:auto;order:2}
-  .nav .lang{margin-left:.45rem;order:2}
+  .nav .lang{grid-column:2;grid-row:2;justify-self:end;margin-left:0}
 }
 @media(max-width:560px){section{padding:2.5rem 0}.hero{padding-top:3.5rem}.g2,.g3,.g4{grid-template-columns:1fr}.cta-band{padding:2rem 1.2rem}.lang{gap:.22rem}.lang button{padding:.2rem .45rem;font-size:.66rem}.brand b{font-size:1.08rem}.brand span{display:none}.bookbtn{padding:.42rem .8rem;font-size:.75rem;letter-spacing:.02em}}
 .cta-band .btn{background:#fff;color:var(--ink)}
