@@ -345,3 +345,9 @@ body.has-banner .sale-banner [data-lang].on{display:inline}
 .modal-card .btn{max-width:100%}
 
 @media (prefers-reduced-motion: reduce){.reveal{opacity:1!important;transform:none!important}}
+
+/* Black Friday 23.–29. 11. 2026 */
+.bf-badge{display:inline-flex;align-items:center;gap:.3em;font-size:.58rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#3a2c07;background:linear-gradient(135deg,#f7e7ae,#dcb857 45%,#f5e2a2);border:1px solid #c9a227;border-radius:999px;padding:.1rem .45rem;line-height:1.5;white-space:nowrap;box-shadow:0 1px 3px rgba(160,120,20,.18)}
+.bf-old{color:var(--muted);font-weight:400;text-decoration:line-through;text-decoration-thickness:1px;margin-right:.2em;font-size:.92em}
+.bf-note{display:block;font-size:.66rem;line-height:1.25;font-weight:600;letter-spacing:.02em;color:#a87f14;white-space:nowrap;margin-top:.1rem}
+.bf-new{color:#a87f14;font-weight:700}
