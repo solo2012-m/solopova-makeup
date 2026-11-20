@@ -103,7 +103,7 @@
   <div><a class="link" href="pogoji.html" data-i18n="foot_terms">Splošni pogoji</a> · <a class="link" href="zasebnost.html" data-i18n="foot_privacy">Zasebnost</a> · <a class="link" href="https://www.instagram.com/solopova.makeup/" target="_blank" rel="noopener">Instagram</a> · <a class="link" href="https://wa.me/38669900769" target="_blank" rel="noopener">WhatsApp</a></div>
 </div></footer>
 <script src="assets/i18n.js?v=20261118d"></script>
-<script src="assets/blackfriday.js?v=2"></script>
+<script src="assets/blackfriday.js?v=3"></script>
 <script>
 var SERVICES = [
  {id:"duo",dur:90,slug:"duo-laminacija", promo:true, until:"2026-11-30", promoLine:{sl:"Akcija do 30. 11. 2026",en:"Offer until 30 Nov 2026",ru:"Акция до 30.11.2026",uk:"Акція до 30.11.2026"}, sl:"DUO: trepalnice + obrvi", en:"DUO: lashes + brows", ru:"DUO: ресницы + брови", uk:"DUO: вії + брови", price:"60 €", img:"assets/img/duo-akcija.jpg"},
@@ -190,7 +190,13 @@ function T(){ return {
   ru:{hi:"Здравствуйте! Хочу записаться.",sv:"Услуги",dt:"Дата",tm:"Время",nm:"Имя",ph:"Телефон",em:"E-mail",nt:"Комментарий",total:"Итого",from:"примерно от",fromShort:"от",warn:"Выберите хотя бы одну услугу.",needone:"Для календаря выберите ровно одну услугу. Для нескольких — отправьте заявку.",loc:"Локация",locPick:"Выберите локацию.",locChoose:"— выберите локацию —",locAddrReq:"Укажите адрес, где будет проходить визит.",locMobileHint:"Введите адрес"},
   uk:{hi:"Вітаю! Хочу записатися на процедуру.",sv:"Послуги",dt:"Дата",tm:"Час",nm:"Ім'я",ph:"Телефон",em:"E-mail",nt:"Коментар",total:"Разом",from:"орієнтовно від",fromShort:"від",warn:"Виберіть хоча б одну послугу.",needone:"Для календаря виберіть рівно одну послугу. Для кількох — надішліть заявку.",loc:"Локація",locPick:"Виберіть локацію.",locChoose:"— виберіть локацію —",locAddrReq:"Вкажіть адресу, де буде візит.",locMobileHint:"Введіть адресу"}
 }[curLang()]; }
-function priceText(s){ if(window.BF_ACTIVE && s.bf && s.bf.price) return s.bf.price; var l=curLang(); return (s.priceI18n && s.priceI18n[l]) || s.price; }
+function bfPriceOn(){
+  if(!window.BF_ACTIVE) return false;
+  var d=(document.getElementById("bdate")||{}).value;
+  if(d && window.BF_IN_RANGE) return window.BF_IN_RANGE(d);
+  return true;
+}
+function priceText(s){ if(bfPriceOn() && s.bf && s.bf.price) return s.bf.price; var l=curLang(); return (s.priceI18n && s.priceI18n[l]) || s.price; }
 function priceNum(p){ var m=String(p).replace(/\s/g,"").match(/(\d+)/); return m?parseInt(m[1],10):null; }
 function totalInfo(sel){
   var sum=0, from=false;
@@ -211,7 +217,7 @@ function renderServices(){
     var lab=document.createElement("label"); lab.className="bcard";
     var cb=document.createElement("input"); cb.type="checkbox"; cb.value=s.id; cb.checked=!!checked[s.id];
     var img=document.createElement("img"); img.className="bthumb"; img.src=s.img; img.alt=""; img.loading="lazy";
-    var bf=(window.BF_ACTIVE && s.bf)? s.bf : null;
+    var bf=(bfPriceOn() && s.bf)? s.bf : null;
     var t=document.createElement("span"); t.className="bcard-t"; t.textContent=(bf && bf.name && (bf.name[l]||bf.name.sl)) || s[l];
     var mid=document.createElement("span"); mid.className="bcard-mid"; mid.appendChild(t);
     if(s.promoLine){ var pl=document.createElement("span"); pl.className="bcard-promo"; pl.textContent=(s.promoLine[l]||s.promoLine.sl); mid.appendChild(pl); }
@@ -500,7 +506,7 @@ document.addEventListener("DOMContentLoaded", function(){
     if(pre){ pre.checked=true; update(); }
   }
   refreshTimes();
-  document.getElementById("bdate").addEventListener("change", function(){ LIVE={}; LIVE_PENDING={}; syncDateView(); refreshTimes(); });
+  document.getElementById("bdate").addEventListener("change", function(){ LIVE={}; LIVE_PENDING={}; syncDateView(); renderServices(); refreshTimes(); });
   var dw=document.querySelector(".datewrap");
   if(dw) dw.addEventListener("click", function(e){
     var d=document.getElementById("bdate");

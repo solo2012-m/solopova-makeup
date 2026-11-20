@@ -1,6 +1,6 @@
 /* Black Friday 2026 — akcijske cene veljajo samo 23.–29. 11. 2026 (Europe/Ljubljana) */
 (function(){
-  var FROM="2026-11-23", TO="2026-11-29";
+  var FROM="2026-11-23", TO="2026-11-29", SHOW_FROM="2026-11-20";
   var DICT={
     sl:{brow:"Korekcija + barvanje obrvi", note:"Akcija 23.–29. 11."},
     en:{brow:"Brow shaping + tinting", note:"Offer 23–29 Nov"},
@@ -17,9 +17,10 @@
     return DICT[l]?l:"sl";
   }
   var today=isoToday();
-  var active=!!today && today>=FROM && today<=TO;
+  var active=!!today && today>=SHOW_FROM && today<=TO;
   window.BF_ACTIVE=active;
   window.BF_RANGE={from:FROM,to:TO};
+  window.BF_IN_RANGE=function(d){ return !!d && d>=FROM && d<=TO; };
 
   function note(){
     var n=document.createElement("span");
